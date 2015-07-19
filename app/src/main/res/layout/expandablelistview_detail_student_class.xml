@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="32dp"
+    android:background="#f8f8f8">
+
+    <TextView
+        android:id="@+id/tvClassCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="课程代码："
+        android:textSize="16dp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/tvClassName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="课程名称："
+        android:textSize="16dp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/tvProperty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="课程类别："
+        android:textSize="16dp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/tvDepartment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开设学部："
+        android:textSize="16dp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/tvCredit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="课程学分："
+        android:textSize="16dp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/tvGpa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="课程绩点："
+        android:textSize="16dp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/tvFinalScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="课程成绩："
+        android:textSize="16dp"
+        android:textColor="#333333"/>
+
+</LinearLayout>

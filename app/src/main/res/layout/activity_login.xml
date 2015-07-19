@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:orientation="vertical">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/app_icon"
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="32dp"
+        android:orientation="vertical">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/etUserName"
+    android:hint="用户名"
+    app:iconLeft="@drawable/icon_account"
+    app:iconPadding="0dp"
+    />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etPassword"
+        android:hint="密码"
+        android:inputType="textPassword"
+        app:iconLeft="@drawable/icon_lock"
+        app:iconPadding="0dp"
+        />
+        <CheckBox
+            android:id="@+id/cbSavePw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="记住密码"
+            android:textColor="@color/material_blue"
+            android:buttonTint="@color/material_blue"
+            android:backgroundTint="@color/material_blue"
+            />
+
+        <com.dd.CircularProgressButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/cpbtnLogin"
+        android:textColor="#ffffff"
+        app:cpb_textComplete="登陆成功"
+        app:cpb_textError="登录失败"
+        app:cpb_textIdle="登录"
+        android:textSize="20dp"
+        app:cpb_selectorIdle="@drawable/library_selector"
+
+        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:text="忘记密码"
+            android:id="@+id/tvForgotPw"
+            android:textColor="#2196F3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="免费注册新账号"
+            android:id="@+id/tvSignUp"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:textColor="#2196F3"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

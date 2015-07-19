@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LoveHuaLi</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_sign_up">用户注册</string>
+    <string name="title_activity_screen_splash">i华立</string>
+    <string name="title_activity_sign_up">用户注册</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">i华立</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">我</string>
+    <string name="drawer_close">Love华立</string>
+    <string name="title_activity_user_information">个人信息</string>
+    <string name="title_activity_news_details">新闻详情</string>
+    <string name="title_activity_about_us">AboutUsActivity</string>
+    <string name="title_activity_binding_edu_system">绑定教务系统</string>
+    <string name="title_activity_query_student_score">成绩查询</string>
+    <string name="title_activity_student_score_report">StudentScoreReportActivity</string>
+    <string name="title_activity_library_search">图书查询</string>
+    <string name="title_activity_suggest_us">SuggestUsActivity</string>
+    <string name="title_activity_edit_course">编辑课程</string>
+
+</resources>

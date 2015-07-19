@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yzc.lovehuali.EditCourseActivity">
+
+    <item
+        android:id="@+id/action_empty"
+        android:title="清除"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_edit"
+        android:title="编辑"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+    <!--<item-->
+        <!--android:id="@+id/action_save"-->
+        <!--android:title="保存"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="always" />-->
+
+
+
+</menu>

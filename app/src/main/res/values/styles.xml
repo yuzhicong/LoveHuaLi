@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!-- toolbar（actionbar）颜色 -->
+        <item name="colorPrimary">#2196F3</item>
+        <!-- 状态栏颜色 -->
+        <item name="colorPrimaryDark">#1976D2</item>
+        <item name="android:windowBackground">@color/bright_foreground_material_dark</item>
+
+        <!-- Text colors -->
+        <!-- 改变标题色Actionbar上的标题和按钮 -->
+        <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
+        <!-- 改变副标题ActionBar上的菜单按钮字体颜色 -->
+        <item name="android:textColorPrimaryDisableOnly">@color/abc_primary_text_disable_only_material_dark</item>
+        <item name="android:textColorLink">#1976D2</item>
+
+        <!-- Material主题控件的颜色，CheckBox，RadioButton这些 -->
+        <item name="colorAccent">#1976D2</item>
+
+
+    </style>
+
+    <style name="Linearlayout_Style">
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">LayoutOnclick</item>
+    </style>
+
+</resources>

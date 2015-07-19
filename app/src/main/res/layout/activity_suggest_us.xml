@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:fitsSystemWindows="true"
+    tools:context="com.yzc.lovehuali.SuggestUsActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="联系方式可选填，目的是方便我们联系您"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textColor="@color/material_blue"
+        android:padding="8dp"
+        android:background="#f8fdff"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="32dp"
+        android:windowSoftInputMode="adjustPan"
+        android:orientation="vertical">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etUserName"
+            android:hint="昵称(选填)"
+            app:iconLeft="@drawable/icon_account"
+            app:iconPadding="0dp"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etQQNumber"
+            android:hint="QQ号码(选填)"
+            android:inputType="number"
+            app:iconLeft="@drawable/icon_qq"
+            app:iconPadding="0dp"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etPhoneCall"
+            android:hint="联系电话(选填)"
+            android:inputType="phone"
+            app:iconLeft="@drawable/icon_phone"
+            app:iconPadding="0dp"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cpb_grey">
+
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:background="#FFFFFF"
+            android:textColor="#FF080808"
+            android:hint="i华立，我想对你说……"
+            android:padding="4dp"
+            android:textSize="20dp"
+            />
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:textColor="#FFFFFFFF"
+            android:text="发送"
+            android:textSize="18dp"
+            android:onClick="sendEmailtoUs"
+            android:background="@color/material_pink"/>
+
+        </LinearLayout>
+
+</LinearLayout>

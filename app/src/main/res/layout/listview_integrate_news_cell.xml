@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <ImageView
+        android:id="@+id/ivClubLogo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvClubName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="院记者团"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/tvNewsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="课室垃圾，桌面涂鸦，你看醉了么?"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:background="#eeeeee"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginRight="16dp"
+            />
+
+        <TextView
+            android:id="@+id/tvNewsDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2014-12-29"
+            android:textColor="@color/app_text_gray"
+            android:textSize="14dp"
+            android:paddingTop="6dp"/>
+
+        </LinearLayout>
+
+
+</LinearLayout>

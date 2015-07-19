@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    tools:context="com.yzc.lovehuali.QueryStudentScoreActivity"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/toolbar" />
+
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:id="@+id/imageView2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_query_student_score" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="32dp"
+        android:paddingTop="16dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_calendar_check_grey600_36dp"/>
+
+            <Spinner
+                android:id="@+id/spTerm"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+        </LinearLayout>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/etStudentId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="学生学号"
+        app:iconLeft="@drawable/icon_account"
+        app:iconPadding="0dp"
+        app:primaryColor="@color/material_blue" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/etEduSystemPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="教务系统密码"
+        android:inputType="textPassword"
+        app:iconLeft="@drawable/icon_lock"
+        app:iconPadding="0dp"
+        app:primaryColor="@color/material_blue" />
+
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/cpbtnQueryStudentScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_textComplete="获取成绩单中……"
+        app:cpb_textError="查询失败，检查您是输入"
+        app:cpb_textIdle="查询" />
+
+    </LinearLayout>
+
+</LinearLayout>

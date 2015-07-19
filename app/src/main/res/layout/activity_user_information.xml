@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yzc.lovehuali.UserInformationActivity"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
+        >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/user_info_background"
+        android:id="@+id/imageView" />
+
+        <include layout="@layout/toolbar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:id="@+id/tvUserName"
+            android:layout_alignBottom="@+id/ivUserImage"
+            android:layout_toRightOf="@+id/ivUserImage"
+            android:layout_marginLeft="16dp"
+            />
+
+        <TextView
+            android:id="@+id/tvUserEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邮箱"
+            android:textColor="@color/app_text_gray"
+            android:textSize="14dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@id/tvUserName"/>
+
+        <com.yzc.lovehuali.widget.CircleImageView
+            android:id="@+id/ivUserImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/default_user_image"
+            app:border_width="2dp"
+            app:border_color="#ffffff"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@id/imageView"
+            android:layout_marginBottom="-35dp"
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        ></ListView>
+    
+    <Button
+        android:id="@+id/btnBindingEduSystem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="绑定教务系统"
+        android:layout_margin="16dp"
+        android:textColor="#000000"/>
+
+</LinearLayout>

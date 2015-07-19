@@ -1,0 +1,35 @@
+<com.yzc.lovehuali.tool.SwipeBackLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/swipeBackLayout"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.yzc.lovehuali.AboutUsActivity"
+        android:background="#FFFFFF"
+        android:fitsSystemWindows="true">
+
+        <include layout="@layout/toolbar"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/team_photo"
+            android:padding="10dp"/>
+
+        <TextView
+            android:text="貌似除了一张不齐人的照片，什么都没有留下……"
+            android:textSize="16dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+</com.yzc.lovehuali.tool.SwipeBackLayout>

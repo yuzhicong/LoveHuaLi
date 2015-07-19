@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivUserBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/user_material_background"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <com.yzc.lovehuali.widget.CircleImageView
+        android:id="@+id/ivUserImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:border_width="2dp"
+        app:border_color="#ffffff"
+        android:src="@drawable/default_user_image"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="24dp" />
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_above="@+id/tvUserEmail"
+        android:layout_toRightOf="@+id/ivUserImage"
+        android:layout_toEndOf="@+id/ivUserImage" />
+    <TextView
+        android:id="@+id/tvUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="电子邮箱"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/ivUserImage"
+        android:layout_alignLeft="@+id/tvUserName"
+        android:layout_alignStart="@+id/tvUserName" />
+
+</RelativeLayout>

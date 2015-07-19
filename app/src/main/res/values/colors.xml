@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="material_blue">#FF2196F3</color>
+    <color name="app_gray">#808080</color>
+    <color name="rippelColor">#FFFFFF</color>
+    <color name="app_text_gray">#757575</color>
+    <color name="app_text_deepgray">#655e5c</color>
+    <color name="material_green">#FF34A350</color>
+    <color name="material_yellow">#FFF7D23E</color>
+    <color name="material_red">#FFC93437</color>
+    <color name="material_pink">#FFFF4081</color>
+
+
+    <color name="black">#000000</color>
+    <color name="color01">#34ced9</color>
+    <color name="color02">#64baff</color>
+    <color name="color03">#f9a825</color>
+    <color name="color04">#af92d7</color>
+    <color name="color05">#fa7886</color>
+    <color name="color06">#38d3a9</color>
+    <color name="color07">#607D8B</color>
+    <color name="color08">#E91E63</color>
+    <color name="color09">#9C27BD</color>
+    <color name="color10">#03A9F4</color>
+    <color name="color11">#8BC34A</color>
+    <color name="color12">#FF9800</color>
+    <color name="color13">#673AB7</color>
+    <color name="color14">#0DBCD4</color>
+    <color name="color15">#CDDC39</color>
+    <color name="color16">#3F51B5</color>
+    <color name="color17">#473C8B</color>
+    <color name="color18">#008B45</color>
+    <color name="color_public">#e0e0e0</color>
+
+    <color name="wcolor01">#8034ced9</color>
+    <color name="wcolor02">#8064baff</color>
+    <color name="wcolor03">#80f9a825</color>
+    <color name="wcolor04">#80af92d7</color>
+    <color name="wcolor05">#80fa7886</color>
+    <color name="wcolor06">#8038d3a9</color>
+    <color name="wcolor07">#80607D8B</color>
+    <color name="wcolor08">#80E91E63</color>
+    <color name="wcolor09">#809C27BD</color>
+    <color name="wcolor10">#8003A9F4</color>
+    <color name="wcolor11">#808BC34A</color>
+    <color name="wcolor12">#80FF9800</color>
+    <color name="wcolor13">#80673AB7</color>
+    <color name="wcolor14">#800DBCD4</color>
+    <color name="wcolor15">#80CDDC39</color>
+    <color name="wcolor16">#803F51B5</color>
+    <color name="wcolor17">#80473C8B</color>
+    <color name="wcolor18">#80008B45</color>
+    <color name="wcolor_public">#e0e0e0</color>
+
+    <color name="black_p50">#7f000000</color>
+</resources>

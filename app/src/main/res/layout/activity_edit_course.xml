@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yzc.lovehuali.EditCourseActivity"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/toolbar" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="32dp"
+            android:paddingTop="16dp">
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/course_edit_nameId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="课程"
+                android:text=""
+                app:baseColor="@android:color/background_dark"
+                app:floatingLabel="highlight"
+                app:maxCharacters="25"
+                app:primaryColor="?colorAccent" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/course_edit_classId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="教室"
+                android:text=""
+                app:baseColor="@android:color/background_dark"
+                app:floatingLabel="highlight"
+                app:maxCharacters="20"
+
+                app:primaryColor="?colorAccent" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/course_edit_teacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="老师"
+                android:text=""
+                app:baseColor="@android:color/background_dark"
+
+                app:floatingLabel="highlight"
+                app:maxCharacters="20"
+                app:primaryColor="?colorAccent" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/course_edit_weekId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="周数"
+                android:text=""
+                app:baseColor="@android:color/background_dark"
+                app:floatingLabel="highlight"
+                app:maxCharacters="20"
+                app:primaryColor="?colorAccent" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/course_edit_sectionId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="节数"
+                android:text=""
+                app:baseColor="@android:color/background_dark"
+                app:floatingLabel="highlight"
+                app:maxCharacters="20"
+                app:primaryColor="?colorAccent" />
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="保存"-->
+        <!--android:id="@+id/save_course"-->
+        <!--android:textSize="20sp" />-->
+
+
+
+
+</LinearLayout>

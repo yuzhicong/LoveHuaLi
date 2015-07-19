@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yzc="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <com.yzc.lovehuali.widget.ChangeColorIconWithText
+        android:id="@+id/indicator_one"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        yzc:cit_icon="@drawable/schedule_normal"
+        yzc:cit_color="@color/material_blue"
+        yzc:text="课程表"
+        yzc:text_size="12dp"/>
+    <com.yzc.lovehuali.widget.ChangeColorIconWithText
+        android:id="@+id/indicator_two"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        yzc:cit_icon="@drawable/information_normal"
+        yzc:cit_color="@color/material_blue"
+        yzc:text="资讯"
+        yzc:text_size="12dp"/>
+    <com.yzc.lovehuali.widget.ChangeColorIconWithText
+        android:id="@+id/indicator_three"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        yzc:cit_icon="@drawable/school_activity_normal"
+        yzc:cit_color="@color/material_blue"
+        yzc:text="活动圈"
+        yzc:text_size="12dp"/>
+    <com.yzc.lovehuali.widget.ChangeColorIconWithText
+        android:id="@+id/indicator_four"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        yzc:cit_icon="@drawable/toolkit_normal"
+        yzc:cit_color="@color/material_blue"
+        yzc:text="工具"
+        yzc:text_size="12dp"/>
+
+</LinearLayout>

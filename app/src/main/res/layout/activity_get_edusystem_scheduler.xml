@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yzc.lovehuali.BindingEduSystemActivity"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="260dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#03a9f4"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_get_course" />
+
+        <include layout="@layout/toolbar" />
+
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivLogin"
+            android:layout_alignLeft="@+id/tvStudentClass"
+            android:layout_marginBottom="52dp"
+            android:text="广东工业大学华立学院"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvStudentClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivLogin"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="22dp"
+            android:layout_marginLeft="28dp"
+            android:text="教务系统"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFFFFF" />-->
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="32dp"
+        android:paddingTop="16dp">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/etStudentId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="学生学号"
+            app:iconLeft="@drawable/icon_account"
+            app:iconPadding="0dp"
+            app:primaryColor="#0e9050" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/etEduSystemPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="教务系统密码"
+            android:inputType="textPassword"
+            app:iconLeft="@drawable/icon_lock"
+            app:iconPadding="0dp"
+            app:primaryColor="#0e9050" />
+
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/cpbtnBindindEduSystem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            app:cpb_selectorIdle="@drawable/idle_edu_system_state_selector"
+            app:cpb_textComplete="获取成功"
+            app:cpb_textError="登录失败"
+            app:cpb_textIdle="获取课表" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

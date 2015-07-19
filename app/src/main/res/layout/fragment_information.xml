@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yzc.lovehuali.fragment.InformationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:text="凹凸曼的校园资讯~"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:background="#3f51b5" />
+
+</FrameLayout>
