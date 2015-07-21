@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LibrarySearch/LibrarySearch.iml" filepath="$PROJECT_DIR$/LibrarySearch/LibrarySearch.iml" />
-      <module fileurl="file://$PROJECT_DIR$/LibrarySearch/LibrarySearch.iml" filepath="$PROJECT_DIR$/LibrarySearch/LibrarySearch.iml" />
-      <module fileurl="file://$PROJECT_DIR$/LibrarySearch/LibrarySearch.iml" filepath="$PROJECT_DIR$/LibrarySearch/LibrarySearch.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoveHuaLi.iml" filepath="$PROJECT_DIR$/LoveHuaLi.iml" />
       <module fileurl="file://$PROJECT_DIR$/PullRefreshLayout/PullRefreshLayout.iml" filepath="$PROJECT_DIR$/PullRefreshLayout/PullRefreshLayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

@@ -71,7 +71,7 @@
         app:cpb_textError="登录失败"
         app:cpb_textIdle="登录"
         android:textSize="20dp"
-        app:cpb_selectorIdle="@drawable/library_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
 
         />
         <LinearLayout
