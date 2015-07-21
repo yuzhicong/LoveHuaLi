@@ -23,7 +23,7 @@ import org.json.JSONObject;
  */
 public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
-//导演说试试喔，哦!!
+
     private TextView[] textView;
 
     private ACache mCache;//缓存对象
