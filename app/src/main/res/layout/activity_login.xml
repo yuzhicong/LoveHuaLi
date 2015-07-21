@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/toolbar"/>
 

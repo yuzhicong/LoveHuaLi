@@ -2,6 +2,7 @@ package com.yzc.lovehuali;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yzc.lovehuali.bmob.StudentUser;
+import com.yzc.lovehuali.tool.SystemBarTintManager;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -28,6 +30,15 @@ public class SignUpActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        //设定状态栏的颜色，当版本大于4.4时起作用
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            //此处可以重新指定状态栏颜色
+            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+        }
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("用户注册");// 标题的文字需在setSupportActionBar之前，不然会无效
         mToolbar.setTitleTextColor(Color.WHITE);

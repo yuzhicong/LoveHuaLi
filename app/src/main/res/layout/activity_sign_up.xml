@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.yzc.lovehuali.SignUpActivity">
 
     <include layout="@layout/toolbar"/>
@@ -72,7 +73,7 @@
             app:cpb_textError="注册失败"
             app:cpb_textIdle="注册"
             android:textSize="20dp"
-            app:cpb_selectorIdle="@drawable/library_selector"
+            app:cpb_selectorIdle="@drawable/idle_state_selector"
             />
     </LinearLayout>
 
