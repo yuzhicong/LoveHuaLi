@@ -53,7 +53,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Timer;
@@ -129,10 +132,6 @@ public class QueryStudentScoreActivity extends ActionBarActivity {
         sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
 
         spSelectTerm = (Spinner)findViewById(R.id.spTerm);
-        String TermData[] = new String[] {"2014-2015 第1学期","2014-2015 第2学期","2013-2014 第1学期","2013-2014 第2学期",
-                "2012-2013 第1学期","2012-2013 第2学期","2011-2012 第1学期","2011-2012 第2学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
-        spTermAdapter = new ArrayAdapter<String>(QueryStudentScoreActivity.this, R.layout.spinner_item, TermData);
-        spSelectTerm.setAdapter(spTermAdapter);
 
         //用户信息控件绑定
         etStudentId = (MaterialEditText) findViewById(R.id.etStudentId);
@@ -158,9 +157,28 @@ public class QueryStudentScoreActivity extends ActionBarActivity {
 
     }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Date date=new Date();
+        SimpleDateFormat dateFmYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFmMonth = new SimpleDateFormat("MM");
+        int year = Integer.parseInt(dateFmYear.format(date));
+        int month = Integer.parseInt(dateFmMonth.format(date));
+        System.out.println(year + ":" + month);
+        if(month > 0 && month < 7) {
+            String TermData[] = new String[]{(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(QueryStudentScoreActivity.this, R.layout.spinner_item, TermData);
+        }else if(month > 6){
+            String TermData[] = new String[]{(year-1) + "-" + (year) +" 第2学期",(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(QueryStudentScoreActivity.this, R.layout.spinner_item, TermData);
+        }
+        spSelectTerm.setAdapter(spTermAdapter);
+    }
 
     TimerTask task = new TimerTask() {
         public void run() {

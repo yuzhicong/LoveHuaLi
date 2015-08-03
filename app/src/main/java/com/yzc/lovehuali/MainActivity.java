@@ -69,12 +69,13 @@ public class MainActivity extends ActionBarActivity {
         mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
 
-        Bmob.initialize(this, "ce44de9648c859db8001d4187e9d38b9");//BmobSDK初始化
+
         // 使用推送服务时的初始化操作
         BmobInstallation.getCurrentInstallation(this).save();
         // 启动推送服务
         BmobPush.startWork(this, "ce44de9648c859db8001d4187e9d38b9");
-        System.out.println("推送服务启动成功！");
+        final Intent serviceIntent = new Intent(this,MyPushMessageReceiver.class);
+        startService(serviceIntent);
 
         //滑动切换功能区域
         mainViewPager = (ViewPager) findViewById(R.id.mainViewPager);
@@ -187,10 +188,6 @@ public class MainActivity extends ActionBarActivity {
         });//侧滑菜单功能响应项
 
 
-        // 使用推送服务时的初始化操作
-        BmobInstallation.getCurrentInstallation(this).save();
-        // 启动推送服务
-        BmobPush.startWork(this, "ce44de9648c859db8001d4187e9d38b9");
 
     }
 

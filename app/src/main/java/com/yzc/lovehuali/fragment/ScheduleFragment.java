@@ -154,23 +154,23 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             for (int i = 0; i < courseNameString.length; i++) {
                 String choosecourse = courseWeekString[i].substring(courseWeekString[i].indexOf("第") + 1, courseWeekString[i].indexOf("周"));   //筛选周数
                 String[] weekstring = choosecourse.split("-");
-                System.out.println("======>>>" + choosecourse + "\t" + weekstring[0] + "\t" + weekstring[1]);
+                //System.out.println("======>>>" + choosecourse + "\t" + weekstring[0] + "\t" + weekstring[1]);
                 int testweek = 18;//选择周数的小测试
                 String[] courseSectionString_sz = courseSectionString[i].split(",");
-                System.out.println("课程的节数选择" + (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2);
+                //System.out.println("课程的节数选择" + (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2);
                 int tempint = (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2;
                 int allint = (tempint * 7) + Integer.parseInt(weekString[i]) - 1;
                 textView[allint].setText(courseNameString[i] + classRoomString[i]);
                 if (testweek >= Integer.parseInt(weekstring[0]) && testweek <= Integer.parseInt(weekstring[1])) {
 //                    textView[allint].setBackgroundResource(textViewResoureId[jsonint[i]]);
                     textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
-                    System.out.println("课程背景颜色的ID：" + jsonint[i]);
+                    //System.out.println("课程背景颜色的ID：" + jsonint[i]);
                 } else {
 //                    textView[allint].setBackgroundResource(R.drawable.set_bar_public);
                     textView[allint].setBackgroundResource(R.color.color_public);
                     textView[allint].setTextColor(Color.parseColor("#666666"));
                 }
-                System.out.println("课程的textViewID号" + allint);
+                //System.out.println("课程的textViewID号" + allint);
 
 
             }
