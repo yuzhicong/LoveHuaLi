@@ -156,22 +156,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zjm.library.BookListActivity" />
         </activity>
-        <activity
-            android:name=".New_Student_Activity"
-            android:label="新生指南"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yzc.lovehuali.MainActivity" />
-        </activity>
-        <activity
-            android:name=".New_Student_Second_Activity"
-            android:label="新生指南"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.yzc.lovehuali.MainActivity" />
-        </activity>
 
         <service
             android:name="cn.bmob.push.lib.service.PushService"
