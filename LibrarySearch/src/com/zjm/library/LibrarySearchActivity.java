@@ -1,6 +1,5 @@
 package com.zjm.library;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,13 +9,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
@@ -86,6 +87,7 @@ public class LibrarySearchActivity extends ActionBarActivity {
 			ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo info = connMgr.getActiveNetworkInfo();
 			inputString = inputText.getText().toString();
+			inputString = inputString.replace(" ", "+");
 			if(inputString.equals("")){
 				Toast.makeText(LibrarySearchActivity.this, "= =输入是空的,搜毛线啊!", Toast.LENGTH_LONG).show();
 			}
@@ -126,4 +128,21 @@ public class LibrarySearchActivity extends ActionBarActivity {
 			}
 		}	
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater noticemenu = getMenuInflater();
+		noticemenu.inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		Intent collectionlist = new Intent(LibrarySearchActivity.this,BookCollectionActivity.class);
+		startActivity(collectionlist);
+		return super.onOptionsItemSelected(item);
+	}
+
 }

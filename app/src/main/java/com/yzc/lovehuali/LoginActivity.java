@@ -97,7 +97,7 @@ public class LoginActivity extends ActionBarActivity {
                     public void onSuccess() {
                         cpbtnLogin.setProgress(100);
                         //Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
-                        StudentUser user = BmobUser.getCurrentUser(getApplicationContext(),StudentUser.class);
+                        /*StudentUser user = BmobUser.getCurrentUser(getApplicationContext(),StudentUser.class);
                         ACache mCache = ACache.get(getApplicationContext());
                         if(!user.getStuCourse().isEmpty()) {
                             System.out.println("存储用户课程数据");
@@ -105,7 +105,7 @@ public class LoginActivity extends ActionBarActivity {
                         }else{
                             mCache.remove("courseJson");
                             System.out.println("删除用户课程数据");
-                        }
+                        }*/
                         final int activityFinishDelay = 500;
                         new Handler().postDelayed(new Runnable() {
                             @Override
