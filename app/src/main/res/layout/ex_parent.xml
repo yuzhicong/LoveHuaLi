@@ -7,8 +7,9 @@
     <TextView
         android:id="@+id/parent_textview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
+        android:background="@drawable/newstudent_faq"
         android:textColor="#121212"
         android:textSize="18sp" />
 

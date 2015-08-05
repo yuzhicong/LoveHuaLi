@@ -136,6 +136,13 @@ public class New_Student_Second_Activity extends ActionBarActivity {
         parent.add(title_ex[0]);
         parent.add(title_ex[1]);
         parent.add(title_ex[2]);
+        parent.add(title_ex[3]);
+        parent.add(title_ex[4]);
+        parent.add(title_ex[5]);
+        parent.add(title_ex[6]);
+        parent.add(title_ex[7]);
+        parent.add(title_ex[8]);
+        parent.add(title_ex[9]);
 
         map = new HashMap<String, List<String>>();
 
@@ -145,13 +152,39 @@ public class New_Student_Second_Activity extends ActionBarActivity {
 
         List<String> list2 = new ArrayList<String>();
         list2.add(content[1]);
-
         map.put(title_ex[1], list2);
 
         List<String> list3 = new ArrayList<String>();
         list3.add(content[2]);
         map.put(title_ex[2], list3);
 
+        List<String> list4 = new ArrayList<String>();
+        list4.add(content[3]);
+        map.put(title_ex[3], list4);
+
+        List<String> list5 = new ArrayList<String>();
+        list5.add(content[4]);
+        map.put(title_ex[4], list5);
+
+        List<String> list6 = new ArrayList<String>();
+        list6.add(content[5]);
+        map.put(title_ex[5], list6);
+
+        List<String> list7 = new ArrayList<String>();
+        list7.add(content[6]);
+        map.put(title_ex[6], list7);
+
+        List<String> list8 = new ArrayList<String>();
+        list8.add(content[7]);
+        map.put(title_ex[7], list8);
+
+        List<String> list9 = new ArrayList<String>();
+        list9.add(content[8]);
+        map.put(title_ex[8], list9);
+
+        List<String> list10 = new ArrayList<String>();
+        list10.add(content[9]);
+        map.put(title_ex[9], list10);
     }
 
     class MyAdapter extends BaseExpandableListAdapter {
