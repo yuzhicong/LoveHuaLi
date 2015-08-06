@@ -1,15 +1,9 @@
 package com.yzc.lovehuali;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,14 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.ImageSwitcher;
-import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -44,18 +37,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Timer;
@@ -82,6 +68,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
 
     private ACache mCache;//全局缓存工具类对象
     //复制部分
+    private Spinner spTerm,spType;
+    private SpinnerAdapter spTermAdapter,spTypeAdapter;
+
     private MaterialEditText user;
     private MaterialEditText password;
     private CircularProgressButton loginBtn;
@@ -112,6 +101,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
     private String[] ss = null;
     private int i = 0;
     private String ksInfo = "";
+    private String __VIEWSTATE_xskb_gc = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +127,11 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
         //
         user = (MaterialEditText) findViewById(R.id.etStudentId);
         password = (MaterialEditText) findViewById(R.id.etEduSystemPassword);
+        spTerm = (Spinner) findViewById(R.id.spTerm);
+        spType = (Spinner) findViewById(R.id.spType);
+        String strType[]={"学生个人课表","专业推荐课表"};
+        spTypeAdapter = new ArrayAdapter<String>(getEduSystemSchedulerActivity.this,R.layout.spinner_item,strType);
+        spType.setAdapter(spTypeAdapter);
 
         loginBtn = (CircularProgressButton) findViewById(R.id.cpbtnBindindEduSystem);
         loginBtn.setIndeterminateProgressMode(true);
@@ -155,6 +150,29 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
         myApp.setMyUrl(myUrl);
         //
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Date date=new Date();
+        SimpleDateFormat dateFmYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFmMonth = new SimpleDateFormat("MM");
+        int year = Integer.parseInt(dateFmYear.format(date));
+        int month = Integer.parseInt(dateFmMonth.format(date));
+        System.out.println(year + ":" + month);
+        if(month >=7) {
+            String TermData[] = new String[]{(year) + "-" + (year+1) +" 第1学期",(year-1) + "-" + (year) +" 第2学期",(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(getEduSystemSchedulerActivity.this, R.layout.spinner_item, TermData);
+        }else if(month >= 1){
+            String TermData[] = new String[]{(year-1) + "-" + (year) +" 第2学期",(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(getEduSystemSchedulerActivity.this, R.layout.spinner_item, TermData);
+        }
+        spTerm.setAdapter(spTermAdapter);
     }
 
     TimerTask task = new TimerTask() {
@@ -260,170 +278,486 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
 
     };
 
-    Thread getCourseJson = new Thread(new Runnable() {
+    private Thread getCourseJson = new Thread(new Runnable() {
         @Override
         public void run() {
-            String kbInfo = "";
 
-            try {
-                kbInfo = HttpUtil.getUrl("http://" + myUrl
-                        + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
-                        + "&gnmkdm=N121603", mHttpClient, "http://"
-                        + myUrl + "/xs_main.aspx?xh=" + xh);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            String gnmkdm = "";
+
+            String __VIEWSTATE = "";
+            StringTokenizer tokenizer = null;
+            String ddlXN = "";
+            String ddlXQ = "";
+            String[] ss = null;
+
+            String xn = "";
+            String xq = "";
+            String nj = "";
+            String xy = "";
+            String zy = "";
+            String kb = "";
+            String strClass = "";
+
+            if (spType.getSelectedItem().toString().equals("学生个人课表")) {
+                gnmkdm = "N121603";
+                try {
+                    ksInfo = HttpUtil
+                            .getUrl("http://" + myUrl
+                                            + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
+                                            + "&gnmkdm=" + gnmkdm,
+                                    mHttpClient,
+                                    "http://"
+                                            + myUrl
+                                            + "/xs_main.aspx?xh="
+                                            + xh);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } else {
+                gnmkdm = "N121601";
+                try {
+                    ksInfo = HttpUtil
+                            .getUrl("http://" + myUrl
+                                            + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                            + "&gnmkdm=" + gnmkdm,
+                                    mHttpClient,
+                                    "http://"
+                                            + myUrl
+                                            + "/xs_main.aspx?xh="
+                                            + xh);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
+            int i = 0;
+            if (__VIEWSTATE_xskb_gc == "") {
 
-            String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
-            Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
-            Matcher m = p.matcher(temp);
-            ss = null;
-            ss = new String[200];
-            JSONArray courseArray = new JSONArray();//课程JsonArray
-            i = 0;
-            int w=0,fw=0;//w为计算表格位置，fw为辅助计算参数
-            while (m.find() && (!m.group().toString().equals("编号"))) {
-                if(m.group().toString().equals("&nbsp;")){
-                    w++;
-                    if(w%7==0){
-                        w=w+fw;
-                        fw=0;
+
+                //System.out.println("网页内容" + ksInfo);
+                if (ksInfo != "") {
+                    Pattern pat = Pattern.compile("<option selected=\"selected\" value=\"(.*?)\">(.*?)</option>");
+                    Matcher mat = pat.matcher(ksInfo);
+                    int keycount = 0;
+                    while (mat.find()) {
+                        System.out.println(mat.group(1));
+                        switch (keycount) {
+                            case 0:
+                                xn = mat.group(1);
+                                break;
+                            case 1:
+                                xq = mat.group(1);
+                                break;
+                            case 2:
+                                nj = mat.group(1);
+                                break;
+                            case 3:
+                                xy = mat.group(1);
+                                break;
+                            case 4:
+                                zy = mat.group(1);
+                                break;
+                            case 5:
+                                strClass = mat.group(2);
+                                break;
+                            default:
+                                break;
+                        }
+                        keycount++;
+                    }
+
+                    tokenizer = new StringTokenizer(
+                            ksInfo);
+                    while (tokenizer.hasMoreTokens()) {
+                        String valueToken = tokenizer
+                                .nextToken();
+                        // System.out.println(valueToken);
+                        if (StringUtil.isValue(
+                                valueToken, "value")
+                                && valueToken.length() > 100) {
+                            if (StringUtil.getValue(
+                                    valueToken,
+                                    "value", "\"", 7)
+                                    .length() > 100) {
+                                __VIEWSTATE = StringUtil
+                                        .getValue(
+                                                valueToken,
+                                                "value",
+                                                "\"", 7);// value
+                                __VIEWSTATE_xskb_gc = __VIEWSTATE;
+                            }
+                        }
                     }
                 }
 
-                if (!(m.group().toString().equals("&nbsp;"))
-                        && !(m.group().toString().equals(""))
-                        && !(m.group().toString().equals("早晨"))
-                        && !(m.group().toString().equals("上午"))
-                        && !(m.group().toString().equals("下午"))
-                        && !(m.group().toString().equals("晚上"))
-                        && !(m.group().toString().substring(0, 1)
-                        .equals("星"))
-                        && !(m.group().toString().equals("时间"))
-                        && !(m.group().toString().substring(0, 1)
-                        .equals("第"))) {
-                    ss[i] = m.group().toString();
-                    //System.out.println(ss[i]);
-                            /*System.out.println(ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
-                            System.out.println(ss[i].substring(0,ss[i].indexOf("<br>")));
-                            System.out.println(ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
-                            System.out.println(ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
-                            System.out.println(ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2));*/
-                    String week = ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2);
-                    w++;
-                    fw+=1;
-                    int courseWeek=0;
-                    courseWeek = w%7;
-                    String courseSection = "";
-                    switch (w/7){
-                        case 0:
-                        case 1:
-                            courseSection="1,2";
-                            break;
-                        case 2:
-                        case 3:
-                            courseSection="3,4";
-                            break;
-                        case 4:
-                        case 5:
-                            courseSection="5,6";
-                            break;
-                        case 6:
-                        case 7:
-                            courseSection="7,8";
-                            break;
-                        case 8:
-                        case 9:
-                            courseSection="9,10";
-                            break;
-                    }
-                    /*if(week.equals("一")){
-                        courseWeek = 1;
-                    }
-                    if(week.equals("二")){
-                        courseWeek = 2;
-                    }
-                    if(week.equals("三")){
-                        courseWeek = 3;
-                    }
-                    if(week.equals("四")){
-                        courseWeek = 4;
-                    }
-                    if(week.equals("五")){
-                        courseWeek = 5;
-                    }
-                    if(week.equals("六")){
-                        courseWeek = 6;
-                    }
-                    if(week.equals("日")){
-                        courseWeek = 7;
-                    }*/
+            }
+            if (__VIEWSTATE_xskb_gc != "") {
+                __VIEWSTATE = __VIEWSTATE_xskb_gc;
 
+            }
+
+            String kbInfo = "";
+            List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+            // System.out.println(__VIEWSTATE);
+            ddlXN = spTerm.getSelectedItem().toString().substring(0, 9);
+            ddlXQ = spTerm.getSelectedItem().toString().substring(11, 12);
+            System.out.println(ddlXN + ":" + ddlXQ + "\n" + xn + ":" + xq);
+
+            if (!(xn.equals(ddlXN) & xq.equals(ddlXQ))) {
+                if (gnmkdm.equals("N121603")) {
+                    if (!xn.equals(ddlXN) & xq.equals(ddlXQ)) {
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xnd"));
+                    } else if (xn.equals(ddlXN) & !xq.equals(ddlXQ)) {
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xqd"));
+                    } else if (!xn.equals(ddlXN) & !xq.equals(ddlXQ)) {
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xnd"));
+                        pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                        pairs.add(new BasicNameValuePair("xnd",
+                                ddlXN));
+                        pairs.add(new BasicNameValuePair("xqd",
+                                ddlXQ));
+                        try {
+                            kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                    + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
+                                    + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                    + myUrl + "/xs_main.aspx?xh=" + xh);
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        pairs = new ArrayList<>();
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xqd"));
+                    }
+                    pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                    pairs.add(new BasicNameValuePair("xnd",
+                            ddlXN));
+                    pairs.add(new BasicNameValuePair("xqd",
+                            ddlXQ));
 
                     try {
-
-                        JSONObject classObject = new JSONObject();
-                        classObject.put("classRoom", ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
-                        classObject.put("week", courseWeek);
-                        classObject.put("courseName", ss[i].substring(0,ss[i].indexOf("<br>")));
-                        //classObject.put("property", ss[i].substring(ss[i].indexOf("<br>", 1) + 3, ss[i].indexOf("<br>", 2) - 1));
-                        //classObject.put("courseSection", ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
-                        classObject.put("courseSection", courseSection);
-                        classObject.put("courseWeek", ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
-                        Pattern pattern = Pattern.compile("<br>(.*?)<br>");
-                        Matcher matcher = pattern.matcher(ss[i]);
-                        int j=0;
-                        while(matcher.find()){
-                            if(j==0){
-                                classObject.put("property",matcher.group(1).toString());}
-                            if(j==1){
-                                classObject.put("teacher",matcher.group(1).toString());}
-                            j++;
-                        }
-
-                        System.out.println(classObject.toString());
-                        courseArray.put(classObject);
-
-
-                    } catch (JSONException e) {
+                        kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
+                                + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                + myUrl + "/xs_main.aspx?xh=" + xh);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    i++;
-                }
-            }
+                } else {
+                    //pairs.add(new BasicNameValuePair("__EVENTARGUMENT", "xn"));
+                    //pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
 
-            mCache.put("courseJson",courseArray.toString());
-            StudentUser newUser = new StudentUser();
-            newUser.setStuCourse(courseArray.toString());//把课程数据存到用户对象中
-            StudentUser user = BmobUser.getCurrentUser(getEduSystemSchedulerActivity.this,StudentUser.class);//获取用户对象
-            newUser.update(getEduSystemSchedulerActivity.this,user.getObjectId(),new UpdateListener() {
-                @Override
-                public void onSuccess() {
-                    Log.d("用户数据更新","课程表数据上传成功！");
-                }
+                    try {
+                        if (!xn.equals(ddlXN) && xq.equals(ddlXQ)) {
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xn"));
+                        } else if (xn.equals(ddlXN) && !xq.equals(ddlXQ)) {
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xq"));
+                        } else if (!xn.equals(ddlXN) & !xq.equals(ddlXQ)) {
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xn"));
+                            pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                            pairs.add(new BasicNameValuePair("xn", ddlXN));
+                            pairs.add(new BasicNameValuePair("xq", ddlXQ));
+                            pairs.add(new BasicNameValuePair("nj", nj));
+                            pairs.add(new BasicNameValuePair("xy", xy));
+                            pairs.add(new BasicNameValuePair("zy", zy));
 
-                @Override
-                public void onFailure(int i, String s) {
-                    Log.d("用户数据更新","课程表数据上传失败！");
-                }
-            });
-            System.out.println(courseArray.toString());
+                            kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                    + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                    + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                    + myUrl + "/xs_main.aspx?xh=" + xh);
+                            pairs = new ArrayList<>();
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xq"));
 
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    loginBtn.setProgress(100);
-                    final int activityFinishDelay = 2000;
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getEduSystemSchedulerActivity.this.finish();
                         }
-                    }, activityFinishDelay);
-                }
-            });
+                        pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                        pairs.add(new BasicNameValuePair("xn", ddlXN));
+                        pairs.add(new BasicNameValuePair("xq", ddlXQ));
+                        pairs.add(new BasicNameValuePair("nj", nj));
+                        pairs.add(new BasicNameValuePair("xy", xy));
+                        pairs.add(new BasicNameValuePair("zy", zy));
 
+                        kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                + myUrl + "/xs_main.aspx?xh=" + xh);
+                        //System.out.println(kbInfo);
+                    /*tokenizer = new StringTokenizer(
+                            ksInfo);推荐课表传参数
+                    while (tokenizer.hasMoreTokens()) {
+                        String valueToken = tokenizer
+                                .nextToken();
+                        // System.out.println(valueToken);
+                        if (StringUtil.isValue(
+                                valueToken, "value")
+                                && valueToken.length() > 100) {
+                            if (StringUtil.getValue(
+                                    valueToken,
+                                    "value", "\"", 7)
+                                    .length() > 100) {
+                                __VIEWSTATE = StringUtil
+                                        .getValue(
+                                                valueToken,
+                                                "value",
+                                                "\"", 7);// value
+                                __VIEWSTATE_xskb_gc = __VIEWSTATE;
+                            }
+                        }
+                    }
+                    if (__VIEWSTATE_xskb_gc != "") {
+                        __VIEWSTATE = __VIEWSTATE_xskb_gc;
+
+                    }
+                    if (!kbInfo.equals("")) {
+                        //Pattern pat = Pattern.compile("<option selected=\"selected\" value=\"(.*?)\">(.*?)</option>");
+                        //Matcher mat = pat.matcher(ksInfo);
+                        byte[] tempbyte = kbInfo.getBytes();
+                        kbInfo = new String(tempbyte,"UTF-8");
+                        String kkInfo =  kbInfo.substring(kbInfo.indexOf("推荐课表"),kbInfo.length());
+                        System.out.println("转码:" + kkInfo);
+
+                        String temp = kkInfo.substring(0,kkInfo.indexOf("</select>"));
+                        kb=temp.substring(temp.indexOf(strClass)-28,temp.indexOf(strClass)-2);
+                        System.out.println("课表号： " + kb + " 内容 ：" +  temp);
+                        //int keycount = 0;
+                        *//*while (mat.find()) {
+                            System.out.println(mat.group(1));
+                            *//**//*if (keycount == 2) {
+                                nj = mat.group(1);
+                                System.out.println("年级：" + nj);
+                            }
+                            if (keycount == 3) {
+                                xy = mat.group(1);
+                                System.out.println("学院：" + xy);
+                            }
+                            if (keycount == 4) {
+                                zy = mat.group(1);
+                                System.out.println("专业：" + zy);
+                            }*//**//*
+                            if (keycount == 5) {
+                                strClass = mat.group(2);
+                                System.out.println("班级：" + strClass);
+                            }
+                            keycount++;
+                        }*//*
+                        System.out.println("状态码：" + __VIEWSTATE);
+                        pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xn"));
+                        pairs.add(new BasicNameValuePair("xn",ddlXN));
+                        pairs.add(new BasicNameValuePair("xq", ddlXQ));
+                        pairs.add(new BasicNameValuePair("nj", nj));
+                        pairs.add(new BasicNameValuePair("xy",xy));
+                        pairs.add(new BasicNameValuePair("zy",zy));
+                        //pairs.add(new BasicNameValuePair("kb",kb));
+                        kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                + "&gnmkdm="+ gnmkdm, pairs, mHttpClient, "http://"
+                                + myUrl + "/xs_main.aspx?xh=" + xh );
+                        System.out.println(kbInfo);
+
+                        pairs.remove(1);
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xq"));
+                        kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                + "&gnmkdm="+ gnmkdm, pairs, mHttpClient, "http://"
+                                + myUrl + "/xs_main.aspx?xh=" + xh );
+                        System.out.println(kbInfo);
+                    }*/
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+
+               //System.out.println("获取的网页内容：" + kbInfo);
+            } else {
+                kbInfo = ksInfo;
+                //System.out.println("重新输出第一次获取的网页内容：" + kbInfo);
+            }
+            /*String kzInfo=new String();
+            if(gnmkdm.equals("N121601")){
+            kzInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
+            }*/
+            kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
+            System.out.println(kbInfo);
+            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")) {
+                String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
+                Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
+                Matcher m = p.matcher(temp);
+                ss = null;
+                ss = new String[500];
+                JSONArray courseArray = new JSONArray();//课程JsonArray
+                i = 0;
+                int w = 0, fw = 0;//w为计算表格位置，fw为辅助计算参数
+                while (m.find() && (!m.group().toString().equals("编号")) && (!m.group().toString().equals("课程名称"))) {
+                    if (m.group().toString().equals("&nbsp;")) {
+                        w++;
+                        if (w % 7 == 0) {
+                            w = w + fw;
+                            fw = 0;
+                        }
+                    }
+
+                    if (!(m.group().toString().equals("&nbsp;"))
+                            && !(m.group().toString().equals(""))
+                            && !(m.group().toString().equals("早晨"))
+                            && !(m.group().toString().equals("上午"))
+                            && !(m.group().toString().equals("下午"))
+                            && !(m.group().toString().equals("晚上"))
+                            && !(m.group().toString().substring(0, 1)
+                            .equals("星"))
+                            && !(m.group().toString().equals("时间"))
+                            && !(m.group().toString().substring(0, 1)
+                            .equals("第"))) {
+                        ss[i] = m.group().toString();
+                        /*System.out.println(ss[i]);
+                        System.out.println(ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
+                        System.out.println(ss[i].substring(0, ss[i].indexOf("<br>")));
+                        System.out.println(ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
+                        System.out.println(ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
+                        System.out.println(ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2));*/
+                        //String week = ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2);
+                        w++;
+                        fw += 1;
+                        int courseWeek = 0;
+                        courseWeek = w % 7;
+                        String courseSection = "";
+                        switch (w / 7) {
+                            case 0:
+                            case 1:
+                                courseSection = "1,2";
+                                break;
+                            case 2:
+                            case 3:
+                                courseSection = "3,4";
+                                break;
+                            case 4:
+                            case 5:
+                                courseSection = "5,6";
+                                break;
+                            case 6:
+                            case 7:
+                                courseSection = "7,8";
+                                break;
+                            case 8:
+                            case 9:
+                                courseSection = "9,10";
+                                break;
+                        }
+                        /*if (week.equals("一")) {
+                            courseWeek = 1;
+                        }
+                        if (week.equals("二")) {
+                            courseWeek = 2;
+                        }
+                        if (week.equals("三")) {
+                            courseWeek = 3;
+                        }
+                        if (week.equals("四")) {
+                            courseWeek = 4;
+                        }
+                        if (week.equals("五")) {
+                            courseWeek = 5;
+                        }
+                        if (week.equals("六")) {
+                            courseWeek = 6;
+                        }
+                        if (week.equals("日")) {
+                            courseWeek = 7;
+                        }*/
+
+
+                        try {
+
+                            JSONObject classObject = new JSONObject();
+                            if(ss[i].contains(""))
+                            if (gnmkdm.equals("N121603")) {
+                                classObject.put("classRoom", ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
+                            } else {
+                                String tempClassRoom = ss[i].substring(0, ss[i].lastIndexOf("<br>"));
+                                tempClassRoom = tempClassRoom.substring(tempClassRoom.lastIndexOf("<br>") + 4, tempClassRoom.length());
+                                classObject.put("classRoom", tempClassRoom);
+
+                            }
+                            classObject.put("week", courseWeek);
+                            classObject.put("courseName", ss[i].substring(0, ss[i].indexOf("<br>")));
+                            //classObject.put("property", ss[i].substring(ss[i].indexOf("<br>", 1) + 3, ss[i].indexOf("<br>", 2) - 1));
+                            //classObject.put("courseSection", ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
+                            classObject.put("courseSection", courseSection);
+                            if (gnmkdm.equals("N121603")) {//根据不同的课表类型，由于格式不同，上课的第几周到第几周的解析不同
+                                classObject.put("courseWeek", ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
+                            } else {
+                                String tempCourseWeek = ss[i].substring(0, ss[i].indexOf("("));
+                                tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.lastIndexOf(">") + 1, tempCourseWeek.length());
+                                classObject.put("courseWeek", "第" + tempCourseWeek + "周");
+                            }
+                            Pattern pattern = Pattern.compile("<br>(.*?)<br>");
+                            Matcher matcher = pattern.matcher(ss[i]);
+                            int j = 0;
+                            while (matcher.find()) {
+                                if (j == 0) {
+                                    classObject.put("property", matcher.group(1).toString());
+                                }
+                                if (j == 1) {
+                                    classObject.put("teacher", matcher.group(1).toString());
+                                }
+                                j++;
+                            }
+
+                            System.out.println(classObject.toString());
+                            courseArray.put(classObject);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        i++;
+                    }
+                }
+
+                System.out.print("获取到的课程数据" + courseArray.toString());
+                mCache.put("courseJson", courseArray.toString());
+                /*StudentUser newUser = new StudentUser();
+                newUser.setStuCourse(courseArray.toString());//把课程数据存到用户对象中
+                StudentUser user = BmobUser.getCurrentUser(getEduSystemSchedulerActivity.this, StudentUser.class);//获取用户对象
+                newUser.update(getEduSystemSchedulerActivity.this, user.getObjectId(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("用户数据更新", "课程表数据上传成功！");
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Log.d("用户数据更新", "课程表数据上传失败！");
+                    }
+                });用户课程表数据上传到服务器的功能*/
+                System.out.println(courseArray.toString());
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginBtn.setProgress(100);
+                        final int activityFinishDelay = 2000;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getEduSystemSchedulerActivity.this.finish();
+                            }
+                        }, activityFinishDelay);
+                    }
+                });
+            }else{
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "本学期该类型课表暂无！",
+                                Toast.LENGTH_SHORT).show();
+                        loginBtn.setErrorText("获取失败");
+                        loginBtn.setProgress(-1);
+                    }
+                });
+            }
         }
     });
 
