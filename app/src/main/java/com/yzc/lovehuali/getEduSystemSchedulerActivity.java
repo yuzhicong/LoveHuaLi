@@ -445,9 +445,6 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    //pairs.add(new BasicNameValuePair("__EVENTARGUMENT", "xn"));
-                    //pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
-
                     try {
                         if (!xn.equals(ddlXN) && xq.equals(ddlXQ)) {
                             pairs.add(new BasicNameValuePair("__EVENTTARGET", "xn"));
@@ -481,88 +478,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                 + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
                                 + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
                                 + myUrl + "/xs_main.aspx?xh=" + xh);
-                        //System.out.println(kbInfo);
-                    /*tokenizer = new StringTokenizer(
-                            ksInfo);推荐课表传参数
-                    while (tokenizer.hasMoreTokens()) {
-                        String valueToken = tokenizer
-                                .nextToken();
-                        // System.out.println(valueToken);
-                        if (StringUtil.isValue(
-                                valueToken, "value")
-                                && valueToken.length() > 100) {
-                            if (StringUtil.getValue(
-                                    valueToken,
-                                    "value", "\"", 7)
-                                    .length() > 100) {
-                                __VIEWSTATE = StringUtil
-                                        .getValue(
-                                                valueToken,
-                                                "value",
-                                                "\"", 7);// value
-                                __VIEWSTATE_xskb_gc = __VIEWSTATE;
-                            }
-                        }
-                    }
-                    if (__VIEWSTATE_xskb_gc != "") {
-                        __VIEWSTATE = __VIEWSTATE_xskb_gc;
 
-                    }
-                    if (!kbInfo.equals("")) {
-                        //Pattern pat = Pattern.compile("<option selected=\"selected\" value=\"(.*?)\">(.*?)</option>");
-                        //Matcher mat = pat.matcher(ksInfo);
-                        byte[] tempbyte = kbInfo.getBytes();
-                        kbInfo = new String(tempbyte,"UTF-8");
-                        String kkInfo =  kbInfo.substring(kbInfo.indexOf("推荐课表"),kbInfo.length());
-                        System.out.println("转码:" + kkInfo);
-
-                        String temp = kkInfo.substring(0,kkInfo.indexOf("</select>"));
-                        kb=temp.substring(temp.indexOf(strClass)-28,temp.indexOf(strClass)-2);
-                        System.out.println("课表号： " + kb + " 内容 ：" +  temp);
-                        //int keycount = 0;
-                        *//*while (mat.find()) {
-                            System.out.println(mat.group(1));
-                            *//**//*if (keycount == 2) {
-                                nj = mat.group(1);
-                                System.out.println("年级：" + nj);
-                            }
-                            if (keycount == 3) {
-                                xy = mat.group(1);
-                                System.out.println("学院：" + xy);
-                            }
-                            if (keycount == 4) {
-                                zy = mat.group(1);
-                                System.out.println("专业：" + zy);
-                            }*//**//*
-                            if (keycount == 5) {
-                                strClass = mat.group(2);
-                                System.out.println("班级：" + strClass);
-                            }
-                            keycount++;
-                        }*//*
-                        System.out.println("状态码：" + __VIEWSTATE);
-                        pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
-                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xn"));
-                        pairs.add(new BasicNameValuePair("xn",ddlXN));
-                        pairs.add(new BasicNameValuePair("xq", ddlXQ));
-                        pairs.add(new BasicNameValuePair("nj", nj));
-                        pairs.add(new BasicNameValuePair("xy",xy));
-                        pairs.add(new BasicNameValuePair("zy",zy));
-                        //pairs.add(new BasicNameValuePair("kb",kb));
-                        kbInfo = HttpUtil.postUrl("http://" + myUrl
-                                + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
-                                + "&gnmkdm="+ gnmkdm, pairs, mHttpClient, "http://"
-                                + myUrl + "/xs_main.aspx?xh=" + xh );
-                        System.out.println(kbInfo);
-
-                        pairs.remove(1);
-                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xq"));
-                        kbInfo = HttpUtil.postUrl("http://" + myUrl
-                                + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
-                                + "&gnmkdm="+ gnmkdm, pairs, mHttpClient, "http://"
-                                + myUrl + "/xs_main.aspx?xh=" + xh );
-                        System.out.println(kbInfo);
-                    }*/
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -578,9 +494,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
             if(gnmkdm.equals("N121601")){
             kzInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
             }*/
-            kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
-            System.out.println(kbInfo);
-            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")) {
+            System.out.println(kbInfo + (kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")));
+            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>11500) {
+                kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
                 String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
                 Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
                 Matcher m = p.matcher(temp);
@@ -734,8 +650,8 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 System.out.println(courseArray.toString());
 
                 handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                        @Override
+                        public void run() {
                         loginBtn.setProgress(100);
                         final int activityFinishDelay = 2000;
                         new Handler().postDelayed(new Runnable() {
@@ -746,18 +662,15 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                         }, activityFinishDelay);
                     }
                 });
-            }else{
-
+            }/*else{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "本学期该类型课表暂无！",
-                                Toast.LENGTH_SHORT).show();
-                        loginBtn.setErrorText("获取失败");
                         loginBtn.setProgress(-1);
+                        Toast.makeText(getApplicationContext(),"此学期该类型课表暂无！",Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
+            }*/
         }
     });
 
