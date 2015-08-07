@@ -25,7 +25,7 @@ public class New_Student_Activity extends ActionBarActivity {
 
     private Toolbar mToolbar;
 
-    private int[] image_adapterId = new int[]{R.drawable.img_01, R.drawable.img_02, R.drawable.img_03, R.drawable.img_04};
+    private int[] image_adapterId = new int[]{R.drawable.img_001, R.drawable.img_002, R.drawable.img_003, R.drawable.img_004};
     protected static String[] title_adapterId = new String[]{"新生报道FAQ", "华立附近出行路线", "快递信息", "华立作息时间表"};
 
     @Override
