@@ -87,7 +87,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         System.out.println("课程碎片正在刷新");
 
         if (mCache.getAsString("courseJson") != null) {
-            Log.d("MainActivity", "------------------->" + mCache.getAsString("courseJson").toString());
+            Log.d("MainActivity", "--------修复课程周数问题------>" + mCache.getAsString("courseJson").toString());
             for (int i = 0; i < 35; i++) {
                 textView[i].setText("");
 //                textView[i].setBackgroundColor(android.R.color.white);
@@ -153,25 +153,52 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             //显示课程
             for (int i = 0; i < courseNameString.length; i++) {
                 String choosecourse = courseWeekString[i].substring(courseWeekString[i].indexOf("第") + 1, courseWeekString[i].indexOf("周"));   //筛选周数
-                String[] weekstring = choosecourse.split("-");
+
                 //System.out.println("======>>>" + choosecourse + "\t" + weekstring[0] + "\t" + weekstring[1]);
-                int testweek = 18;//选择周数的小测试
+                int testweek = 8;//选择周数的小测试
                 String[] courseSectionString_sz = courseSectionString[i].split(",");
                 //System.out.println("课程的节数选择" + (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2);
                 int tempint = (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2;
                 int allint = (tempint * 7) + Integer.parseInt(weekString[i]) - 1;
                 textView[allint].setText(courseNameString[i] + classRoomString[i]);
-                if (testweek >= Integer.parseInt(weekstring[0]) && testweek <= Integer.parseInt(weekstring[1])) {
-//                    textView[allint].setBackgroundResource(textViewResoureId[jsonint[i]]);
-                    textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
-                    //System.out.println("课程背景颜色的ID：" + jsonint[i]);
-                } else {
-//                    textView[allint].setBackgroundResource(R.drawable.set_bar_public);
-                    textView[allint].setBackgroundResource(R.color.color_public);
-                    textView[allint].setTextColor(Color.parseColor("#666666"));
-                }
+
+//                String[] weekstring = choosecourse.split("-");
+//                if (testweek >= Integer.parseInt(weekstring[0]) && testweek <= Integer.parseInt(weekstring[1])) {
+////                    textView[allint].setBackgroundResource(textViewResoureId[jsonint[i]]);
+//                    textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+//                    //System.out.println("课程背景颜色的ID：" + jsonint[i]);
+//                } else {
+////                    textView[allint].setBackgroundResource(R.drawable.set_bar_public);
+//                    textView[allint].setBackgroundResource(R.color.color_public);
+//                    textView[allint].setTextColor(Color.parseColor("#666666"));
+//                }
                 //System.out.println("课程的textViewID号" + allint);
 
+                if (choosecourse.indexOf(",") != -1) {
+                    String[] weekstring2 = choosecourse.split(",");
+                    for (int k = 0; k < weekstring2.length; k++) {
+                        if (testweek == Integer.parseInt(weekstring2[k])) {
+                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            break;
+                        } else {
+                            textView[allint].setBackgroundResource(R.color.color_public);
+                            textView[allint].setTextColor(Color.parseColor("#666666"));
+                        }
+                    }
+
+                } else {
+
+                    String[] weekstring = choosecourse.split("-");
+                    if (testweek >= Integer.parseInt(weekstring[0]) && testweek <= Integer.parseInt(weekstring[1])) {
+//                    textView[allint].setBackgroundResource(textViewResoureId[jsonint[i]]);
+                        textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                        //System.out.println("课程背景颜色的ID：" + jsonint[i]);
+                    } else {
+//                    textView[allint].setBackgroundResource(R.drawable.set_bar_public);
+                        textView[allint].setBackgroundResource(R.color.color_public);
+                        textView[allint].setTextColor(Color.parseColor("#666666"));
+                    }
+                }
 
             }
 
