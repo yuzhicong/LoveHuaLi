@@ -196,8 +196,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                     if (myApp.getMyUrl() != null && myApp.getMyUrl() != "") {
                         myUrl = myApp.getMyUrl();
                     }
-                    result = checkUser();// 获取登陆情况
-
+                    if(result!=1) {
+                        result = checkUser();// 获取登陆情况
+                    }
                     // 更新界面
                     handler.post(new Runnable() {
                         public void run() {
@@ -494,8 +495,8 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
             if(gnmkdm.equals("N121601")){
             kzInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
             }*/
-            System.out.println(kbInfo + (kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")));
-            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>11500) {
+            System.out.println(kbInfo + (kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")) + "length:" + kbInfo.length());
+            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>12000) {
                 kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
                 String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
                 Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
@@ -586,7 +587,11 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                         try {
 
                             JSONObject classObject = new JSONObject();
-                            if(ss[i].contains(""))
+                            /*if(ss[i].contains("red")){
+                                String sstemp1 = ss[i].substring(0,ss[i].indexOf("<font"));
+                                String sstemp2 = ss[i].substring(ss[i].indexOf("font>")+5,ss[i].length());
+                                ss[i] = sstemp1.toString()+sstemp2.toString();
+                            }*/
                             if (gnmkdm.equals("N121603")) {
                                 classObject.put("classRoom", ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
                             } else {
@@ -662,15 +667,22 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                         }, activityFinishDelay);
                     }
                 });
-            }/*else{
+            }else{
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        Toast.makeText(getApplication(),"此学期该类型课表暂无！",Toast.LENGTH_SHORT).show();
                         loginBtn.setProgress(-1);
-                        Toast.makeText(getApplicationContext(),"此学期该类型课表暂无！",Toast.LENGTH_SHORT).show();
+                        final int activityFinishDelay = 2000;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getEduSystemSchedulerActivity.this.finish();
+                            }
+                        }, activityFinishDelay);
                     }
                 });
-            }*/
+            }
         }
     });
 

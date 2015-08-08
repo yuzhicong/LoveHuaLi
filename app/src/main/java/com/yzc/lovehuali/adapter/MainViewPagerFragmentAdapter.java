@@ -32,7 +32,7 @@ public class MainViewPagerFragmentAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position){
             case 0:
-                fragment = new ScheduleFragment();
+                fragment = new InformationFragment();
 
                 break;
             case 1:
