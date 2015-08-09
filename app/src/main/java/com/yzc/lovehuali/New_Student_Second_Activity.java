@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -106,9 +107,15 @@ public class New_Student_Second_Activity extends ActionBarActivity {
                 linearLayout3.setVisibility(View.VISIBLE);
                 TextView title_studentrest_TextView = (TextView) findViewById(R.id.title_student_rest);
                 title_studentrest_TextView.setText("华立作息时间表大全");
-
-
                 break;
+
+            case "4":
+                LinearLayout linearLayout4 = (LinearLayout) findViewById(R.id.newstudent_supplicant_forlayout);
+                linearLayout4.setVisibility(View.VISIBLE);
+                WebView supplicant_WebView = (WebView) findViewById(R.id.webview_supplicant);
+                supplicant_WebView.getSettings().setJavaScriptEnabled(true);
+                supplicant_WebView.loadUrl("http://mp.weixin.qq.com/s?__biz=MzAwMDY4MTE4Mg==&mid=215243222&idx=1&sn=8826698eb802fb2d8cfc3e1000df8ccb&scene=0#rd");
+//                supplicant_WebView.loadDataWithBaseURL("http://mp.weixin.qq.com/s?__biz=MzAwMDY4MTE4Mg==&mid=215243222&idx=1&sn=8826698eb802fb2d8cfc3e1000df8ccb&scene=0#rd",null,null,null,null);
             default:
                 break;
         }
