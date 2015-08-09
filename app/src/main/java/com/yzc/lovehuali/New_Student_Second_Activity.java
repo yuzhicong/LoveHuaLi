@@ -47,7 +47,6 @@ public class New_Student_Second_Activity extends ActionBarActivity {
         setContentView(R.layout.new_student_second_activityforlayout);
 
 
-
         intent = getIntent();
         String s = intent.getStringExtra("temp");
 
@@ -118,8 +117,9 @@ public class New_Student_Second_Activity extends ActionBarActivity {
                 WebView supplicant_WebView = (WebView) findViewById(R.id.webview_supplicant);
                 supplicant_WebView.getSettings().setJavaScriptEnabled(true);
 
+                supplicant_WebView.getSettings().setUseWideViewPort(true);
                 supplicant_WebView.loadUrl("http://mp.weixin.qq.com/s?__biz=MzAwMDY4MTE4Mg==&mid=215243222&idx=1&sn=8826698eb802fb2d8cfc3e1000df8ccb&scene=0#rd");
-//                supplicant_WebView.loadDataWithBaseURL("http://mp.weixin.qq.com/s?__biz=MzAwMDY4MTE4Mg==&mid=215243222&idx=1&sn=8826698eb802fb2d8cfc3e1000df8ccb&scene=0#rd",null,null,null,null);
+
             default:
                 break;
         }
