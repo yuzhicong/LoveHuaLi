@@ -25,8 +25,8 @@ public class New_Student_Activity extends ActionBarActivity {
 
     private Toolbar mToolbar;
 
-    private int[] image_adapterId = new int[]{R.drawable.img_001, R.drawable.img_002, R.drawable.img_003, R.drawable.img_004,R.drawable.img_005};
-    protected static String[] title_adapterId = new String[]{"新生报道FAQ", "华立附近出行路线", "快递信息", "华立作息时间表","蝴蝶上网教程"};
+    private int[] image_adapterId = new int[]{R.drawable.img_001, R.drawable.img_002, R.drawable.img_003, R.drawable.img_004, R.drawable.img_005};
+    protected static String[] title_adapterId = new String[]{"新生报道FAQ", "华立附近出行路线", "快递信息", "华立作息时间表", "蝴蝶上网教程"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +58,11 @@ public class New_Student_Activity extends ActionBarActivity {
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.new_student_adapter, new String[]{"title", "image"}, new int[]{R.id.title_adapter, R.id.image_adapter});
         listView.setAdapter(simpleAdapter);
-
         listView.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
                 System.out.println("Listview_adapter的测试------>>>>>>" + position);
+//                view.setBackgroundColor(getApplication().getResources().getColor(R.color.material_blue));
                 Intent intent = new Intent(getApplication(), New_Student_Second_Activity.class);
                 intent.putExtra("temp", String.valueOf(position));
                 startActivity(intent);

@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context="com.yzc.lovehuali.EditCourseActivity">
 
     <include layout="@layout/toolbar" />
+
 
     <com.huewu.pla.lib.MultiColumnListView xmlns:pla="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list_mul"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         pla:plaColumnNumber="2"
-        pla:plaLandscapeColumnNumber="3">
+        pla:plaLandscapeColumnNumber="3"></com.huewu.pla.lib.MultiColumnListView>
 
-    </com.huewu.pla.lib.MultiColumnListView>
 
 </LinearLayout>
