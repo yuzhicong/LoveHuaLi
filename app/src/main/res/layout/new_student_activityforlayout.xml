@@ -21,7 +21,7 @@
         <!--pla:plaLandscapeColumnNumber="3"></com.huewu.pla.lib.MultiColumnListView>-->
 
     <GridView
-        android:id="@+id/gridview"
+        android:id="@+id/newstudent_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchMode="columnWidth"

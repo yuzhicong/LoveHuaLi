@@ -48,7 +48,7 @@ public class New_Student_Activity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 //        MultiColumnListView listView = (MultiColumnListView) findViewById(R.id.list_mul);
-        GridView gridView = (GridView) findViewById(R.id.gridview);
+        GridView gridView = (GridView) findViewById(R.id.newstudent_gridview);
 
         List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < image_adapterId.length; i++) {
