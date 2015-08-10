@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
-import com.huewu.pla.lib.MultiColumnListView;
-import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 
 import java.util.ArrayList;
@@ -47,7 +47,8 @@ public class New_Student_Activity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        MultiColumnListView listView = (MultiColumnListView) findViewById(R.id.list_mul);
+//        MultiColumnListView listView = (MultiColumnListView) findViewById(R.id.list_mul);
+        GridView gridView = (GridView) findViewById(R.id.gridview);
 
         List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < image_adapterId.length; i++) {
@@ -57,17 +58,28 @@ public class New_Student_Activity extends ActionBarActivity {
             listItems.add(map);
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.new_student_adapter, new String[]{"title", "image"}, new int[]{R.id.title_adapter, R.id.image_adapter});
-        listView.setAdapter(simpleAdapter);
-        listView.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
+//        listView.setAdapter(simpleAdapter);
+        gridView.setAdapter(simpleAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("Listview_adapter的测试------>>>>>>" + position);
-//                view.setBackgroundColor(getApplication().getResources().getColor(R.color.material_blue));
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("gridView的测试------>>>>>>" + position);
                 Intent intent = new Intent(getApplication(), New_Student_Second_Activity.class);
                 intent.putExtra("temp", String.valueOf(position));
                 startActivity(intent);
             }
         });
+
+//        listView.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
+//                System.out.println("Listview_adapter的测试------>>>>>>" + position);
+////                view.setBackgroundColor(getApplication().getResources().getColor(R.color.material_blue));
+//                Intent intent = new Intent(getApplication(), New_Student_Second_Activity.class);
+//                intent.putExtra("temp", String.valueOf(position));
+//                startActivity(intent);
+//            }
+//        });
 
     }
 }
