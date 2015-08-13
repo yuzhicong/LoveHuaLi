@@ -47,7 +47,6 @@ public class New_Student_Activity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        MultiColumnListView listView = (MultiColumnListView) findViewById(R.id.list_mul);
         GridView gridView = (GridView) findViewById(R.id.newstudent_gridview);
 
         List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
@@ -58,7 +57,6 @@ public class New_Student_Activity extends ActionBarActivity {
             listItems.add(map);
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.new_student_adapter, new String[]{"title", "image"}, new int[]{R.id.title_adapter, R.id.image_adapter});
-//        listView.setAdapter(simpleAdapter);
         gridView.setAdapter(simpleAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,16 +68,6 @@ public class New_Student_Activity extends ActionBarActivity {
             }
         });
 
-//        listView.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
-//                System.out.println("Listview_adapter的测试------>>>>>>" + position);
-////                view.setBackgroundColor(getApplication().getResources().getColor(R.color.material_blue));
-//                Intent intent = new Intent(getApplication(), New_Student_Second_Activity.class);
-//                intent.putExtra("temp", String.valueOf(position));
-//                startActivity(intent);
-//            }
-//        });
 
     }
 }
