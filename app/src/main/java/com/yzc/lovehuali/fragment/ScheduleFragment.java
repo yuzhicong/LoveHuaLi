@@ -93,11 +93,18 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 //                textView[i].setBackgroundColor(android.R.color.white);
             }
             this.refresh(mCache.getAsString("courseJson"), 1);
+
         }
     }
 
     //jsonweeks的方法没有写出
     public void refresh(String courseJson, int jsonweeks) {
+        //先清空原来的课程表格
+        for(int j = 0 ; j < textViewId.length; j ++ ){
+            textView[j].setText("");
+            textView[j].setBackgroundResource(R.color.cpb_white);
+        }
+
         try {
             JSONArray jsonArray = new JSONArray(courseJson);
 
