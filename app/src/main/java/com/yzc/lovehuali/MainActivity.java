@@ -1,14 +1,19 @@
 package com.yzc.lovehuali;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.PopupWindowCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -16,20 +21,29 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yzc.lovehuali.adapter.MainViewPagerFragmentAdapter;
 import com.yzc.lovehuali.adapter.UserToolListViewAdapter;
 import com.yzc.lovehuali.bmob.StudentUser;
+import com.yzc.lovehuali.tool.ACache;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 import com.yzc.lovehuali.widget.ChangeColorIconWithText;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
@@ -50,6 +64,10 @@ public class MainActivity extends ActionBarActivity {
     private long mExitTime;//存储返回按钮按下时间
     private ListView lvUserTool;//用户个人功能菜单列表
     private int PagerNumber=0;//记录当前页面数
+    private SharedPreferences sp;
+    private int localWeek;//记录当前的周数
+
+    private WeekChosePopwindow wpw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +85,26 @@ public class MainActivity extends ActionBarActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("Love华立");// 标题的文字需在setSupportActionBar之前，不然会无效
         mToolbar.setTitleTextColor(Color.WHITE);
+
+        Calendar calendar = Calendar.getInstance();
+        int weekofyear = calendar.get(Calendar.WEEK_OF_YEAR);
+        sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
+        localWeek = Math.abs(weekofyear - sp.getInt("betweenWeek", weekofyear - 1));
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putInt("localWeek",localWeek);
+        edit.commit();
+        wpw = new WeekChosePopwindow();
+        wpw.initPopWindow();
+        mToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(MainActivity.this,"你要改周数么？",Toast.LENGTH_LONG).show();
+                if(PagerNumber == 0) {
+                    wpw.showPop(mToolbar, 160, 0, 0);
+
+                }
+            }
+        });
         setSupportActionBar(mToolbar);
 
 
@@ -230,7 +268,10 @@ public class MainActivity extends ActionBarActivity {
                 //actionBar.setTitle(dateFm.format(date));
                 //mToolbar.setSubtitle("第17周");
                 mToolbar.setSubtitle(dateFm.format(date));
-                actionBar.setTitle("第17周");
+                if(sp.getInt("localWeek",1)!=localWeek){
+                    actionBar.setTitle("第" + localWeek + "周(非本周) ▼");
+                }else{
+                    actionBar.setTitle("第" + localWeek + "周 ▼");}
                 break;
             case 1:
                 actionBar.setTitle("资讯");
@@ -345,12 +386,82 @@ public class MainActivity extends ActionBarActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+    private class WeekChosePopwindow extends PopupWindow{
+        private PopupWindow popupWindow;
+        private ListView lvWeek;
+        private Button btnSetLocalWeek;
+        /**
+         * 初始化popWindow
+         * */
+        private void initPopWindow() {
+            View popView = View.inflate(MainActivity.this,R.layout.popupwindow_week_choose,null);
+            popupWindow = new PopupWindow(popView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            popupWindow.setBackgroundDrawable(new ColorDrawable(Color.argb(255,250,250,250)));
+            //设置popwindow出现和消失动画
+            //popupWindow.setAnimationStyle(android.R.anim.fade_in);
+            lvWeek = (ListView) popView.findViewById(R.id.lvWeek);
+            btnSetLocalWeek = (Button) popView.findViewById(R.id.btnSetLocalWeek);
 
-    //防止经理的课程表点击闪退
-    public void LayoutOnclick(View view){
-        switch (view.getId()){
-            default:
-                break;
+            ArrayList weekList = new ArrayList();
+            for(int i=1;i<26;i++){
+                HashMap weekitem = new HashMap();
+                if(i==sp.getInt("localWeek",1)){
+                weekitem.put("weekItem","第" + i + "周(本周)");
+                }else{
+                    weekitem.put("weekItem","第" + i + "周");
+                }
+                weekList.add(weekitem);
+            }
+            lvWeek.setAdapter(new SimpleAdapter(MainActivity.this,weekList,R.layout.popupwindow_weeklist_item,new String[]{"weekItem"},new int[]{R.id.tvWeekName}));
+            lvWeek.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    localWeek = position + 1;
+                    popupWindow.dismiss();
+
+                    Intent i = new Intent();
+                    i.setAction("MainActivity.ScheduleChange");
+                    i.putExtra("weekChose",localWeek);
+                    sendBroadcast(i);
+                    System.out.println("课程更变广播已发送！");
+
+                    if(sp.getInt("localWeek",1)!=localWeek){
+                        getSupportActionBar().setTitle("第" + localWeek + "周(非本周) ▼");
+                    }else{
+                    getSupportActionBar().setTitle("第" + localWeek + "周 ▼");}
+                }
+            });
+            lvWeek.setSelection(localWeek);
+            btnSetLocalWeek.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar calendar = Calendar.getInstance();
+                    int weekofyear = calendar.get(Calendar.WEEK_OF_YEAR);
+                    SharedPreferences.Editor edit = sp.edit();
+                    edit.putInt("localWeek",localWeek);
+                    edit.putInt("betweenWeek",Math.abs(weekofyear-localWeek));
+                    edit.commit();
+                    popupWindow.dismiss();
+                    getSupportActionBar().setTitle("第" + localWeek + "周 ▼");
+                    initPopWindow();
+                }
+            });
+        }
+        /**
+         * 显示popWindow
+         * */
+        public void showPop(View parent, int x, int y,int postion) {
+            //设置popwindow显示位置
+            //popupWindow.showAtLocation(parent, 0, x, y);
+            popupWindow.showAsDropDown(parent,x,y);
+            //获取popwindow焦点
+            popupWindow.setFocusable(true);
+            //设置popwindow如果点击外面区域，便关闭。
+            popupWindow.setOutsideTouchable(true);
+            popupWindow.update();
+            if (popupWindow.isShowing()) {
+            }
+
         }
     }
 }

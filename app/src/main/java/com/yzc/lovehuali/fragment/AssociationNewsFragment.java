@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/2/1 0001.
  */
-public class IntegrateNewsFragment extends Fragment {
+public class AssociationNewsFragment extends Fragment {
 
     private ListView lvIntegrateNews;
     private List<JSONObject> NewsList;

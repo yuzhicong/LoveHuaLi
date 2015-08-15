@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -526,7 +527,11 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                             && !(m.group().toString().equals("时间"))
                             && !(m.group().toString().substring(0, 1)
                             .equals("第"))) {
-                        ss[i] = m.group().toString();
+                        try {
+                            ss[i] = new String(m.group().toString().getBytes(),"UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                         /*System.out.println(ss[i]);
                         System.out.println(ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
                         System.out.println(ss[i].substring(0, ss[i].indexOf("<br>")));
@@ -586,47 +591,75 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
 
                         try {
 
-                            JSONObject classObject = new JSONObject();
                             /*if(ss[i].contains("red")){
                                 String sstemp1 = ss[i].substring(0,ss[i].indexOf("<font"));
                                 String sstemp2 = ss[i].substring(ss[i].indexOf("font>")+5,ss[i].length());
                                 ss[i] = sstemp1.toString()+sstemp2.toString();
                             }*/
-                            if (gnmkdm.equals("N121603")) {
-                                classObject.put("classRoom", ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
-                            } else {
-                                String tempClassRoom = ss[i].substring(0, ss[i].lastIndexOf("<br>"));
-                                tempClassRoom = tempClassRoom.substring(tempClassRoom.lastIndexOf("<br>") + 4, tempClassRoom.length());
-                                classObject.put("classRoom", tempClassRoom);
-
-                            }
-                            classObject.put("week", courseWeek);
-                            classObject.put("courseName", ss[i].substring(0, ss[i].indexOf("<br>")));
-                            //classObject.put("property", ss[i].substring(ss[i].indexOf("<br>", 1) + 3, ss[i].indexOf("<br>", 2) - 1));
-                            //classObject.put("courseSection", ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
-                            classObject.put("courseSection", courseSection);
-                            if (gnmkdm.equals("N121603")) {//根据不同的课表类型，由于格式不同，上课的第几周到第几周的解析不同
-                                classObject.put("courseWeek", ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
-                            } else {
-                                String tempCourseWeek = ss[i].substring(0, ss[i].indexOf("("));
-                                tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.lastIndexOf(">") + 1, tempCourseWeek.length());
-                                classObject.put("courseWeek", "第" + tempCourseWeek + "周");
-                            }
-                            Pattern pattern = Pattern.compile("<br>(.*?)<br>");
-                            Matcher matcher = pattern.matcher(ss[i]);
-                            int j = 0;
-                            while (matcher.find()) {
-                                if (j == 0) {
-                                    classObject.put("property", matcher.group(1).toString());
+                            int oldi = i;
+                            if(ss[i].contains("<br><br>")){
+                                if(gnmkdm.equals("N121603")) {
+                                    String[] group = ss[i].split("(<br><br>)");
+                                    for(int l=0;l<group.length;l++){
+                                        System.out.println(group[l]);
+                                        if(!(group[l].contains("调")||group[l].contains("停")||group[l].contains("换"))){
+                                            ss[i] = group[l];
+                                            i++;
+                                        }
+                                    }
+                                }else{
+                                    String[] group = ss[i].split("(<br><br><br>)");
+                                    for(int l=0;l<group.length;l++){
+                                        System.out.println(group[l]);
+                                        if(!(group[l].contains("调")||group[l].contains("停")||group[l].contains("换"))){
+                                            ss[i] = group[l];
+                                            i++;
+                                        }
+                                    }
                                 }
-                                if (j == 1) {
-                                    classObject.put("teacher", matcher.group(1).toString());
                                 }
-                                j++;
-                            }
+                            if(oldi<i){i--;}
+                            for(int g=oldi;g<=i;g++) {
+                                JSONObject classObject = new JSONObject();
+                                if (gnmkdm.equals("N121603")) {
+                                    classObject.put("classRoom", ss[g].substring(ss[g].lastIndexOf("<br>") + 4, ss[g].length()));
+                                } else {
+                                    if((ss[g].length()-ss[g].lastIndexOf("<br>"))<5){
+                                        classObject.put("classRoom", ss[g].substring(ss[g].lastIndexOf("<br>") + 4, ss[g].length()));
+                                    }else{
+                                    String tempClassRoom = ss[g].substring(0, ss[g].lastIndexOf("<br>"));
+                                    tempClassRoom = tempClassRoom.substring(tempClassRoom.lastIndexOf("<br>") + 4, tempClassRoom.length());
+                                    classObject.put("classRoom", tempClassRoom);}
 
-                            System.out.println(classObject.toString());
-                            courseArray.put(classObject);
+                                }
+                                classObject.put("week", courseWeek);
+                                classObject.put("courseName", ss[g].substring(0, ss[g].indexOf("<br>")));
+                                //classObject.put("property", ss[i].substring(ss[i].indexOf("<br>", 1) + 3, ss[i].indexOf("<br>", 2) - 1));
+                                //classObject.put("courseSection", ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
+                                classObject.put("courseSection", courseSection);
+                                if (gnmkdm.equals("N121603")) {//根据不同的课表类型，由于格式不同，上课的第几周到第几周的解析不同
+                                    classObject.put("courseWeek", ss[g].substring(ss[g].indexOf("{") + 1, ss[g].lastIndexOf("}")));
+                                } else {
+                                    String tempCourseWeek = ss[g].substring(0, ss[g].indexOf("("));
+                                    tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.lastIndexOf(">") + 1, tempCourseWeek.length());
+                                    classObject.put("courseWeek", "第" + tempCourseWeek + "周");
+                                }
+                                Pattern pattern = Pattern.compile("<br>(.*?)<br>");
+                                Matcher matcher = pattern.matcher(ss[g]);
+                                int j = 0;
+                                while (matcher.find()) {
+                                    if (j == 0) {
+                                        classObject.put("property", matcher.group(1).toString());
+                                    }
+                                    if (j == 1) {
+                                        classObject.put("teacher", matcher.group(1).toString());
+                                    }
+                                    j++;
+                                }
+
+                                System.out.println(classObject.toString());
+                                courseArray.put(classObject);
+                            }
 
 
                         } catch (JSONException e) {
@@ -654,7 +687,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 });用户课程表数据上传到服务器的功能*/
                 System.out.println(courseArray.toString());
 
-                handler.post(new Runnable() {
+                /*handler.post(new Runnable() {
                         @Override
                         public void run() {
                         loginBtn.setProgress(100);
@@ -666,7 +699,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                             }
                         }, activityFinishDelay);
                     }
-                });
+                });*/
             }else{
                 handler.post(new Runnable() {
                     @Override
