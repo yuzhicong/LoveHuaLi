@@ -1,6 +1,9 @@
 package com.yzc.lovehuali.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -56,6 +59,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private String[] nameString;
     private int[] jsonint;
     private View view;
+    private int locad_week = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,10 +80,24 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         mCache = ACache.get(getActivity());
         if (mCache.getAsString("courseJson") != null) {
             //System.out.println(mCache.getAsString("courseJson"));
-            this.refresh(mCache.getAsString("courseJson"), 1);
+            this.refresh(mCache.getAsString("courseJson"), locad_week);
         }
+
+
+        IntentFilter intentFilter = new IntentFilter("MainActivity.ScheduleChange");
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
         return rootView;
     }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//            String string3 = intent.getAction();
+            locad_week = intent.getIntExtra("weekChose", -1);
+            refresh(mCache.getAsString("courseJson"), locad_week);
+//            Toast.makeText(getActivity(), String.valueOf(locad_week), Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     public void onResume() {
@@ -92,7 +110,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 textView[i].setText("");
 //                textView[i].setBackgroundColor(android.R.color.white);
             }
-            this.refresh(mCache.getAsString("courseJson"), 1);
+            this.refresh(mCache.getAsString("courseJson"), locad_week);
 
         }
     }
@@ -100,7 +118,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     //jsonweeks的方法没有写出
     public void refresh(String courseJson, int jsonweeks) {
         //先清空原来的课程表格
-        for(int j = 0 ; j < textViewId.length; j ++ ){
+        for (int j = 0; j < textViewId.length; j++) {
             textView[j].setText("");
             textView[j].setBackgroundResource(R.color.cpb_white);
         }
@@ -184,7 +202,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 if (choosecourse.indexOf(",") != -1) {
                     String[] weekstring2 = choosecourse.split(",");
                     for (int k = 0; k < weekstring2.length; k++) {
-                        if (testweek == Integer.parseInt(weekstring2[k])) {
+                        if (jsonweeks == Integer.parseInt(weekstring2[k])) {
                             textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
                             break;
                         } else {
@@ -196,7 +214,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 } else {
 
                     String[] weekstring = choosecourse.split("-");
-                    if (testweek >= Integer.parseInt(weekstring[0]) && testweek <= Integer.parseInt(weekstring[1])) {
+                    if (jsonweeks >= Integer.parseInt(weekstring[0]) && jsonweeks <= Integer.parseInt(weekstring[1])) {
 //                    textView[allint].setBackgroundResource(textViewResoureId[jsonint[i]]);
                         textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
                         //System.out.println("课程背景颜色的ID：" + jsonint[i]);
