@@ -173,6 +173,15 @@
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
 
+        <activity
+            android:name=".FragmentContainerActivity"
+            android:label="碎片容器"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yzc.lovehuali.MainActivity" />
+        </activity>
+
         <service
             android:name="cn.bmob.push.lib.service.PushService"
             android:exported="true"

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.yzc.lovehuali.fragment.CollegeActivityFragment;
 import com.yzc.lovehuali.fragment.AssociationNewsFragment;
+import com.yzc.lovehuali.fragment.NewsListFragment;
 import com.yzc.lovehuali.fragment.ScheduleFragment;
 import com.yzc.lovehuali.fragment.ToolKitFragment;
 
@@ -33,7 +34,7 @@ public class MainViewPagerFragmentAdapter extends FragmentPagerAdapter {
 
                 break;
             case 1:
-                fragment = new AssociationNewsFragment();
+                fragment = new NewsListFragment();
                 break;
             case 2:
                 fragment = new CollegeActivityFragment();

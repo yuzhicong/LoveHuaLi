@@ -624,7 +624,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                 if (gnmkdm.equals("N121603")) {
                                     classObject.put("classRoom", ss[g].substring(ss[g].lastIndexOf("<br>") + 4, ss[g].length()));
                                 } else {
-                                    if((ss[g].length()-ss[g].lastIndexOf("<br>"))<5){
+                                    if((ss[g].length()-ss[g].lastIndexOf("<br>"))<4){
                                         classObject.put("classRoom", ss[g].substring(ss[g].lastIndexOf("<br>") + 4, ss[g].length()));
                                     }else{
                                     String tempClassRoom = ss[g].substring(0, ss[g].lastIndexOf("<br>"));
@@ -687,7 +687,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 });用户课程表数据上传到服务器的功能*/
                 System.out.println(courseArray.toString());
 
-                /*handler.post(new Runnable() {
+                handler.post(new Runnable() {
                         @Override
                         public void run() {
                         loginBtn.setProgress(100);
@@ -699,7 +699,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                             }
                         }, activityFinishDelay);
                     }
-                });*/
+                });
             }else{
                 handler.post(new Runnable() {
                     @Override
