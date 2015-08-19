@@ -206,6 +206,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                             textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
                             break;
                         } else {
+//                            textView[allint].setBackgroundResource(R.color.cpb_white);
+//                            textView[allint].setText("");
                             textView[allint].setBackgroundResource(R.color.color_public);
                             textView[allint].setTextColor(Color.parseColor("#666666"));
                         }
@@ -219,9 +221,10 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                         textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
                         //System.out.println("课程背景颜色的ID：" + jsonint[i]);
                     } else {
-//                    textView[allint].setBackgroundResource(R.drawable.set_bar_public);
                         textView[allint].setBackgroundResource(R.color.color_public);
                         textView[allint].setTextColor(Color.parseColor("#666666"));
+//                        textView[allint].setBackgroundResource(R.color.cpb_white);
+//                        textView[allint].setText("");
                     }
                 }
 
@@ -269,22 +272,47 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 if (weekString != null) {//2015.5.18
                     for (int k = 0; k < weekString.length; k++) {
                         if (String.valueOf(choose).equals(weekString[k]) && section.equals(courseSectionString[k])) {
-                            Log.d("MainActivity", "--------------------------->" + "判断正确" + weekString[k] + courseSectionString[k]);
+                            String choosecourse = courseWeekString[k].substring(courseWeekString[k].indexOf("第") + 1, courseWeekString[k].indexOf("周"));
+                            System.out.println("点击课程的信息是否正确------->>>" + nameString[k]);
+                            if (choosecourse.indexOf("-") != -1){
+                                String[] choosecourse_sz = choosecourse.split("-");
+                                String name_course_get = textView[i].getText().toString();
+                                String[] get_textViewname = name_course_get.split("\n");
+                                String get_textViewname2 = get_textViewname[0] + "\n";
+                                System.out.println("获取textView的内容------->>>" + get_textViewname[0]);
+                                if (get_textViewname2.equals(courseNameString[k])){
+                                    System.out.println("二次点击课程的信息是否正确------->>>" + nameString[k] + courseWeekString[k]);
+                                    intentname = nameString[k];
+                                    intentroom = classRoomString[k];
+                                    intentteacher = teacherString[k];
+                                    intentcourseWeek = courseWeekString[k];
+                                    intentsection = courseSectionString[k];
+                                    Log.d("MainActivity", "--------------------------->" + intentname + intentroom + intentteacher + intentcourseWeek + intentsection);
+                                    intent.putExtra("intentname", intentname);
+                                    intent.putExtra("intentroom", intentroom);
+                                    intent.putExtra("intentteacher", intentteacher);
+                                    intent.putExtra("intentcourseWeek", intentcourseWeek);
+                                    intent.putExtra("intentsection", intentsection);
+                                    intent.putExtra("intentweek", intentweek);
+                                    break;
+                                }else {}
 
-                            intentname = nameString[k];
-                            intentroom = classRoomString[k];
-                            intentteacher = teacherString[k];
-                            intentcourseWeek = courseWeekString[k];
-                            intentsection = courseSectionString[k];
-                            Log.d("MainActivity", "--------------------------->" + intentname + intentroom + intentteacher + intentcourseWeek + intentsection);
-                            intent.putExtra("intentname", intentname);
-                            intent.putExtra("intentroom", intentroom);
-                            intent.putExtra("intentteacher", intentteacher);
-                            intent.putExtra("intentcourseWeek", intentcourseWeek);
-                            intent.putExtra("intentsection", intentsection);
-                            intent.putExtra("intentweek", intentweek);
-
-                            break;
+                            }else{}
+//                            Log.d("MainActivity", "--------------------------->" + "判断正确" + weekString[k] + courseSectionString[k]);
+//
+//                            intentname = nameString[k];
+//                            intentroom = classRoomString[k];
+//                            intentteacher = teacherString[k];
+//                            intentcourseWeek = courseWeekString[k];
+//                            intentsection = courseSectionString[k];
+//                            Log.d("MainActivity", "--------------------------->" + intentname + intentroom + intentteacher + intentcourseWeek + intentsection);
+//                            intent.putExtra("intentname", intentname);
+//                            intent.putExtra("intentroom", intentroom);
+//                            intent.putExtra("intentteacher", intentteacher);
+//                            intent.putExtra("intentcourseWeek", intentcourseWeek);
+//                            intent.putExtra("intentsection", intentsection);
+//                            intent.putExtra("intentweek", intentweek);
+//                            break;
 
                         } else {
                             intent.putExtra("intentname", "");
