@@ -32,7 +32,9 @@ dependencies {
     compile files('libs/activation.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/mail.jar')
-    compile files('libs/BmobSDK_V3.3.5_0408.jar')
-    compile files('libs/Bmob_Push_V0.6beta_20150408.jar')
     compile project(':LibrarySearch')
+    compile files('libs/Bmob_Push_V0.6beta_20150408.jar')
+    compile files('libs/BmobSDK_V3.4.3_0820.jar')
+    compile files('libs/okhttp-2.4.0.jar')
+    compile files('libs/okio-1.4.0.jar')
 }

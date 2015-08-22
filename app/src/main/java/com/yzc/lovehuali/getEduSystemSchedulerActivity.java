@@ -40,10 +40,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -505,6 +508,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 ss = null;
                 ss = new String[500];
                 JSONArray courseArray = new JSONArray();//课程JsonArray
+                ArrayList<JSONObject> courseArrayList = new ArrayList<JSONObject>();
                 i = 0;
                 int w = 0, fw = 0;//w为计算表格位置，fw为辅助计算参数
                 while (m.find() && (!m.group().toString().equals("编号")) && (!m.group().toString().equals("课程名称"))) {
@@ -637,13 +641,6 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                 //classObject.put("property", ss[i].substring(ss[i].indexOf("<br>", 1) + 3, ss[i].indexOf("<br>", 2) - 1));
                                 //classObject.put("courseSection", ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
                                 classObject.put("courseSection", courseSection);
-                                if (gnmkdm.equals("N121603")) {//根据不同的课表类型，由于格式不同，上课的第几周到第几周的解析不同
-                                    classObject.put("courseWeek", ss[g].substring(ss[g].indexOf("{") + 1, ss[g].lastIndexOf("}")));
-                                } else {
-                                    String tempCourseWeek = ss[g].substring(0, ss[g].indexOf("("));
-                                    tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.lastIndexOf(">") + 1, tempCourseWeek.length());
-                                    classObject.put("courseWeek", "第" + tempCourseWeek + "周");
-                                }
                                 Pattern pattern = Pattern.compile("<br>(.*?)<br>");
                                 Matcher matcher = pattern.matcher(ss[g]);
                                 int j = 0;
@@ -656,9 +653,26 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                     }
                                     j++;
                                 }
+                                if (gnmkdm.equals("N121603")) {//根据不同的课表类型，由于格式不同，上课的第几周到第几周的解析不同
+                                    String tempCourseWeek = ss[g].substring(ss[g].indexOf("{") + 1, ss[g].lastIndexOf("}"));
+                                    tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.indexOf("第")+1,tempCourseWeek.indexOf("周"));
+                                    String[] weekAB = tempCourseWeek.split("-");
+                                    if(weekAB[0].equals(weekAB[1])){
+                                        tempCourseWeek = tempCourseWeek.substring(0,tempCourseWeek.indexOf("-"));
+                                    }
+                                    classObject.put("courseWeek", tempCourseWeek);
+                                } else {
+                                    String tempCourseWeek = ss[g].substring(0, ss[g].indexOf("("));
+                                    tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.lastIndexOf(">") + 1, tempCourseWeek.length());
+                                    String[] weekAB = tempCourseWeek.split("-");
+                                    if(weekAB[0].equals(weekAB[1])){
+                                        tempCourseWeek = tempCourseWeek.substring(0,tempCourseWeek.indexOf("-"));
+                                    }
+                                    classObject.put("courseWeek", tempCourseWeek);
+                                }
 
                                 System.out.println(classObject.toString());
-                                courseArray.put(classObject);
+                                courseArrayList.add(classObject);
                             }
 
 
@@ -668,9 +682,51 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                         i++;
                     }
                 }
+                int size=courseArrayList.size();
+                for(int q=0;q<size-1;q++){
+                    try {
+                        JSONObject joNow = courseArrayList.get(q);
+                        ArrayList<String> hbcourseWeek = new ArrayList<String>();
+                        hbcourseWeek.add(joNow.getString("courseWeek"));
+                        int hb =q+1;
+                        if(hb>=courseArrayList.size()){
+                            size = courseArrayList.size();
+                            break;}
+                        JSONObject joNext = courseArrayList.get(hb);
+                        while(joNext.getInt("week")==joNow.getInt("week")&&joNext.getString("courseSection").equals(joNow.getString("courseSection"))){
+                            //Log.d("hbCourseData","出现一样格子课程");
+                            if(joNext.getString("courseName").equals(joNow.getString("courseName"))&&joNext.getString("classRoom").equals(joNow.getString("classRoom")))
+                            {
+                                hbcourseWeek.add(joNext.getString("courseWeek"));
+                                courseArrayList.remove(hb);
+                                joNext = courseArrayList.get(hb);
 
-                System.out.print("获取到的课程数据" + courseArray.toString());
-                mCache.put("courseJson", courseArray.toString());
+                            }else {
+                                if (hb == courseArrayList.size() - 1) {
+                                    break;
+                                }
+                                joNext = courseArrayList.get(++hb);
+                            }
+                        }
+
+                        //Collections.sort(hbcourseWeek,Collator.getInstance(Locale.ENGLISH));
+                        String tempCourseWeek = hbcourseWeek.get(0);
+                        for(int q1=1;q1<hbcourseWeek.size();q1++){
+                            tempCourseWeek = tempCourseWeek + "," + hbcourseWeek.get(q1);
+                        }
+                        courseArrayList.get(q).remove("courseWeek");
+                        courseArrayList.get(q).put("courseWeek",tempCourseWeek);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    size = courseArrayList.size();
+                }
+                for(int q2=0;q2<courseArrayList.size();q2++){
+                    courseArray.put(courseArrayList.get(q2));
+                }
+
+                System.out.print("获取到的课程数据:" + courseArray.toString());
                 /*StudentUser newUser = new StudentUser();
                 newUser.setStuCourse(courseArray.toString());//把课程数据存到用户对象中
                 StudentUser user = BmobUser.getCurrentUser(getEduSystemSchedulerActivity.this, StudentUser.class);//获取用户对象
@@ -686,6 +742,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                     }
                 });用户课程表数据上传到服务器的功能*/
                 System.out.println(courseArray.toString());
+                mCache.put("courseJson", courseArray.toString());
 
                 handler.post(new Runnable() {
                         @Override

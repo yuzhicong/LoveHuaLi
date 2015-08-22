@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this,"你要改周数么？",Toast.LENGTH_LONG).show();
-                if(PagerNumber == 0) {
+                if (PagerNumber == 0) {
                     wpw.showPop(mToolbar, 160, 0, 0);
 
                 }
@@ -107,13 +107,12 @@ public class MainActivity extends ActionBarActivity {
         });
         setSupportActionBar(mToolbar);
 
-
+        // 初始化BmobSDK
+        Bmob.initialize(this, "ce44de9648c859db8001d4187e9d38b9");
         // 使用推送服务时的初始化操作
         BmobInstallation.getCurrentInstallation(this).save();
         // 启动推送服务
         BmobPush.startWork(this, "ce44de9648c859db8001d4187e9d38b9");
-        final Intent serviceIntent = new Intent(this,MyPushMessageReceiver.class);
-        startService(serviceIntent);
 
         //滑动切换功能区域
         mainViewPager = (ViewPager) findViewById(R.id.mainViewPager);

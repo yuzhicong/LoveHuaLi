@@ -204,6 +204,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                     for (int k = 0; k < weekstring2.length; k++) {
                         if (jsonweeks == Integer.parseInt(weekstring2[k])) {
                             textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
+
                             break;
                         } else {
 //                            textView[allint].setBackgroundResource(R.color.cpb_white);
@@ -219,6 +221,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                     if (jsonweeks >= Integer.parseInt(weekstring[0]) && jsonweeks <= Integer.parseInt(weekstring[1])) {
 //                    textView[allint].setBackgroundResource(textViewResoureId[jsonint[i]]);
                         textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                        textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
+
                         //System.out.println("课程背景颜色的ID：" + jsonint[i]);
                     } else {
                         textView[allint].setBackgroundResource(R.color.color_public);
