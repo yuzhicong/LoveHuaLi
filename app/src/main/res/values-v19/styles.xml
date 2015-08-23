@@ -26,6 +26,14 @@
 
     </style>
 
+    <style name="AppThemeBlack" parent="AppTheme">
+        <!-- Text colors -->
+        <!-- 改变标题色Actionbar上的标题和按钮 -->
+        <item name="android:textColorPrimary">@color/abc_primary_text_material_light</item>
+        <!-- 改变副标题ActionBar上的菜单按钮字体颜色 -->
+        <item name="android:textColorPrimaryDisableOnly">@color/abc_primary_text_disable_only_material_light</item>
+    </style>
+
     <style name="Theme.Swipe.Back" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

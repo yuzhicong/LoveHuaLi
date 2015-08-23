@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yzc.lovehuali.OnlineRepairActivity"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/toolbar"/>
+
+    <io.karim.MaterialTabs
+        android:id="@+id/material_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/colorPrimary"
+        android:textColor="#FFFFFF"
+        app:mtUnderlineColor="#00deff"
+        app:mtTextColorSelected="#FFFFFF"
+        app:mtSameWeightTabs="true"
+        app:mtPaddingMiddle="false" />
+
+    <android.support.v4.view.ViewPager
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/repairViewPager"
+        >
+    </android.support.v4.view.ViewPager>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:gravity="center"
+        android:text="本服务由华立学院后勤服务平台提供"/>
+</LinearLayout>

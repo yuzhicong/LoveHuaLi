@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.yzc.lovehuali.New_Student_Activity;
+import com.yzc.lovehuali.OnlineRepairActivity;
 import com.yzc.lovehuali.R;
 import com.yzc.lovehuali.adapter.ToolKitListViewAdapter;
 
@@ -43,7 +44,10 @@ public class ToolKitFragment extends Fragment {
                         //intent.setClass(getActivity(), LibrarySearchActivity.class);
                         startActivity(intent);
                         break;
-
+                    case 3:
+                        intent.setClass(getActivity(), OnlineRepairActivity.class);
+                        startActivity(intent);
+                        break;
                     case 4:
                         intent.setClass(getActivity(), New_Student_Activity.class);
                         startActivity(intent);
