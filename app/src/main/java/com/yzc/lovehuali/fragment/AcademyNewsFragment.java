@@ -166,6 +166,7 @@ public class AcademyNewsFragment extends Fragment {
 				String newstitle = (String) detailmap.get("title");
 				newsinfo.putExtra("context", info);
 				newsinfo.putExtra("title", newstitle);
+				newsinfo.putExtra("publishDate",(String) detailmap.get("publishDate"));
 				newsinfo.setClass(getActivity(), NewsDetailsActivity.class);
 				startActivity(newsinfo);
 			}

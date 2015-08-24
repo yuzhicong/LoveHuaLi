@@ -35,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etUserName"
+            android:singleLine="true"
             android:hint="用户名"
             app:iconLeft="@drawable/icon_account"
             app:iconPadding="0dp"
@@ -48,6 +49,7 @@
             android:inputType="textEmailAddress"
             app:iconLeft="@drawable/icon_email"
             app:iconPadding="0dp"
+            android:singleLine="true"
             />
 
         <com.rengwuxian.materialedittext.MaterialEditText

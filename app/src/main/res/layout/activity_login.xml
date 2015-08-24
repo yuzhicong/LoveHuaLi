@@ -37,6 +37,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/etUserName"
     android:hint="用户名"
+    android:singleLine="true"
     app:iconLeft="@drawable/icon_account"
     app:iconPadding="0dp"
     />

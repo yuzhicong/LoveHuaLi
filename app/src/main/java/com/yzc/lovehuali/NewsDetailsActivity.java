@@ -21,6 +21,23 @@ public class NewsDetailsActivity extends ActionBarActivity {
 
     private Toolbar mToolbar;
     private WebView wvNews;
+    private String Context;
+    private String NewBar = "<p style=\"text-align: center;\">\n" +
+            "    <span style=\"font-size: 20px;\"><strong><br/></strong></span>\n" +
+            "</p>\n" +
+            "<p style=\"text-align: center;\">\n" +
+            "    <span style=\"font-size: 20px;\"><strong>Title</strong></span>\n" +
+            "</p>\n" +
+            "<p style=\"text-align: center;\">\n" +
+            "    <span style=\"color: rgb(127, 127, 127); font-size: 14px;\">Publisher &nbsp;Date</span>\n" +
+            "</p>\n" +
+            "<p>\n" +
+            "    <span style=\"color: rgb(127, 127, 127); font-size: 14px;\"></span>\n" +
+            "</p>\n" +
+            "<hr/>\n" +
+            "<p>\n" +
+            "    <span style=\"color: rgb(127, 127, 127); font-size: 14px;\"></span><br/>\n" +
+            "</p>";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +54,25 @@ public class NewsDetailsActivity extends ActionBarActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(i.getCharSequenceExtra("title"));
+        mToolbar.setTitle("新闻内容");
+        Context = i.getStringExtra("context");
+
         if(i.getCharSequenceExtra("publishUser")!=null) {
-            mToolbar.setSubtitle(i.getCharSequenceExtra("publishUser") + "    " + i.getCharSequenceExtra("publishDate"));
+            //mToolbar.setSubtitle(i.getCharSequenceExtra("publishUser") + "    " + i.getCharSequenceExtra("publishDate"));
+            NewBar = NewBar.replace("Title", i.getCharSequenceExtra("title"));
+            NewBar = NewBar.replace("Publisher", i.getCharSequenceExtra("publishUser"));
+            NewBar = NewBar.replace("Date",i.getCharSequenceExtra("publishDate"));
+        }else{
+            NewBar = NewBar.replace("Title", i.getCharSequenceExtra("title"));
+            NewBar = NewBar.replace("Publisher &nbsp;Date",i.getCharSequenceExtra("publishDate"));
         }
         mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
 
         wvNews = (WebView) findViewById(R.id.webViewNews);
         WebSettings settings = wvNews.getSettings();
@@ -55,7 +84,7 @@ public class NewsDetailsActivity extends ActionBarActivity {
 //      settings.setBuiltInZoomControls(true);
         settings.setJavaScriptEnabled(true);
 
-        Document newsHtml = new HtmlDataOptimizeTool().HtmlDataOptimizeTool(i.getStringExtra("context"));
+        Document newsHtml = new HtmlDataOptimizeTool().HtmlDataOptimizeTool(NewBar+Context);
         wvNews.loadDataWithBaseURL("about:blank", newsHtml.toString(), "text/html", "utf-8", null);
         //wvNews.loadDataWithBaseURL("about:blank", i.getStringExtra("context"), "text/html", "utf-8", null);//读取intent传过来的本地网页数据
 

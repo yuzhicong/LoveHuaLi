@@ -12,12 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.baoyz.widget.PullRefreshLayout;
 import com.yzc.lovehuali.NewsDetailsActivity;
 import com.yzc.lovehuali.R;
 import com.yzc.lovehuali.adapter.IntegrateNewsListviewAdapter;
 import com.yzc.lovehuali.tool.ACache;
-import com.yzc.lovehuali.tool.NetUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,10 +40,11 @@ public class AssociationNewsFragment extends Fragment {
 
     private ListView lvIntegrateNews;
     private List<JSONObject> NewsList;
+    private List<JSONObject> tempList;
     private int page=1;
     private IntegrateNewsListviewAdapter adapter;
     private View listFootView;
-    private PullRefreshLayout prlIntegrateNews;
+    //private PullRefreshLayout prlIntegrateNews;
     private ACache mCache;//全局缓存工具类对象
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -56,6 +55,7 @@ public class AssociationNewsFragment extends Fragment {
 
         final String URL = new String("http://61.160.137.196:18001/zsdxpt/findNewsByJsonp.action");
         NewsList = new ArrayList<JSONObject>();
+        tempList = new ArrayList<JSONObject>();
 
         lvIntegrateNews = (ListView) rootView.findViewById(R.id.lvIntegrateNews);
 
@@ -65,17 +65,21 @@ public class AssociationNewsFragment extends Fragment {
         adapter = new IntegrateNewsListviewAdapter(getActivity(),R.layout.listview_integrate_news_cell,NewsList);
         lvIntegrateNews.setAdapter(adapter);
 
+        getNewsList(URL);
+
         lvIntegrateNews.setOnScrollListener(new AbsListView.OnScrollListener() {
             private int lastItem;
             private int count;
+
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                count = lvIntegrateNews.getCount()-1;
+                count = lvIntegrateNews.getCount() - 1;
 
-                if(lastItem == count  && scrollState == this.SCROLL_STATE_IDLE){
+                if (lastItem == count && scrollState == this.SCROLL_STATE_IDLE) {
                     listFootView.setVisibility(view.VISIBLE);
 
-                        getNewsList(URL);}
+                    getNewsList(URL);
+                }
 
 
             }
@@ -89,17 +93,17 @@ public class AssociationNewsFragment extends Fragment {
         lvIntegrateNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position == lvIntegrateNews.getCount()-1){
+                if (position == lvIntegrateNews.getCount() - 1) {
                     return;
                 }
 
                 JSONObject NewsObject = NewsList.get(position);
                 Intent i = new Intent(getActivity(), NewsDetailsActivity.class);
                 try {
-                    i.putExtra("title",NewsObject.getString("title"));
-                    i.putExtra("publishUser",NewsObject.getString("publishUser"));
-                    i.putExtra("publishDate",NewsObject.getString("publishDate").substring(0,10));
-                    i.putExtra("context",NewsObject.getString("context"));
+                    i.putExtra("title", NewsObject.getString("title"));
+                    i.putExtra("publishUser", NewsObject.getString("publishUser"));
+                    i.putExtra("publishDate", NewsObject.getString("publishDate").substring(0, 10));
+                    i.putExtra("context", NewsObject.getString("context"));
 
                     startActivity(i);
 
@@ -109,7 +113,7 @@ public class AssociationNewsFragment extends Fragment {
             }
         });
 
-        //上滑刷新列表控件
+       /* //上滑刷新列表控件
         prlIntegrateNews = (PullRefreshLayout) rootView.findViewById(R.id.prlIntegrateNews);
         prlIntegrateNews.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);//设置刷新风格为material
         //监听刷新并操作
@@ -130,12 +134,7 @@ public class AssociationNewsFragment extends Fragment {
                     prlIntegrateNews.setRefreshing(false);//结束刷新
                 }
             }
-        });
-
-
-        getNewsList(URL);
-
-
+        });*/
         return rootView;
     }
 
@@ -152,11 +151,12 @@ public class AssociationNewsFragment extends Fragment {
                             JSONObject NewsObject = null;
                             try {
                                 NewsObject = NewsArray.getJSONObject(i);
-                                NewsList.add(NewsObject);
+                                tempList.add(NewsObject);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+
                         return null;
                     }
 
@@ -204,9 +204,9 @@ public class AssociationNewsFragment extends Fragment {
                             System.out.println("title(标题)=" + NewsObject.getString("title"));
                             System.out.println("publishUser(发布用户)=" + NewsObject.getString("publishUser"));
                             System.out.println("Date(发布日期)=" + NewsObject.getString("publishDate"));
-                            NewsList.add(NewsObject);
-                        }
+                            tempList.add(NewsObject);
 
+                        }
 
                     } else {
                         Toast.makeText(getActivity(), "网络不给力呀！", Toast.LENGTH_SHORT).show();
@@ -230,13 +230,17 @@ public class AssociationNewsFragment extends Fragment {
             @Override
             protected void onPostExecute(Void result) {
 
-                if(page == 1){
+                /*if(page == 1){
                     prlIntegrateNews.setRefreshing(false);//当获取的页数为第一页，也就是最新一页的时候，完成下拉刷新的操作
+                }*/
+                super.onPostExecute(result);
+                System.out.println("发送更新列表请求：" + System.currentTimeMillis());
+                for(int i=0;i<tempList.size();i++){
+                    NewsList.add(tempList.get(i));
                 }
-
+                tempList.clear();
                 adapter.notifyDataSetChanged();
                 page++;
-                super.onPostExecute(result);
             }
 
 

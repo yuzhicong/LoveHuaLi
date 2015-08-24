@@ -170,6 +170,7 @@ public class SchoolNoticeActivity extends ActionBarActivity{
 			String noticetitle = (String) detailmap.get("title");
 			noticeinfo.putExtra("context", info);
 			noticeinfo.putExtra("title", noticetitle);
+			noticeinfo.putExtra("publishDate",(String) detailmap.get("publishTime"));
 			noticeinfo.setClass(SchoolNoticeActivity.this, NewsDetailsActivity.class);
 			startActivity(noticeinfo);
 			}

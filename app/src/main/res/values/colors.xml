@@ -54,4 +54,16 @@
     <color name="wcolor_public">#e0e0e0</color>
 
     <color name="black_p50">#7f000000</color>
+
+    <color name="card01">#cac8bb</color>
+    <color name="card02">#938e86</color>
+    <color name="card03">#948d94</color>
+    <color name="card04">#93a2b0</color>
+    <color name="card05">#bcb4c5</color>
+    <color name="card06">#c1ae75</color>
+    <color name="card07">#c6a8a3</color>
+    <color name="card08">#a58076</color>
+    <color name="card09">#a9ae9e</color>
+
+
 </resources>

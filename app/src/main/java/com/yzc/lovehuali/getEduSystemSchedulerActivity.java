@@ -271,6 +271,11 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                         Toast.LENGTH_SHORT).show();
                                 loginBtn.setProgress(-1);
                             }
+                            if (result == -3) {
+                                Toast.makeText(v.getContext(), "教务系统处于瘫痪状态，给点时间它恢复~",
+                                        Toast.LENGTH_SHORT).show();
+                                loginBtn.setProgress(-1);
+                            }
 
                         }
                     });
@@ -840,6 +845,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 }
                 if (StringUtil.isValue(valueToken, " <title>ERROR")) {
                     return -2;
+                }
+                if(StringUtil.isValue(valueToken,"The page you are looking for is temporarily unavailable.")){
+                    return -3;
                 }
                 if (StringUtil.isValue(valueToken, "id=\"xhxm")) {
                     xh= studentEduNumber;

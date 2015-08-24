@@ -248,6 +248,11 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                                         Toast.LENGTH_SHORT).show();
                                 cpbtnQueryStudentScore.setProgress(-1);
                             }
+                            if (result == -3) {
+                                Toast.makeText(v.getContext(), "教务系统处于瘫痪状态，给点时间它恢复~",
+                                        Toast.LENGTH_SHORT).show();
+                                cpbtnQueryStudentScore.setProgress(-1);
+                            }
 
                         }
                     });
@@ -486,6 +491,9 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                 }
                 if (StringUtil.isValue(valueToken, " <title>ERROR")) {
                     return -2;
+                }
+                if(StringUtil.isValue(valueToken,"The page you are looking for is temporarily unavailable.")){
+                    return -3;
                 }
                 if (StringUtil.isValue(valueToken, "id=\"xhxm")) {
                     xh= studentEduNumber;
