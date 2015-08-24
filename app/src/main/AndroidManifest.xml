@@ -146,6 +146,13 @@
                 android:value="com.zjm.library.LibrarySearchActivity" />
         </activity>
         <activity
+            android:name="com.zjm.library.BookCollectionActivity"
+            android:label="图书收藏">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zjm.library.LibrarySearchActivity" />
+        </activity>
+        <activity
             android:name="com.zjm.library.BookDetailActivity"
             android:label="图书详情" >
             <meta-data
