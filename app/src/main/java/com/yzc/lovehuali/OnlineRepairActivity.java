@@ -9,7 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.yzc.lovehuali.fragment.WebViewFragment;
+import com.yzc.lovehuali.fragment.RepairPostFragment;
+import com.yzc.lovehuali.fragment.RepairQueryFragment;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 
 import io.karim.MaterialTabs;
@@ -57,10 +58,16 @@ public class OnlineRepairActivity extends ActionBarActivity {
             Fragment fragment = null;
             switch (position){
                 case 0:
-                    fragment = new WebViewFragment("http://58.62.159.26/WeiXin/RepairModule/RepairSearch.aspx");
+//                    fragment = new WebViewFragment("http://58.62.159.26/WeiXin/RepairModule/RepairSearch.aspx");
+//                    上面是导演的
+                    fragment = new RepairQueryFragment();
+//                    这是我的
                     break;
                 case 1:
-                    fragment = new WebViewFragment("http://58.62.159.26/WeiXin/RepairModule/RepairAdd.aspx");
+//                    fragment = new WebViewFragment("http://58.62.159.26/WeiXin/RepairModule/RepairAdd.aspx");
+//                    上面是导演的
+                    fragment = new RepairPostFragment();
+//                    这是我的
                     break;
                 default:
                     return null;
