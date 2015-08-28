@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yzc.lovehuali.fragment.ImageAndTitleViewFragment">
+
+
+    <ImageSwitcher
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/ivNewsPic" />
+
+    <TextView
+        android:id="@+id/tvNewsName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="16dp"
+        android:background="#66000000"
+        android:textSize="18dp"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:text="新闻获取中……"
+        android:layout_alignBottom="@+id/ivNewsPic"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

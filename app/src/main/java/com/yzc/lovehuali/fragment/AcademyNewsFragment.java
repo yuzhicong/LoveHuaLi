@@ -72,20 +72,20 @@ public class AcademyNewsFragment extends Fragment {
 			public void loadComplete(String newsjson) {
 				// TODO Auto-generated method stub
 				if(newsjson == "NwError"){
-					Toast.makeText(getActivity(), "�����豸��������", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "请检查设备网络连接", Toast.LENGTH_LONG).show();
 				}else{
 					NewData= newsjson.substring(9, newsjson.lastIndexOf(")"));
                     firstcache.put("page_1", NewData,1*ACache.TIME_DAY);
                     DisposeNewsJ deal = new DisposeNewsJ();
                     deal.Dispose(NewData);
                     if(firstcache != null) {
-                        System.out.println("-----------------------�������Ի��������-----------------------" + '\n' + firstcache.getAsString("page_1"));
+                        System.out.println("-----------------------这是来自缓存的数据-----------------------" + '\n' + firstcache.getAsString("page_1"));
                     }
 				}
 			}
 		});
 		}else{
-			System.out.println("-------->>>>>>>�������Ի���<<<<<<--------");
+			System.out.println("-------->>>>>>>数据来自缓存<<<<<<--------");
 			DisposeNewsJ deal = new DisposeNewsJ();
             deal.Dispose(firstcache.getAsString("page_1"));
 		}
@@ -125,14 +125,14 @@ public class AcademyNewsFragment extends Fragment {
 					public void loadComplete(String newsjson) {
 						// TODO Auto-generated method stub
 						if(newsjson == "NwError"){
-							Toast.makeText(getActivity(), "�����豸��������", Toast.LENGTH_LONG).show();
+							Toast.makeText(getActivity(), "请检查设备网络连接", Toast.LENGTH_LONG).show();
 						}else{
 							newsjson = newsjson.substring(9, newsjson.lastIndexOf(")"));
 							othercache.put(page, newsjson,1*ACache.TIME_DAY);
 							DisposeNewsJ deal = new DisposeNewsJ();
 		                    deal.Dispose(newsjson);
 		                    if(othercache.getAsString(page) != null) {
-		                        System.out.println("-----------------------�������Ի��������-----------------------" + '\n' + othercache.getAsString("page_1"));
+		                        System.out.println("-----------------------这是来自缓存的数据-----------------------" + '\n' + othercache.getAsString("page_1"));
 		                    }
 						}
 					}
@@ -158,7 +158,7 @@ public class AcademyNewsFragment extends Fragment {
 				long arg3) {
 			int itemid = (int) newslist.getItemIdAtPosition(arg2);
 			if(itemid == -1){
-				System.out.println("������Ч�ĵ��!!!");
+				System.out.println("这是无效的点击!!!");
 			}else{
 				Intent newsinfo = new Intent();
 				Map detailmap = (Map) newslistitems.get(itemid);

@@ -48,7 +48,7 @@ public class BookCollectionActivity extends ActionBarActivity{
         }
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("图书列表");
+        mToolbar.setTitle("图书收藏");
         mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -139,5 +139,8 @@ public class BookCollectionActivity extends ActionBarActivity{
             }
         }
         bookcollistadapter.notifyDataSetChanged();
+        if(bookcollistadapter.getCount()==0){
+            bookcollectionlist.setBackgroundResource(R.drawable.no_book_collection);
+        }
     }
 }

@@ -9,16 +9,15 @@
 
     <include layout="@layout/toolbar"/>
 
-    <io.karim.MaterialTabs
-        android:id="@+id/material_tabs"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?attr/colorPrimary"
-        android:textColor="#FFFFFF"
-        app:mtUnderlineColor="#00deff"
-        app:mtTextColorSelected="#FFFFFF"
-        app:mtSameWeightTabs="true"
-        app:mtPaddingMiddle="false" />
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#FF4081"
+        app:tabIndicatorHeight="4dp"
+        app:tabMode="fixed"/>
 
     <android.support.v4.view.ViewPager
         android:layout_marginTop="32dp"

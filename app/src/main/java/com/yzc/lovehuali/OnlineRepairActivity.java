@@ -1,28 +1,27 @@
 package com.yzc.lovehuali;
 
 import android.os.Build;
+<<<<<<< HEAD
+import android.support.design.widget.TabLayout;
+=======
+import android.os.Bundle;
+>>>>>>> origin/master
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.yzc.lovehuali.fragment.WebViewFragment;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 
-import io.karim.MaterialTabs;
 
 public class OnlineRepairActivity extends ActionBarActivity {
 
     private Toolbar mToolbar;
     private ViewPager repairViewPager;
+    private TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +44,9 @@ public class OnlineRepairActivity extends ActionBarActivity {
         repairViewPager.setOffscreenPageLimit(2);
         repairViewPager.setAdapter(pagerAdapter);
 
-        MaterialTabs tabs = (MaterialTabs) findViewById(R.id.material_tabs);
-        tabs.setViewPager(repairViewPager);
+        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(repairViewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
 
     }

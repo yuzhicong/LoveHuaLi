@@ -33,9 +33,10 @@ dependencies {
     compile files('libs/additionnal.jar')
     compile files('libs/mail.jar')
     compile project(':LibrarySearch')
-    compile files('libs/Bmob_Push_V0.6beta_20150408.jar')
     compile files('libs/BmobSDK_V3.4.3_0820.jar')
     compile files('libs/okio-1.4.0.jar')
     compile files('libs/okhttp-2.4.0.jar')
-    compile 'io.karim:materialtabs:2.0.2'
+    compile 'com.android.support:design:22.2.0'
+    compile 'me.relex:circleindicator:1.1.5@aar'
+    compile files('libs/Bmob_Push_V0.6beta_20150408.jar')
 }
