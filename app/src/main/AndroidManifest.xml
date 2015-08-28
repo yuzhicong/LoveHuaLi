@@ -10,12 +10,11 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <!-- BmobPush SDK权限 -->
-    <permission
-        android:name="cn.bmob.permission.push"
-        android:protectionLevel="normal" />
+    <permission android:protectionLevel="normal" android:name="cn.bmob.permission.push"></permission>
 
     <uses-permission android:name="cn.bmob.permission.push" /> <!-- 添加自定义的权限 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />

@@ -108,11 +108,11 @@ public class MainActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
 
         // 初始化BmobSDK
-        Bmob.initialize(this, "ce44de9648c859db8001d4187e9d38b9");
+        Bmob.initialize(this, "a97caf072cb01baffaca8c5058d086d9");
         // 使用推送服务时的初始化操作
         BmobInstallation.getCurrentInstallation(this).save();
         // 启动推送服务
-        BmobPush.startWork(this, "ce44de9648c859db8001d4187e9d38b9");
+        BmobPush.startWork(this, "a97caf072cb01baffaca8c5058d086d9");
 
         //滑动切换功能区域
         mainViewPager = (ViewPager) findViewById(R.id.mainViewPager);
