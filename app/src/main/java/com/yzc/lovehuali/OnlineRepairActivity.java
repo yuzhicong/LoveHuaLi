@@ -1,7 +1,7 @@
-﻿package com.yzc.lovehuali;
+package com.yzc.lovehuali;
 
 import android.os.Build;
-<<<<<<< HEAD
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
