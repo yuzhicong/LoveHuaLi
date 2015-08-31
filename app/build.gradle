@@ -25,7 +25,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.android.support:cardview-v7:22.2.0'
     compile project(':library')
-    compile project(':pinterest_library')
     compile project(':circular-progress-button')
     compile files('libs/jsoup-1.8.1.jar')
     compile project(':PullRefreshLayout')

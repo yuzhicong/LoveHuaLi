@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/circular-progress-button" />
             <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/pinterest_library" />
           </set>
         </option>
       </GradleProjectSettings>

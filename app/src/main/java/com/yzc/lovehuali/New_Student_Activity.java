@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
-import com.huewu.pla.lib.MultiColumnListView;
-import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ public class New_Student_Activity extends ActionBarActivity {
 
     private Toolbar mToolbar;
 
-    private int[] image_adapterId = new int[]{R.drawable.img_01, R.drawable.img_02, R.drawable.img_03, R.drawable.img_04};
-    protected static String[] title_adapterId = new String[]{"新生报道FAQ", "华立附近出行路线", "快递信息", "华立作息时间表"};
+    private int[] image_adapterId = new int[]{R.drawable.img_001, R.drawable.img_002, R.drawable.img_003, R.drawable.img_004, R.drawable.img_005};
+    protected static String[] title_adapterId = new String[]{"新生报道FAQ", "华立附近出行路线", "快递信息", "华立作息时间表", "蝴蝶上网教程"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class New_Student_Activity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        MultiColumnListView listView = (MultiColumnListView) findViewById(R.id.list_mul);
+        GridView gridView = (GridView) findViewById(R.id.newstudent_gridview);
 
         List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
         for (int i = 0; i < image_adapterId.length; i++) {
@@ -57,17 +57,17 @@ public class New_Student_Activity extends ActionBarActivity {
             listItems.add(map);
         }
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listItems, R.layout.new_student_adapter, new String[]{"title", "image"}, new int[]{R.id.title_adapter, R.id.image_adapter});
-        listView.setAdapter(simpleAdapter);
-
-        listView.setOnItemClickListener(new PLA_AdapterView.OnItemClickListener() {
+        gridView.setAdapter(simpleAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("Listview_adapter的测试------>>>>>>" + position);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("gridView的测试------>>>>>>" + position);
                 Intent intent = new Intent(getApplication(), New_Student_Second_Activity.class);
                 intent.putExtra("temp", String.valueOf(position));
                 startActivity(intent);
             }
         });
+
 
     }
 }

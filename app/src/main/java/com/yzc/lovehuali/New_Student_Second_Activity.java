@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -30,6 +31,7 @@ public class New_Student_Second_Activity extends ActionBarActivity {
 
     private Toolbar mToolbar;
 
+
     private String[] title_ex = DATA_newstudents.title_ex;
 
     private String[] content = DATA_newstudents.content;
@@ -43,6 +45,7 @@ public class New_Student_Second_Activity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_student_second_activityforlayout);
+
 
         intent = getIntent();
         String s = intent.getStringExtra("temp");
@@ -106,9 +109,19 @@ public class New_Student_Second_Activity extends ActionBarActivity {
                 linearLayout3.setVisibility(View.VISIBLE);
                 TextView title_studentrest_TextView = (TextView) findViewById(R.id.title_student_rest);
                 title_studentrest_TextView.setText("华立作息时间表大全");
-
-
                 break;
+
+            case "4":
+                LinearLayout linearLayout4 = (LinearLayout) findViewById(R.id.newstudent_supplicant_forlayout);
+                linearLayout4.setVisibility(View.VISIBLE);
+                WebView supplicant_WebView = (WebView) findViewById(R.id.webview_supplicant);
+                supplicant_WebView.getSettings().setJavaScriptEnabled(true);
+                //设置缩放效果无效
+//                supplicant_WebView.getSettings().setSupportZoom(true);
+//                supplicant_WebView.getSettings().setBuiltInZoomControls(true);
+//                supplicant_WebView.getSettings().setUseWideViewPort(true);
+                supplicant_WebView.loadUrl("http://mp.weixin.qq.com/s?__biz=MzAwMDY4MTE4Mg==&mid=215243222&idx=1&sn=8826698eb802fb2d8cfc3e1000df8ccb&scene=0#rd");
+
             default:
                 break;
         }
@@ -136,6 +149,13 @@ public class New_Student_Second_Activity extends ActionBarActivity {
         parent.add(title_ex[0]);
         parent.add(title_ex[1]);
         parent.add(title_ex[2]);
+        parent.add(title_ex[3]);
+        parent.add(title_ex[4]);
+        parent.add(title_ex[5]);
+        parent.add(title_ex[6]);
+        parent.add(title_ex[7]);
+        parent.add(title_ex[8]);
+        parent.add(title_ex[9]);
 
         map = new HashMap<String, List<String>>();
 
@@ -145,13 +165,39 @@ public class New_Student_Second_Activity extends ActionBarActivity {
 
         List<String> list2 = new ArrayList<String>();
         list2.add(content[1]);
-
         map.put(title_ex[1], list2);
 
         List<String> list3 = new ArrayList<String>();
         list3.add(content[2]);
         map.put(title_ex[2], list3);
 
+        List<String> list4 = new ArrayList<String>();
+        list4.add(content[3]);
+        map.put(title_ex[3], list4);
+
+        List<String> list5 = new ArrayList<String>();
+        list5.add(content[4]);
+        map.put(title_ex[4], list5);
+
+        List<String> list6 = new ArrayList<String>();
+        list6.add(content[5]);
+        map.put(title_ex[5], list6);
+
+        List<String> list7 = new ArrayList<String>();
+        list7.add(content[6]);
+        map.put(title_ex[6], list7);
+
+        List<String> list8 = new ArrayList<String>();
+        list8.add(content[7]);
+        map.put(title_ex[7], list8);
+
+        List<String> list9 = new ArrayList<String>();
+        list9.add(content[8]);
+        map.put(title_ex[8], list9);
+
+        List<String> list10 = new ArrayList<String>();
+        list10.add(content[9]);
+        map.put(title_ex[9], list10);
     }
 
     class MyAdapter extends BaseExpandableListAdapter {

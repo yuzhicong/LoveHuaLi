@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_focused="true" android:drawable="@color/abc_primary_text_disable_only_material_dark"></item>
+    <item android:state_pressed="true" android:drawable="@color/material_blue"/>
+    <item android:state_selected="true" android:drawable="@color/abc_search_url_text"></item>
+    <item android:drawable="@color/abc_primary_text_material_dark" />
+</selector>
