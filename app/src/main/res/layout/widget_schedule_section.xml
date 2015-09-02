@@ -4,71 +4,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-
-        style="@style/Linearlayout_Style"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="130sp"
-        android:background="#f5f5dc">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="1\n\n2"
+        android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|center"
-            android:text="1\n\n\n2"
-            android:textColor="@color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-
-        style="@style/Linearlayout_Style"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="130sp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="3\n\n4"
+        android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3\n\n\n4"
-            android:textColor="@color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-
-        style="@style/Linearlayout_Style"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="130sp"
-        android:background="#f5f5dc">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="5\n\n6"
+        android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5\n\n\n6"
-            android:textColor="@color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-
-        style="@style/Linearlayout_Style"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="130sp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="7\n\n8"
+        android:textColor="@color/black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7\n\n\n8"
-            android:textColor="@color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-
-        style="@style/Linearlayout_Style"
-        android:layout_width="match_parent"
-        android:layout_height="130sp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9\n\n\n10"
-            android:textColor="@color/black" />
-    </LinearLayout>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center_horizontal|center_vertical"-->
+        <!--android:text="9\n\n10"-->
+        <!--android:textColor="@color/black" />-->
 </LinearLayout>

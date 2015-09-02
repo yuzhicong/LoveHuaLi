@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -59,7 +60,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private String[] nameString;
     private int[] jsonint;
     private View view;
-    private int locad_week = 1;
+    public static int locad_week = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -121,7 +122,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         //先清空原来的课程表格
         for (int j = 0; j < textViewId.length; j++) {
             textView[j].setText("");
-            textView[j].setBackgroundResource(R.color.cpb_white);
+//            textView[j].setBackgroundResource(R.color.cpb_white);
+            textView[j].setBackgroundResource(R.drawable.textview_style);
         }
 
         try {
@@ -197,19 +199,27 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                             String[] courseWeekString_sz_1_1 = courseWeekString_sz_1[k].split("-");
                             if (jsonweeks >= Integer.parseInt(courseWeekString_sz_1_1[0]) && jsonweeks <= Integer.parseInt(courseWeekString_sz_1_1[1])) {
 
-                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+//                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                                 textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                             } else {
-                                textView[allint].setBackgroundResource(R.color.color_public);
+//                                textView[allint].setBackgroundResource(R.color.color_public);
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(R.color.color_public));
                                 textView[allint].setTextColor(Color.parseColor("#666666"));
                             }
 
                         } else {
                             if (jsonweeks == Integer.parseInt(courseWeekString_sz_1[k])) {
-                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+//                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                                 textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                             } else {
-                                textView[allint].setBackgroundResource(R.color.color_public);
+//                                textView[allint].setBackgroundResource(R.color.color_public);
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(R.color.color_public));
                                 textView[allint].setTextColor(Color.parseColor("#666666"));
                             }
 
@@ -220,19 +230,27 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                     if (courseWeekString[i].indexOf("-") != -1) {//去掉含有","的字符串，处理含有"-"
                         String[] courseWeekString_sz_2 = courseWeekString[i].split("-");
                         if (jsonweeks >= Integer.parseInt(courseWeekString_sz_2[0]) && jsonweeks <= Integer.parseInt(courseWeekString_sz_2[1])) {
-                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+//                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                             textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                         } else {
-                            textView[allint].setBackgroundResource(R.color.color_public);
+//                            textView[allint].setBackgroundResource(R.color.color_public);
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(R.color.color_public));
                             textView[allint].setTextColor(Color.parseColor("#666666"));
                         }
 
                     } else {//处理单个周数"8"
                         if (jsonweeks == Integer.parseInt(courseWeekString[i])) {
-                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+//                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                             textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                         } else {
-                            textView[allint].setBackgroundResource(R.color.color_public);
+//                            textView[allint].setBackgroundResource(R.color.color_public);
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(R.color.color_public));
                             textView[allint].setTextColor(Color.parseColor("#666666"));
                         }
 
