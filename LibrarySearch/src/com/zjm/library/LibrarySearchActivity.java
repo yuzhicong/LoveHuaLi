@@ -9,17 +9,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -66,6 +70,29 @@ public class LibrarySearchActivity extends ActionBarActivity {
 
 		Search.setOnClickListener(new buttonlistener());
 		//searchload = LibrarySearch.this.getLayoutInflater().inflate(R.layout.searchload, null);
+
+		inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				 /*判断是否是“Search”键*/
+				if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                    /*隐藏软键盘*/
+					InputMethodManager imm = (InputMethodManager) v
+							.getContext().getSystemService(
+									Context.INPUT_METHOD_SERVICE);
+					if (imm.isActive()) {
+						imm.hideSoftInputFromWindow(
+								v.getApplicationWindowToken(), 0);
+					}
+
+					new buttonlistener().onClick(v);
+
+					return true;
+				}
+				return false;
+			}
+		});
+
 		typeS.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -140,8 +167,10 @@ public class LibrarySearchActivity extends ActionBarActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		Intent collectionlist = new Intent(LibrarySearchActivity.this,BookCollectionActivity.class);
-		startActivity(collectionlist);
+		if(item.getItemId()==R.id.collection) {
+			Intent collectionlist = new Intent(LibrarySearchActivity.this, BookCollectionActivity.class);
+			startActivity(collectionlist);
+		}
 		return super.onOptionsItemSelected(item);
 	}
 

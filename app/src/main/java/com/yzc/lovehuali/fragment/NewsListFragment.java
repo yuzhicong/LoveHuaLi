@@ -118,6 +118,21 @@ public class NewsListFragment extends Fragment {
 
         return rootView;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // stop auto scroll when onPause
+        newsPager.stopAutoScroll();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // start auto scroll when onResume
+        newsPager.startAutoScroll();
+    }
+
     class NewsListAdapter extends ArrayAdapter {
         private Context context;
         private int listViewCellId;
@@ -155,6 +170,8 @@ public class NewsListFragment extends Fragment {
             return convertView;
         }
     }
+
+
 
     class NewsPagerAdapter extends FragmentPagerAdapter {
         private List<JSONObject> jsonList;
@@ -245,7 +262,7 @@ public class NewsListFragment extends Fragment {
 
                         academyNewsArray = answerJSONObject.getJSONArray("items");
 
-                        mCache.put("ShowNews", academyNewsArray, ACache.TIME_DAY);//将获取到的新闻JsonArray缓存到本地
+                        mCache.put("ShowNews", academyNewsArray, ACache.TIME_DAY*1);//将获取到的新闻JsonArray缓存到本地
 
                         //调试功能，输出NewsArry信息。
                         for (int i = 0; i < academyNewsArray.length(); i++) {

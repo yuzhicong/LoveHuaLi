@@ -9,12 +9,14 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <!-- BmobPush SDK权限 -->
-    <permission android:protectionLevel="normal" android:name="cn.bmob.permission.push"></permission>
+    <permission
+        android:name="cn.bmob.permission.push"
+        android:protectionLevel="normal" />
 
     <uses-permission android:name="cn.bmob.permission.push" /> <!-- 添加自定义的权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -50,7 +52,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name=".UserInformationActivity"
@@ -146,7 +148,7 @@
         </activity>
         <activity
             android:name="com.zjm.library.BookCollectionActivity"
-            android:label="图书收藏">
+            android:label="图书收藏" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zjm.library.LibrarySearchActivity" />
@@ -182,12 +184,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
-
         <activity
             android:name=".OnlineRepairActivity"
             android:label="@string/title_activity_online_repair"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppThemeBlack">
+            android:theme="@style/AppThemeBlack" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yzc.lovehuali.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".SoftwareNoticeActivity"
+            android:label="@string/title_activity_software_notice"
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -215,18 +225,18 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.yzc.lovehuali.MyPushMessageReceiver"
+            android:name=".MyPushMessageReceiver"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
                 <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".Course_WidgetProvider">
+        <receiver android:name=".Course_WidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/course_widget" />

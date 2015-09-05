@@ -38,6 +38,7 @@
     android:id="@+id/etUserName"
     android:hint="用户名"
     android:singleLine="true"
+        android:imeOptions="actionNext"
     app:iconLeft="@drawable/icon_account"
     app:iconPadding="0dp"
     />
@@ -48,6 +49,7 @@
         android:id="@+id/etPassword"
         android:hint="密码"
         android:inputType="textPassword"
+        android:imeOptions="actionDone"
         app:iconLeft="@drawable/icon_lock"
         app:iconPadding="0dp"
         />

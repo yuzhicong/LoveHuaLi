@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yzc.lovehuali.adapter.UserInfoListviewAdapter;
 import com.yzc.lovehuali.bmob.StudentUser;
@@ -26,7 +27,7 @@ public class UserInformationActivity extends ActionBarActivity {
     private Toolbar mToolbar;
     private ListView ivUserInfo;//个人信息列表
     private TextView tvUserName,tvUserEmail;
-    private Button btnBindingEduSystem;
+    private Button btnBindingEduSystem,btnLogoutUser;
     private UserInfoListviewAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,15 @@ public class UserInformationActivity extends ActionBarActivity {
                 Intent i = new Intent();
                 i.setClass(UserInformationActivity.this,BindingEduSystemActivity.class);
                 startActivity(i);
+            }
+        });
+        btnLogoutUser = (Button) findViewById(R.id.btnLogoutUser);
+        btnLogoutUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BmobUser.logOut(UserInformationActivity.this);
+                Toast.makeText(UserInformationActivity.this,"账号已注销",Toast.LENGTH_SHORT).show();
+                UserInformationActivity.this.finish();
             }
         });
     }

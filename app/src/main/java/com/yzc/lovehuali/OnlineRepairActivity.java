@@ -33,6 +33,7 @@ public class OnlineRepairActivity extends ActionBarActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("在线报修");
+        mToolbar.setSubtitle("(本服务由华立学院后勤服务平台提供)");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

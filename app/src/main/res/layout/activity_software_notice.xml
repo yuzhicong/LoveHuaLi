@@ -1,16 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yzc.lovehuali.ScreenSplashActivity">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.yzc.lovehuali.SoftwareNoticeActivity">
 
+    <include layout="@layout/toolbar"/>
 
-
-    <ImageView
-        android:id="@+id/ivSplash"
+    <ListView
+        android:id="@+id/lvSoftwareNotice"
+        android:dividerHeight="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash"
-        android:scaleType="centerCrop"
         />
 
 </LinearLayout>

@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/circular-progress-button/circular-progress-button.iml" filepath="$PROJECT_DIR$/circular-progress-button/circular-progress-button.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pinterest_library/pinterest_library.iml" filepath="$PROJECT_DIR$/pinterest_library/pinterest_library.iml" />
     </modules>
   </component>
 </project>

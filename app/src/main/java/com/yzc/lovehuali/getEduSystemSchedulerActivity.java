@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -753,7 +754,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                         @Override
                         public void run() {
                         loginBtn.setProgress(100);
-                        final int activityFinishDelay = 2000;
+                            Snackbar.make(loginBtn,"日后选课或教务系统调课，均会导致课表不正确，欢迎再次导入哦！", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        final int activityFinishDelay = 3000;
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -766,9 +769,11 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplication(),"此学期该类型课表暂无！",Toast.LENGTH_SHORT).show();
                         loginBtn.setProgress(-1);
-                        final int activityFinishDelay = 2000;
+                        //Toast.makeText(getApplication(),"此学期该类型课表暂无！",Toast.LENGTH_SHORT).show();
+                        Snackbar.make(loginBtn,"此学期本类型课表暂无，请尝试更换课表类型", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        final int activityFinishDelay = 3000;
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

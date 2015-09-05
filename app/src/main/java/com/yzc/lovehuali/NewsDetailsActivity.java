@@ -1,12 +1,14 @@
 package com.yzc.lovehuali;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,15 +18,19 @@ import com.yzc.lovehuali.tool.SystemBarTintManager;
 
 import org.jsoup.nodes.Document;
 
-
+/**
+ * 新闻详情Activity模式说明,默认mode=0，为院站新闻的点击事件
+ * mode=1为推送Notification的点击事件进入的事件。
+ * mode=2为系统公告的点击进入事件。
+ */
 public class NewsDetailsActivity extends ActionBarActivity {
+
+    private int mode =0;
 
     private Toolbar mToolbar;
     private WebView wvNews;
     private String Context;
     private String NewBar = "<p style=\"text-align: center;\">\n" +
-            "    <span style=\"font-size: 20px;\"><strong><br/></strong></span>\n" +
-            "</p>\n" +
             "<p style=\"text-align: center;\">\n" +
             "    <span style=\"font-size: 20px;\"><strong>Title</strong></span>\n" +
             "</p>\n" +
@@ -35,8 +41,6 @@ public class NewsDetailsActivity extends ActionBarActivity {
             "    <span style=\"color: rgb(127, 127, 127); font-size: 14px;\"></span>\n" +
             "</p>\n" +
             "<hr/>\n" +
-            "<p>\n" +
-            "    <span style=\"color: rgb(127, 127, 127); font-size: 14px;\"></span><br/>\n" +
             "</p>";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,17 @@ public class NewsDetailsActivity extends ActionBarActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("新闻内容");
+        mode = i.getIntExtra("mode", 0);
+        System.out.println("mode: " + mode);
+        if(mode==1){
+            mToolbar.setTitle("公告");
+            NotificationManager manager = (NotificationManager) this.getSystemService(android.content.Context.NOTIFICATION_SERVICE);//通知控制类
+            manager.cancel(7788);
+        }
+        //mToolbar.setTitle("新闻内容");
+
+
+
         Context = i.getStringExtra("context");
 
         if(i.getCharSequenceExtra("publishUser")!=null) {
@@ -69,10 +83,6 @@ public class NewsDetailsActivity extends ActionBarActivity {
         mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
-
 
         wvNews = (WebView) findViewById(R.id.webViewNews);
         WebSettings settings = wvNews.getSettings();
@@ -100,11 +110,46 @@ public class NewsDetailsActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
-            finish();
+            switch (mode){
+                case 0:
+                    finish();
+                    break;
+                case 1:
+                    Intent intent = new Intent(NewsDetailsActivity.this,MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 2:
+                    finish();
+                    break;
+            }
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            switch (mode){
+                case 0:
+                    finish();
+                    break;
+                case 1:
+                    Intent intent = new Intent(NewsDetailsActivity.this,MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case 2:
+                    finish();
+                    break;
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

@@ -77,32 +77,39 @@ public class BookDetailActivity extends ActionBarActivity{
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		//System.out.println(bookname);
-		//System.out.println(bookmsg);
-		//System.out.println(bookhref);
-		String bookname = bookdetail.getStringExtra("bookname");
-		String  bookmsg = bookdetail.getStringExtra("bookmsg");
-		String R1 = "\\n(.*?)\\n(.*?)\\n";
-		String R2 = "[0-9]*、";
-		Pattern pattern = Pattern.compile(R1);
-		Matcher matcher = pattern.matcher(bookmsg);
-		StringBuffer sbr = new StringBuffer();
-		while (matcher.find()) {
-			matcher.appendReplacement(sbr, "\n");
+
+		if (item.getItemId() == android.R.id.home) {
+			finish();
+			return true;
+		}else {
+
+			// TODO Auto-generated method stub
+			//System.out.println(bookname);
+			//System.out.println(bookmsg);
+			//System.out.println(bookhref);
+			String bookname = bookdetail.getStringExtra("bookname");
+			String bookmsg = bookdetail.getStringExtra("bookmsg");
+			String R1 = "\\n(.*?)\\n(.*?)\\n";
+			String R2 = "[0-9]*、";
+			Pattern pattern = Pattern.compile(R1);
+			Matcher matcher = pattern.matcher(bookmsg);
+			StringBuffer sbr = new StringBuffer();
+			while (matcher.find()) {
+				matcher.appendReplacement(sbr, "\n");
+			}
+			matcher.appendTail(sbr);
+			bookmsg = sbr.toString();
+			pattern = Pattern.compile(R2);
+			matcher = pattern.matcher(bookname);
+			StringBuffer sbr1 = new StringBuffer();
+			while (matcher.find()) {
+				matcher.appendReplacement(sbr1, "");
+			}
+			matcher.appendTail(sbr1);
+			bookname = sbr1.toString();
+			dialog(bookname, bookmsg, bookhref);
+			return super.onOptionsItemSelected(item);
 		}
-		matcher.appendTail(sbr);
-		bookmsg = sbr.toString();
-		pattern = Pattern.compile(R2);
-		matcher = pattern.matcher(bookname);
-		StringBuffer sbr1 = new StringBuffer();
-		while (matcher.find()) {
-			matcher.appendReplacement(sbr1, "");
-		}
-		matcher.appendTail(sbr1);
-		bookname = sbr1.toString();
-		dialog(bookname,bookmsg,bookhref);
-		return super.onOptionsItemSelected(item);
 	}
 
 	public void dialog(String bookName,String bookMsg,String href){
