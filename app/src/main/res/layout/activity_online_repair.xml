@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.yzc.lovehuali.OnlineRepairActivity"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="#fffff6f2"
+    >
 
     <include layout="@layout/toolbar"/>
 
@@ -29,10 +31,5 @@
         >
     </android.support.v4.view.ViewPager>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:gravity="center"
-        android:text="本服务由华立学院后勤服务平台提供"/>
+
 </LinearLayout>
