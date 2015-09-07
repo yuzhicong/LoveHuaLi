@@ -18,11 +18,11 @@ public class ToolKitListViewAdapter extends ArrayAdapter {
 
     private Context context;
     private int listViewCellId;
-    private String toolKitListName[] = {"图书查询","失物招领","校园黄页","在线报修","新生指南","校园地图"};
-    private String toolKitListDescription[] = {"书中自有颜如玉","寻你所失，归你所拾","黄页在手，联系不愁",
-            "报修、查单样样都有","既入深宫，悉其条规","洞悉地理方位方行天下"};
-    private int tookKitListIcon[] = {R.drawable.ic_tool_library,R.drawable.ic_tool_laf,R.drawable.ic_tool_yellowpage,
-                                        R.drawable.ic_tool_online_repair,R.drawable.ic_tool_entrance,R.drawable.ic_tool_map};
+    private String toolKitListName[] = {"图书查询","失物招领","成绩查询","校园黄页","在线报修","新生指南"};
+    private String toolKitListDescription[] = {"书中自有颜如玉","寻你所失，归你所拾","绩点高能拿奖学金","黄页在手，联系不愁",
+            "报修、查单样样都有","既入深宫，悉其条规"};
+    private int tookKitListIcon[] = {R.drawable.ic_tool_library,R.drawable.ic_tool_laf,R.drawable.ic_tool_score,R.drawable.ic_tool_yellowpage,
+                                        R.drawable.ic_tool_online_repair,R.drawable.ic_tool_entrance};
 
     public ToolKitListViewAdapter(Context context, int resource) {
         super(context, resource);

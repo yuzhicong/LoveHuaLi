@@ -28,8 +28,9 @@ public class HtmlDataOptimizeTool {
 
         //定制处理规则
         document.select("IMG").removeAttr("style");
-        document.select("IMG").attr("width","100%");
-        document.select("IMG").attr("height","auto");
+        document.select("IMG").attr("style","max-width:100%");
+        //document.select("IMG").attr("width","100%");
+        //document.select("IMG").attr("height","auto");
         document.select("FONT").attr("size","3");
 
         Element head = document.select("head").first();

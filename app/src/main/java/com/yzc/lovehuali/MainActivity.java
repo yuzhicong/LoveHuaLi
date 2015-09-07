@@ -154,7 +154,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("我");
+                getSupportActionBar().setTitle("i华立");
                 mToolbar.setSubtitle("");
             }
 
@@ -215,26 +215,19 @@ public class MainActivity extends ActionBarActivity {
                         }
                         break;
                     case 1:
-                        i.setClass(MainActivity.this, QueryStudentScoreActivity.class);
-                        startActivity(i);
-                        break;
-                    case 2:
                         i.setClass(MainActivity.this,SoftwareNoticeActivity.class);
                         startActivity(i);
                         break;
-                    case 3:
+                    case 2:
                         i.setClass(MainActivity.this,AboutUsActivity.class);
                         startActivity(i);
                         break;
-                    case 4:
+                    case 3:
                         i.setClass(MainActivity.this,SuggestUsActivity.class);
                         startActivity(i);
                         break;
-                    case 5:
+                    case 4:
 
-                        break;
-                    case 6:
-                        MainActivity.this.finish();
                         break;
                 }
             }
@@ -314,7 +307,7 @@ public class MainActivity extends ActionBarActivity {
                 mToolbar.setSubtitle("");
                 break;
             default:
-                actionBar.setTitle("Love华立");
+                actionBar.setTitle("i华立");
                 mToolbar.setSubtitle("");
                 break;
         }
@@ -372,6 +365,9 @@ public class MainActivity extends ActionBarActivity {
             case 1:
                 inflater.inflate(R.menu.menu_information, menu);
                 break;
+            case 2:
+                inflater.inflate(R.menu.menu_school_activity,menu);
+                break;
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -404,10 +400,10 @@ public class MainActivity extends ActionBarActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-            Intent intent = new Intent(Intent.ACTION_MAIN);
+            /*Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// 注意
             intent.addCategory(Intent.CATEGORY_HOME);
-            this.startActivity(intent);
+            this.startActivity(intent);*/
 
             /*if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Toast.makeText(this, "再按一次退出程序",Toast.LENGTH_SHORT).show();
@@ -416,6 +412,7 @@ public class MainActivity extends ActionBarActivity {
             } else {
                 finish();
             }*/
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);

@@ -1,6 +1,7 @@
 package com.yzc.lovehuali;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -506,7 +507,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
             kzInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
             }*/
             System.out.println(kbInfo + (kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")) + "length:" + kbInfo.length());
-            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>12000) {
+            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>11500) {
                 kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
                 String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
                 Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
@@ -749,6 +750,10 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 });用户课程表数据上传到服务器的功能*/
                 System.out.println(courseArray.toString());
                 mCache.put("courseJson", courseArray.toString());
+                SharedPreferences sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("courseJson",courseArray.toString());
+                editor.commit();
 
                 handler.post(new Runnable() {
                         @Override

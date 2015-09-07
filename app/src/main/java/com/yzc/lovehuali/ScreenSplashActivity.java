@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import com.yzc.lovehuali.bmob.StudentUser;
 import com.yzc.lovehuali.tool.ACache;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
@@ -25,13 +28,23 @@ public class ScreenSplashActivity extends ActionBarActivity {
         setContentView(R.layout.activity_screen_splash);
         ImageView ivSplash = (ImageView) findViewById(R.id.ivSplash);
 
+        ACache mcache = ACache.get(this);
+
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateNowStr = sdf.format(d);
+        String datelast = mcache.getAsString("lastLauncherDate");
+
         /** set time to splash out **/
         int nWelcomeScreenDisplay = 300;
-
-        ACache mcache = ACache.get(this);
-        if(mcache.getAsBitmap("splashPicture")!=null){
-            ivSplash.setImageBitmap(mcache.getAsBitmap("splashPicture"));
-            nWelcomeScreenDisplay = 1500;
+        if(datelast!=null&&dateNowStr.equals(datelast)){
+            nWelcomeScreenDisplay = 250;
+        }else {
+            mcache.put("lastLauncherDate",dateNowStr);
+            if(mcache.getAsBitmap("splashPicture")!=null){
+                ivSplash.setImageBitmap(mcache.getAsBitmap("splashPicture"));
+                nWelcomeScreenDisplay = 1500;
+            }
         }
 
         //Bmob.initialize(this, "ce44de9648c859db8001d4187e9d38b9");//BmobSDK初始化

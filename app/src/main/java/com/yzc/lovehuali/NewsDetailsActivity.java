@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import com.yzc.lovehuali.tool.HtmlDataOptimizeTool;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
@@ -84,6 +87,8 @@ public class NewsDetailsActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        final ProgressBar pbBar = (ProgressBar)findViewById(R.id.pbWebView);
+
         wvNews = (WebView) findViewById(R.id.webViewNews);
         WebSettings settings = wvNews.getSettings();
         //适应屏幕
@@ -95,6 +100,23 @@ public class NewsDetailsActivity extends ActionBarActivity {
         settings.setJavaScriptEnabled(true);
 
         Document newsHtml = new HtmlDataOptimizeTool().HtmlDataOptimizeTool(NewBar+Context);
+
+        wvNews.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    pbBar.setVisibility(View.INVISIBLE);
+                } else {
+                    if (View.INVISIBLE == pbBar.getVisibility()) {
+                        pbBar.setVisibility(View.VISIBLE);
+                    }
+                    pbBar.setProgress(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
+            }
+
+        });
+
         wvNews.loadDataWithBaseURL("about:blank", newsHtml.toString(), "text/html", "utf-8", null);
         //wvNews.loadDataWithBaseURL("about:blank", i.getStringExtra("context"), "text/html", "utf-8", null);//读取intent传过来的本地网页数据
 
