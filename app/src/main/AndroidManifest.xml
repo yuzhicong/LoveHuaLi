@@ -195,6 +195,16 @@
         </activity>
 
         <activity
+            android:name=".StaticMap"
+            android:label="校园地图"
+            android:parentActivityName=".MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zjm.library.BookListActivity" />
+        </activity>
+
+        <activity
             android:name=".SoftwareNoticeActivity"
             android:label="@string/title_activity_software_notice"
             android:parentActivityName=".MainActivity" >
