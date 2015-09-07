@@ -50,6 +50,10 @@ public class ToolKitFragment extends Fragment {
                         intent.setClass(getActivity(), QueryStudentScoreActivity.class);
                         startActivity(intent);
                         break;
+                    case 3:
+                        intent.setClass(getActivity(),StaticMap.class);
+                        startActivity(intent);
+                        break;
                     case 4:
                         intent.setClass(getActivity(), OnlineRepairActivity.class);
                         startActivity(intent);
@@ -58,13 +62,6 @@ public class ToolKitFragment extends Fragment {
                         intent.setClass(getActivity(), New_Student_Activity.class);
                         startActivity(intent);
                         break;
-<<<<<<< HEAD
-=======
-                    case 5:
-                        intent.setClass(getActivity(), StaticMap.class);
-                        startActivity(intent);
->>>>>>> origin/master
-
                     default:
                         return;
                 }
