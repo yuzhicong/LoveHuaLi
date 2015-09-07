@@ -14,7 +14,6 @@ import com.yzc.lovehuali.New_Student_Activity;
 import com.yzc.lovehuali.OnlineRepairActivity;
 import com.yzc.lovehuali.QueryStudentScoreActivity;
 import com.yzc.lovehuali.R;
-import com.yzc.lovehuali.StaticMap;
 import com.yzc.lovehuali.adapter.ToolKitListViewAdapter;
 
 
@@ -58,12 +57,7 @@ public class ToolKitFragment extends Fragment {
                         intent.setClass(getActivity(), New_Student_Activity.class);
                         startActivity(intent);
                         break;
-<<<<<<< HEAD
-=======
-                    case 5:
-                        intent.setClass(getActivity(), StaticMap.class);
-                        startActivity(intent);
->>>>>>> origin/master
+
 
                     default:
                         return;
