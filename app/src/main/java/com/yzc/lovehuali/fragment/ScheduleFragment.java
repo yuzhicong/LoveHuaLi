@@ -114,12 +114,11 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         System.out.println("课程碎片正在刷新");
 
         if (mCache.getAsString("courseJson") != null) {
-            Log.d("MainActivity", "--------修复课程周数问题------>" + mCache.getAsString("courseJson").toString());
             System.out.println("--------修复课程周数问题------>" + mCache.getAsString("courseJson").toString());
-            for (int i = 0; i < 35; i++) {
-                textView[i].setText("");
-//                textView[i].setBackgroundColor(android.R.color.white);
-            }
+//            for (int i = 0; i < 35; i++) {
+//                textView[i].setText("");
+////                textView[i].setBackgroundColor(android.R.color.white);
+//            }
             this.refresh(mCache.getAsString("courseJson"), locad_week);
 
         }
@@ -269,6 +268,12 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        for(int i = 0; i < textViewId.length; i ++) {
+            if (textView[i].getText().toString().equals("")) {
+                textView[i].setBackgroundResource(R.drawable.textview_style);
+            }
         }
     }
 
