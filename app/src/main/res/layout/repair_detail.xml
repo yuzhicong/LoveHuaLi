@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:id="@+id/sv_detail"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:background="#ffffff"
+        >
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="维修单号 :"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="2333333333"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:maxWidth="180dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_depart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="报修部门 :"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/number"
+            />
+        <TextView
+            android:id="@+id/depart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="有关部门"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/number"
+            android:maxWidth="180dp"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="报修地点 :"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/depart"
+            />
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="4号教学楼666"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/depart"
+            android:maxWidth="180dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/address"
+            android:text="报修人     :"
+            />
+        <TextView
+            android:id="@+id/person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/address"
+            android:text="小听"
+            android:maxWidth="180dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/person"
+            android:text="报修时间 :"
+            />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/person"
+            android:text="8/12/1994 8:31:32 PM"
+            android:maxWidth="180dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/time"
+            android:text="联系电话 :"
+            />
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/time"
+            android:text="12580"
+            android:maxWidth="180dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/phone"
+            android:text="维修内容 :"
+            />
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/phone"
+            android:maxWidth="180dp"
+            android:text="要求换五星级酒店,顺便看最长不要呼呼呼呼呼俄格哥哥个哥哥哥哥俄格哥哥给个恶搞"
+            android:ellipsize="end"
+            android:maxLines="3"
+            />
+
+        <TextView
+            android:id="@+id/tv_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/content"
+            android:text="完成描述 :"
+            />
+        <TextView
+            android:id="@+id/describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/content"
+            android:text="完成到99.9%"
+            android:maxWidth="180dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_time_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/describe"
+            android:text="完成时间 :"
+            />
+        <TextView
+            android:id="@+id/time_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/describe"
+            android:text="12/12/2222 4:34:33 PM"
+            android:maxWidth="180dp"
+            />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="返回"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/library_selector"
+            android:layout_below="@+id/time_finish"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            />
+    </RelativeLayout>
+</ScrollView>
+
+

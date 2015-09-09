@@ -47,6 +47,7 @@ public class OnlineRepairActivity extends ActionBarActivity {
 
     }
 
+
     private class onlineRepairPagerAdapter extends FragmentPagerAdapter{
 
         public onlineRepairPagerAdapter(FragmentManager fm) {
