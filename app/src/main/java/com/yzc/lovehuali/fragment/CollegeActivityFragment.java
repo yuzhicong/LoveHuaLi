@@ -1,6 +1,8 @@
 package com.yzc.lovehuali.fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,6 +51,7 @@ public class CollegeActivityFragment extends Fragment {
     private List<JSONObject> collegeActivityList;
     private ACache mCache;//全局缓存工具类对象
     private int page=1;
+    private SharedPreferences sp;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,7 +88,26 @@ public class CollegeActivityFragment extends Fragment {
             }
         });
 
-        getCollegeActivityList(URL);
+        sp = getActivity().getSharedPreferences("mysp", Context.MODE_PRIVATE);
+        if(sp.contains("CollegeActivityFragment" + "&page=" + page)){
+            try {
+                JSONArray collegeActivityArray = new JSONArray(sp.getString("CollegeActivityFragment" + "&page=" + page,""));
+                for (int i = 0; i < collegeActivityArray.length(); i++) {
+                    JSONObject collegeActivityObject = null;
+                        collegeActivityObject = collegeActivityArray.getJSONObject(i);
+                        collegeActivityList.add(collegeActivityObject);
+                }
+                mAdapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if(mCache.getAsString("usefulDate")==null){
+                getCollegeActivityList(URL);
+            }
+        }else{
+            getCollegeActivityList(URL);
+        }
+
         return rootView;
     }
 
@@ -95,21 +117,7 @@ public class CollegeActivityFragment extends Fragment {
             @Override
             protected Void doInBackground(String... params) {
 
-                JSONArray collegeActivityArray = mCache.getAsJSONArray("CollegeActivityFragment" + "&page=" + page);
-
-                //获取本地缓存，如果缓存不为空就直接读取缓存的新闻数据
-                if(collegeActivityArray != null) {
-                    for (int i = 0; i < collegeActivityArray.length(); i++) {
-                        JSONObject collegeActivityObject = null;
-                        try {
-                            collegeActivityObject = collegeActivityArray.getJSONObject(i);
-                            collegeActivityList.add(collegeActivityObject);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    return null;
-                }
+                JSONArray collegeActivityArray;
 
                 try {
                     URL url = new URL(params[0]);
@@ -145,8 +153,14 @@ public class CollegeActivityFragment extends Fragment {
 
                         collegeActivityArray = answerJSONObject.getJSONArray("data");
 
-                        mCache.put("CollegeActivityFragment" + "&page=" + page, collegeActivityArray, ACache.TIME_DAY);//将获取到的新闻JsonArray缓存到本地
+                        mCache.put("usefulDate","1", ACache.TIME_HOUR*6);//将获取到的新闻JsonArray缓存到本地
 
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("CollegeActivityFragment" + "&page=" + page,collegeActivityArray.toString());
+                        editor.commit();//存储活动圈缓存
+
+
+                        collegeActivityList.clear();//清空列表
                         //调试功能，输出NewsArry信息。
                         for (int i = 0; i < collegeActivityArray.length(); i++) {
                             JSONObject NewsObject = collegeActivityArray.getJSONObject(i);

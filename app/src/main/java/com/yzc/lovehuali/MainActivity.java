@@ -7,13 +7,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.PopupWindowCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -29,12 +26,10 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yzc.lovehuali.adapter.MainViewPagerFragmentAdapter;
 import com.yzc.lovehuali.adapter.UserToolListViewAdapter;
 import com.yzc.lovehuali.bmob.StudentUser;
-import com.yzc.lovehuali.tool.ACache;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 import com.yzc.lovehuali.widget.ChangeColorIconWithText;
 
@@ -43,9 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
@@ -98,6 +91,8 @@ public class MainActivity extends ActionBarActivity {
         }
         SharedPreferences.Editor edit = sp.edit();
         edit.putInt("localWeek",localWeek);
+        if(localWeek==1){
+        edit.putInt("betweenWeek",Math.abs(weekofyear-localWeek));}
         edit.commit();
         wpw = new WeekChosePopwindow();
         wpw.initPopWindow();
@@ -219,7 +214,10 @@ public class MainActivity extends ActionBarActivity {
                         startActivity(i);
                         break;
                     case 2:
-                        i.setClass(MainActivity.this,AboutUsActivity.class);
+                        i.setClass(MainActivity.this,LoadWebPageActivity.class);
+                        i.putExtra("url", "http://1.lovehuali.sinaapp.com/appAboutUs1.0.html");
+                        i.putExtra("title","关于我们");
+                        i.putExtra("style","#d84843");
                         startActivity(i);
                         break;
                     case 3:
@@ -380,41 +378,46 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_get_schedule) {
-            Intent i= new Intent();
-            i.setClass(MainActivity.this,getEduSystemSchedulerActivity.class);
-            startActivity(i);
-            return true;
-        }
-        if (id == R.id.action_school_notice) {
-            Intent i= new Intent();
-            i.setClass(MainActivity.this,SchoolNoticeActivity.class);
-            startActivity(i);
-            return true;
-        }
+        Intent i = new Intent();
+        switch (id){
+            case R.id.action_get_schedule:
+                i.setClass(MainActivity.this, getEduSystemSchedulerActivity.class);
+                startActivity(i);
+                break;
+            case R.id.action_school_notice:
+                i.setClass(MainActivity.this, SchoolNoticeActivity.class);
+                startActivity(i);
+                break;
+            case R.id.action_school_activity:
+                i.setClass(MainActivity.this,LoadWebPageActivity.class);
+                i.putExtra("url", "http://1.lovehuali.sinaapp.com/activityCircleHelp.html");
+                i.putExtra("title","活动圈说明");
+                startActivity(i);
+                break;
 
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+        /*if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-            /*Intent intent = new Intent(Intent.ACTION_MAIN);
+            *//*Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// 注意
             intent.addCategory(Intent.CATEGORY_HOME);
-            this.startActivity(intent);*/
+            this.startActivity(intent);*//*
 
-            /*if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            *//*if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Toast.makeText(this, "再按一次退出程序",Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
 
             } else {
                 finish();
-            }*/
+            }*//*
             finish();
             return true;
-        }
+        }*/
         return super.onKeyDown(keyCode, event);
     }
     private class WeekChosePopwindow extends PopupWindow{

@@ -1,5 +1,6 @@
 package com.yzc.lovehuali;
 
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -7,6 +8,7 @@ import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,12 +18,24 @@ import com.yzc.lovehuali.email.SimpleMailSender;
 import com.yzc.lovehuali.tool.NetUtils;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+
 
 public class SuggestUsActivity extends ActionBarActivity {
 
     private MaterialEditText etUserName,etQQNumber,etPhoneCall;
     private EditText etContent;
+    private Button btnSendFeedBack;
     private Toolbar mToolbar;
+    private HttpClient client;
+    private String value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +50,7 @@ public class SuggestUsActivity extends ActionBarActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("建议我们");
+        mToolbar.setTitle("用户反馈");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -44,9 +58,23 @@ public class SuggestUsActivity extends ActionBarActivity {
         etQQNumber = (MaterialEditText) findViewById(R.id.etQQNumber);
         etPhoneCall = (MaterialEditText) findViewById(R.id.etPhoneCall);
         etContent = (EditText) findViewById(R.id.etContent);
+        btnSendFeedBack = (Button) findViewById(R.id.btnSendFeedBack);
+        client = new DefaultHttpClient();
+        btnSendFeedBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!etContent.getText().toString().isEmpty()){
+                Toast.makeText(SuggestUsActivity.this,"正在发送中……",Toast.LENGTH_SHORT).show();
+                sendFeedBack("http://1.lovehuali.sinaapp.com/sendFeedBack.php?name=" + etUserName.getText() + "&qq=" + etQQNumber.getText() + "&phoneNum=" + etPhoneCall.getText() + "&description=" + etContent.getText());
+                btnSendFeedBack.setClickable(false);}
+                else{
+                    Toast.makeText(SuggestUsActivity.this,"亲！您还没有输入内容呢...",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    //向指定的邮箱发送信息
+    /*//向指定的邮箱发送信息
     public void sendEmailtoUs(View view) {
         if (!etContent.getText().toString().isEmpty()) {
             if(NetUtils.isConnected(getApplicationContext())) {
@@ -114,5 +142,44 @@ public class SuggestUsActivity extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(),"发送失败T-T!",Toast.LENGTH_SHORT).show();
             }
         };
-    };
+    };*/
+
+    public void sendFeedBack(String url){
+        new AsyncTask<String, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(String... params) {
+                String urlString = params[0];
+                HttpGet get = new HttpGet(urlString);
+
+
+
+                try {
+                    HttpResponse response = client.execute(get);
+
+                    value = EntityUtils.toString(response.getEntity());
+                    System.out.println(value);
+
+                } catch (ClientProtocolException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                if(value.contains("200")){
+                    Toast.makeText(SuggestUsActivity.this,"反馈成功，谢谢您的支持！",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(SuggestUsActivity.this,"反馈失败，请稍后重试T-T",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(url);
+    }
 }

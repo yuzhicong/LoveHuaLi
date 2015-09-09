@@ -104,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:imeOptions="actionNext"
             android:hint="学生学号"
             app:iconLeft="@drawable/icon_account"
             app:iconPadding="0dp"
@@ -116,6 +117,7 @@
             android:singleLine="true"
             android:hint="教务系统密码"
             android:inputType="textPassword"
+            android:imeOptions="actionDone"
             app:iconLeft="@drawable/icon_lock"
             app:iconPadding="0dp"
             app:primaryColor="#0e9050" />

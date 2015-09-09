@@ -78,10 +78,12 @@
             android:background="#FFFFFF"
             android:textColor="#FF080808"
             android:hint="i华立，我想对你说……"
+            android:imeOptions="actionDone"
             android:padding="4dp"
             android:textSize="20dp"
             />
         <Button
+            android:id="@+id/btnSendFeedBack"
             android:layout_marginLeft="5dp"
             android:layout_width="0dp"
             android:layout_height="36dp"
@@ -89,8 +91,7 @@
             android:textColor="#FFFFFFFF"
             android:text="发送"
             android:textSize="18dp"
-            android:onClick="sendEmailtoUs"
-            android:background="@color/material_pink"/>
+            android:background="@drawable/library_selector"/>
 
         </LinearLayout>
 

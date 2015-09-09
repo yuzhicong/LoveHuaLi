@@ -2,15 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yzc.lovehuali.fragment.NewsListFragment">
+    tools:context="com.yzc.lovehuali.fragment.NewsListFragment"
+    android:weightSum="10">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="3.5">
         <com.yzc.lovehuali.widget.autoscrollviewpager.AutoScrollViewPager
             android:id="@+id/newsPager"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="match_parent"
+            >
         </com.yzc.lovehuali.widget.autoscrollviewpager.AutoScrollViewPager>
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/pagerIndicator"
@@ -21,7 +24,8 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6.5"
         android:id="@+id/lvNewsList"></ListView>
 
 </LinearLayout>

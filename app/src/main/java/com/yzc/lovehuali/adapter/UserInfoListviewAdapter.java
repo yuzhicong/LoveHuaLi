@@ -20,7 +20,7 @@ public class UserInfoListviewAdapter extends ArrayAdapter {
 
     private Context context;
     private int listViewCellId;
-    private String stringUserInfolist[] = {"昵称","年级","班级","学部","专业"};
+    private String stringUserInfolist[] = {"姓名","年级","班级","学部","专业"};
     public UserInfoListviewAdapter(Context context, int resource) {
         super(context, resource);
         this.context = context;

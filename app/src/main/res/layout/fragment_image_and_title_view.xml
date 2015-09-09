@@ -6,7 +6,7 @@
 
     <ImageSwitcher
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:id="@+id/ivNewsPic" />
 
     <TextView
@@ -18,7 +18,7 @@
         android:paddingRight="8dp"
         android:paddingBottom="16dp"
         android:background="#66000000"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textColor="#FFFFFF"
         android:gravity="center"
         android:text="新闻获取中……"

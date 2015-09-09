@@ -12,15 +12,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageSwitcher;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
@@ -130,7 +134,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //
+
+        sp = getSharedPreferences("mysp",Context.MODE_PRIVATE);
+
         user = (MaterialEditText) findViewById(R.id.etStudentId);
         password = (MaterialEditText) findViewById(R.id.etEduSystemPassword);
         spTerm = (Spinner) findViewById(R.id.spTerm);
@@ -138,6 +144,31 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
         String strType[]={"学生个人课表","专业推荐课表"};
         spTypeAdapter = new ArrayAdapter<String>(getEduSystemSchedulerActivity.this,R.layout.spinner_item,strType);
         spType.setAdapter(spTypeAdapter);
+
+        user.setText(sp.getString("studentId", ""));
+        password.setText(sp.getString("eduSystemPsw", ""));
+
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                 /*判断是否是“Done”键*/
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    /*隐藏软键盘*/
+                    InputMethodManager imm = (InputMethodManager) v
+                            .getContext().getSystemService(
+                                    Context.INPUT_METHOD_SERVICE);
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(
+                                v.getApplicationWindowToken(), 0);
+                    }
+
+                    loginClick.onClick(v);
+
+                    return true;
+                }
+                return false;
+            }
+        });
 
         loginBtn = (CircularProgressButton) findViewById(R.id.cpbtnBindindEduSystem);
         loginBtn.setIndeterminateProgressMode(true);
@@ -873,6 +904,16 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
             return -1;
         }
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString("studentId", user.getText().toString());
+        edit.putString("eduSystemPsw", password.getText().toString());
+        edit.commit();
     }
 
     @Override

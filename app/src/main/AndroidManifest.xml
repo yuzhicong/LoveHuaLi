@@ -34,7 +34,8 @@
         </activity>
         <activity
             android:name=".ScreenSplashActivity"
-            android:label="@string/title_activity_screen_splash" >
+            android:label="@string/title_activity_screen_splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +53,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".UserInformationActivity"
@@ -212,6 +214,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
+
+        <activity android:name=".LoadWebPageActivity"
+            android:label="网页访问"/>
 
         <service
             android:name="cn.bmob.push.lib.service.PushService"

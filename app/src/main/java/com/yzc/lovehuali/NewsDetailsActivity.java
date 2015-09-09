@@ -14,6 +14,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.yzc.lovehuali.tool.HtmlDataOptimizeTool;
@@ -106,6 +107,9 @@ public class NewsDetailsActivity extends ActionBarActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
                     pbBar.setVisibility(View.INVISIBLE);
+                    LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) pbBar.getLayoutParams(); // 取控件pbBar当前的布局参数
+                    linearParams.height = 0;// 当控件的高强制设成0象素
+                    pbBar.setLayoutParams(linearParams);
                 } else {
                     if (View.INVISIBLE == pbBar.getVisibility()) {
                         pbBar.setVisibility(View.VISIBLE);

@@ -14,9 +14,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,6 +28,7 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
@@ -139,6 +143,29 @@ public class QueryStudentScoreActivity extends ActionBarActivity {
 
 
         etStudentId.setText(sp.getString("studentId",""));
+        etEduSystemPassword.setText(sp.getString("eduSystemPsw",""));
+
+        etEduSystemPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                 /*判断是否是“Search”键*/
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    /*隐藏软键盘*/
+                    InputMethodManager imm = (InputMethodManager) v
+                            .getContext().getSystemService(
+                                    Context.INPUT_METHOD_SERVICE);
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(
+                                v.getApplicationWindowToken(), 0);
+                    }
+
+                    loginClick.onClick(v);
+
+                    return true;
+                }
+                return false;
+            }
+        });
 
         cpbtnQueryStudentScore = (CircularProgressButton)findViewById(R.id.cpbtnQueryStudentScore);
         cpbtnQueryStudentScore.setIndeterminateProgressMode(true);
@@ -523,6 +550,7 @@ View.OnClickListener loginClick = new View.OnClickListener() {
         super.onDestroy();
         SharedPreferences.Editor edit = sp.edit();
         edit.putString("studentId",etStudentId.getText().toString());
+        edit.putString("eduSystemPsw",etEduSystemPassword.getText().toString());
         edit.commit();
     }
 
