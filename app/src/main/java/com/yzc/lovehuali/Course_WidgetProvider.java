@@ -1,9 +1,11 @@
 package com.yzc.lovehuali;
 
+import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.widget.RemoteViews;
 
@@ -65,19 +67,24 @@ public class Course_WidgetProvider extends AppWidgetProvider {
 
         //先清空原来的课程表格
 
-//        IntentFilter intentFilter = new IntentFilter("MainActivity.ScheduleChange");
-//        context.registerReceiver(broadcastReceiver, intentFilter);
 
         aCache_wight = ACache.get(context);
         String json = aCache_wight.getAsString("courseJson");
+
         int temp_json = ScheduleFragment.locad_week;
+        
+        SharedPreferences sharedPreferences = context.getSharedPreferences("weeks", Activity.MODE_PRIVATE);
+        if (sharedPreferences.getString("WEEKS_COURSE", "") != null) {
+            views.setTextViewText(R.id.show_choose_weeks, "第" + sharedPreferences.getString("WEEKS_COURSE", "") + "周");
+            temp_json = Integer.parseInt(sharedPreferences.getString("WEEKS_COURSE", ""));
+        }else{
+            views.setTextViewText(R.id.show_choose_weeks,"第" + String.valueOf(temp_json) + "周");
+        }
 
         if (json != null) {
             for (int j = 0; j < textViewId.length; j++) {
                 views.setTextViewText(textViewId[j], "");
                 views.setInt(textViewId[j], "setBackgroundResource", R.color.cpb_white);
-                views.setTextViewTextSize(textViewId[j],0, (float) 18);
-//                views.setInt(textViewId[j], "setBackgroundResource", R.drawable.textview_style);
             }
 
             try {

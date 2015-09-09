@@ -15,7 +15,7 @@
             android:id="@+id/week1_1_2_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -26,7 +26,7 @@
             android:id="@+id/week2_1_2_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:paddingRight="2dp"
@@ -38,7 +38,7 @@
             android:id="@+id/week3_1_2_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:padding="2dp"
@@ -50,7 +50,7 @@
             android:id="@+id/week4_1_2_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:padding="2dp"
@@ -62,7 +62,7 @@
             android:id="@+id/week5_1_2_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:padding="2dp"
@@ -74,7 +74,7 @@
             android:id="@+id/week6_1_2_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:padding="2dp"
@@ -86,7 +86,7 @@
             android:id="@+id/week7_1_2_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:padding="2dp"
@@ -105,7 +105,7 @@
             android:id="@+id/week1_3_4_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -116,7 +116,7 @@
             android:id="@+id/week2_3_4_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -127,7 +127,7 @@
             android:id="@+id/week3_3_4_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -138,7 +138,7 @@
             android:id="@+id/week4_3_4_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -149,7 +149,7 @@
             android:id="@+id/week5_3_4_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -161,7 +161,7 @@
             android:id="@+id/week6_3_4_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -172,7 +172,7 @@
             android:id="@+id/week7_3_4_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -190,7 +190,7 @@
             android:id="@+id/week1_5_6_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -201,7 +201,7 @@
             android:id="@+id/week2_5_6_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -212,7 +212,7 @@
             android:id="@+id/week3_5_6_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -223,7 +223,7 @@
             android:id="@+id/week4_5_6_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -234,7 +234,7 @@
             android:id="@+id/week5_5_6_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -245,7 +245,7 @@
             android:id="@+id/week6_5_6_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -256,7 +256,7 @@
             android:id="@+id/week7_5_6_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -274,7 +274,7 @@
             android:id="@+id/week1_7_8_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -285,7 +285,7 @@
             android:id="@+id/week2_7_8_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -296,7 +296,7 @@
             android:id="@+id/week3_7_8_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -307,7 +307,7 @@
             android:id="@+id/week4_7_8_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -318,7 +318,7 @@
             android:id="@+id/week5_7_8_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -329,7 +329,7 @@
             android:id="@+id/week6_7_8_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -340,7 +340,7 @@
             android:id="@+id/week7_7_8_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -358,7 +358,7 @@
             android:id="@+id/week1_9_10_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -369,7 +369,7 @@
             android:id="@+id/week2_9_10_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -380,7 +380,7 @@
             android:id="@+id/week3_9_10_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -391,7 +391,7 @@
             android:id="@+id/week4_9_10_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -402,7 +402,7 @@
             android:id="@+id/week5_9_10_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -413,7 +413,7 @@
             android:id="@+id/week6_9_10_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""
@@ -424,7 +424,7 @@
             android:id="@+id/week7_9_10_textView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:text=""

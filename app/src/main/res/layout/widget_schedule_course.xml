@@ -75,31 +75,31 @@
             android:textColor="@android:color/white"
             android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/week_widget6_1_2_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:padding="2dp"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget6_1_2_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:padding="2dp"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
 
-        <TextView
-            android:id="@+id/week_widget7_1_2_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:padding="2dp"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget7_1_2_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:padding="2dp"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -169,29 +169,29 @@
             android:textColor="@android:color/white"
             android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/week_widget6_3_4_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget6_3_4_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
 
-        <TextView
-            android:id="@+id/week_widget7_3_4_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget7_3_4_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -260,29 +260,29 @@
             android:textColor="@android:color/white"
             android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/week_widget6_5_6_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget6_5_6_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
 
-        <TextView
-            android:id="@+id/week_widget7_5_6_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget7_5_6_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="10sp" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -351,29 +351,29 @@
             android:textColor="@android:color/white"
             android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/week_widget6_7_8_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget6_7_8_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="12sp" />-->
 
-        <TextView
-            android:id="@+id/week_widget7_7_8_textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/textview_style"
-            android:gravity="center_horizontal|center_vertical"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/week_widget7_7_8_textView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="1dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/textview_style"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--android:text=""-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="12sp" />-->
     </LinearLayout>
 
     <!--<LinearLayout-->
