@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        >
+
+        <EditText
+            android:id="@+id/et_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="报修人姓名"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textSize="16dp"
+            />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="手机号"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textSize="16dp"
+
+            />
+
+        <Spinner
+            android:id="@+id/sp_depart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:clickable="true"
+            android:entries="@array/depart"
+            android:spinnerMode="dropdown"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Spinner
+                android:id="@+id/sp_address1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_weight="1"
+                android:entries="@array/address1"
+                android:spinnerMode="dropdown"
+                />
+
+            <Spinner
+                android:id="@+id/sp_address2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_weight="1"
+                android:entries="@array/address2"
+                android:spinnerMode="dropdown"
+                />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/et_address3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="详细地点"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textSize="16dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Spinner
+                android:id="@+id/sp_type1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_weight="1"
+                android:entries="@array/type1"
+                android:spinnerMode="dropdown"
+                />
+
+            <Spinner
+                android:id="@+id/sp_type2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_weight="1"
+                android:entries="@array/type2_1water_elec"
+                android:spinnerMode="dropdown"
+
+
+                />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:hint="问题详细描述"
+            android:imeOptions="actionSend"
+            android:minLines="5"
+            android:textSize="16dp"
+            />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/library_selector"
+            android:text="提交报修"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+
+
+            />
+
+    </LinearLayout>
+</ScrollView>

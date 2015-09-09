@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="depart">
+        <item >本科学生</item>
+        <item >职院学生</item>
+        <item >技师学生</item>
+        <item >广工总务</item>
+        <item >职院总务</item>
+        <item >技师总务</item>
+        <item >生活服务部</item>
+        <item >秩序维护部</item>
+        <item >公司其他部门</item>
+        <item >校园管理中心</item>
+        <item >创业园</item>
+    </string-array>
+
+    <string-array name="address1">
+        <item >宿舍楼</item>
+        <item >行政教学楼</item>
+        <item >公共区域</item>
+    </string-array>
+
+    <string-array name="address2">
+        <item >C1</item>
+        <item >C2</item>
+        <item >C3</item>
+        <item >C4</item>
+        <item >C5</item>
+        <item >C6</item>
+        <item >C7</item>
+        <item >C8</item>
+        <item >B1</item>
+        <item >B2</item>
+        <item >B3</item>
+        <item >B4</item>
+        <item >B9</item>
+        <item >A1</item>
+        <item >A2</item>
+        <item >A3</item>
+        <item >A4</item>
+        <item >1号</item>
+        <item >2号</item>
+        <item >3号</item>
+        <item >4号</item>
+        <item >5号</item>
+        <item >6号</item>
+        <item >7号</item>
+        <item >8号</item>
+        <item >9号</item>
+        <item >10号</item>
+        <item >11号</item>
+        <item >12号</item>
+        <item >13号</item>
+        <item >15号</item>
+        <item >16号</item>
+        <item >17号</item>
+        <item >18号</item>
+        <item >招待所</item>
+        <item >中转房</item>
+        <item >医务室</item>
+        <item >板房1</item>
+        <item >板房2</item>
+        <item >板房3</item>
+        <item >板房4</item>
+
+    </string-array>
+
+    <string-array name="type1">
+        <item >水电</item>
+        <item >电卡</item>
+        <item >直饮水</item>
+        <item >太阳能热水</item>
+        <item >家电</item>
+        <item >木</item>
+        <item >泥水</item>
+        <item >电梯</item>
+        <item >电话</item>
+        <item >网络</item>
+        <item >白蚁</item>
+        <item >摄像头</item>
+        <item >清洁绿化</item>
+        <item >其他</item>
+    </string-array>
+
+    <string-array name="type2_1water_elec">
+        <item >灯管</item>
+        <item >风扇</item>
+        <item >插座</item>
+        <item >保险丝</item>
+        <item >水龙头</item>
+        <item >自来水管</item>
+        <item >花洒</item>
+        <item >路灯</item>
+        <item >电铃</item>
+        <item >消防设施</item>
+        <item >其他</item>
+    </string-array>
+
+    <string-array name="type2_3drink_water">
+        <item >水龙头</item>
+        <item >水管</item>
+    </string-array>
+
+    <string-array name="type2_4sun_water">
+        <item >热水表</item>
+        <item >热水管</item>
+    </string-array>
+
+    <string-array name="type2_5home_elec">
+        <item >电视</item>
+        <item >洗衣机</item>
+        <item >微波炉</item>
+        <item >电冰箱</item>
+        <item >空调</item>
+    </string-array>
+
+    <string-array name="type2_6wood">
+        <item >大门</item>
+        <item >厕所门</item>
+        <item >锁</item>
+        <item >窗户</item>
+        <item >床</item>
+        <item >衣柜</item>
+        <item >书桌</item>
+        <item >纱窗</item>
+        <item >其他</item>
+    </string-array>
+
+    <string-array name="type2_7mud">
+        <item >厕所</item>
+        <item >洗手台</item>
+        <item >天花板</item>
+        <item >墙壁</item>
+        <item >下水管</item>
+        <item >其他</item>
+    </string-array>
+
+
+</resources>

@@ -17,7 +17,6 @@ import com.yzc.lovehuali.R;
 import com.yzc.lovehuali.StaticMap;
 import com.yzc.lovehuali.adapter.ToolKitListViewAdapter;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
