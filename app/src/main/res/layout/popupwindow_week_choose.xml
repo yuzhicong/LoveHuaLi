@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ListView
+        android:layout_width="140dp"
+        android:layout_height="190dp"
+        android:id="@+id/lvWeek"
+        android:divider="@null"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置为当前周"
+        android:textSize="16dp"
+        android:textColor="#e91e63"
+        android:id="@+id/btnSetLocalWeek"
+        android:layout_margin="4dp"
+        android:background="@drawable/local_week_selector"/>
+</LinearLayout>

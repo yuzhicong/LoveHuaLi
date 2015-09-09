@@ -20,5 +20,7 @@
     <string name="title_activity_library_search">图书查询</string>
     <string name="title_activity_suggest_us">SuggestUsActivity</string>
     <string name="title_activity_edit_course">编辑课程</string>
+    <string name="title_activity_online_repair">在线报修系统</string>
+    <string name="title_activity_software_notice">软件公告</string>
 
 </resources>

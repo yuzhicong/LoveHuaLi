@@ -5,16 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.yzc.lovehuali.BindingEduSystemActivity"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:weightSum="6">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        >
 
         <ImageView
             android:id="@+id/ivLogin"
             android:layout_width="wrap_content"
-            android:layout_height="260dp"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
@@ -56,10 +59,51 @@
         android:paddingRight="32dp"
         android:paddingTop="16dp">
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_calendar_check_grey600_36dp"/>
+
+            <Spinner
+                android:id="@+id/spTerm"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_school_grey600_36dp"/>
+
+            <Spinner
+                android:id="@+id/spType"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+        </LinearLayout>
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/etStudentId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="学生学号"
             app:iconLeft="@drawable/icon_account"
             app:iconPadding="0dp"
@@ -69,6 +113,7 @@
             android:id="@+id/etEduSystemPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="教务系统密码"
             android:inputType="textPassword"
             app:iconLeft="@drawable/icon_lock"
@@ -86,7 +131,7 @@
             android:textSize="20dp"
             app:cpb_selectorIdle="@drawable/idle_edu_system_state_selector"
             app:cpb_textComplete="获取成功"
-            app:cpb_textError="登录失败"
+            app:cpb_textError="获取失败"
             app:cpb_textIdle="获取课表" />
 
     </LinearLayout>

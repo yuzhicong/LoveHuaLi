@@ -2,15 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-<com.baoyz.widget.PullRefreshLayout
-    android:id="@+id/prlIntegrateNews"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
 <ListView
     android:id="@+id/lvIntegrateNews"
     android:layout_width="match_parent"
     android:layout_height="match_parent"></ListView>
-
-</com.baoyz.widget.PullRefreshLayout>
 </LinearLayout>

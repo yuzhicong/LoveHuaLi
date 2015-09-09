@@ -1,7 +1,13 @@
 package com.yzc.lovehuali.fragment;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -56,6 +62,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private String[] nameString;
     private int[] jsonint;
     private View view;
+    public static int locad_week = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,10 +83,30 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         mCache = ACache.get(getActivity());
         if (mCache.getAsString("courseJson") != null) {
             //System.out.println(mCache.getAsString("courseJson"));
-            this.refresh(mCache.getAsString("courseJson"), 1);
+            this.refresh(mCache.getAsString("courseJson"), locad_week);
         }
+
+
+        IntentFilter intentFilter = new IntentFilter("MainActivity.ScheduleChange");
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
         return rootView;
     }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//            String string3 = intent.getAction();
+            locad_week = intent.getIntExtra("weekChose", -1);
+
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("weeks", Activity.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("WEEKS_COURSE",String.valueOf(locad_week));
+            editor.commit();
+
+            refresh(mCache.getAsString("courseJson"), locad_week);
+//            Toast.makeText(getActivity(), String.valueOf(locad_week), Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     public void onResume() {
@@ -87,17 +114,25 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         System.out.println("课程碎片正在刷新");
 
         if (mCache.getAsString("courseJson") != null) {
-            Log.d("MainActivity", "------------------->" + mCache.getAsString("courseJson").toString());
-            for (int i = 0; i < 35; i++) {
-                textView[i].setText("");
-//                textView[i].setBackgroundColor(android.R.color.white);
-            }
-            this.refresh(mCache.getAsString("courseJson"), 1);
+            System.out.println("--------修复课程周数问题------>" + mCache.getAsString("courseJson").toString());
+//            for (int i = 0; i < 35; i++) {
+//                textView[i].setText("");
+////                textView[i].setBackgroundColor(android.R.color.white);
+//            }
+            this.refresh(mCache.getAsString("courseJson"), locad_week);
+
         }
     }
 
     //jsonweeks的方法没有写出
     public void refresh(String courseJson, int jsonweeks) {
+        //先清空原来的课程表格
+        for (int j = 0; j < textViewId.length; j++) {
+            textView[j].setText("");
+//            textView[j].setBackgroundResource(R.color.cpb_white);
+            textView[j].setBackgroundResource(R.drawable.textview_fragment_style);
+        }
+
         try {
             JSONArray jsonArray = new JSONArray(courseJson);
 
@@ -152,32 +187,93 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
             //显示课程
             for (int i = 0; i < courseNameString.length; i++) {
-                String choosecourse = courseWeekString[i].substring(courseWeekString[i].indexOf("第") + 1, courseWeekString[i].indexOf("周"));   //筛选周数
-                String[] weekstring = choosecourse.split("-");
-                System.out.println("======>>>" + choosecourse + "\t" + weekstring[0] + "\t" + weekstring[1]);
-                int testweek = 18;//选择周数的小测试
+//                String choosecourse = courseWeekString[i].substring(courseWeekString[i].indexOf("第") + 1, courseWeekString[i].indexOf("周"));   //筛选周数
+
                 String[] courseSectionString_sz = courseSectionString[i].split(",");
-                System.out.println("课程的节数选择" + (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2);
+                //System.out.println("课程的节数选择" + (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2);
                 int tempint = (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2;
                 int allint = (tempint * 7) + Integer.parseInt(weekString[i]) - 1;
+
+                textView[allint].setTextColor(Color.parseColor("#666666"));
                 textView[allint].setText(courseNameString[i] + classRoomString[i]);
-                if (testweek >= Integer.parseInt(weekstring[0]) && testweek <= Integer.parseInt(weekstring[1])) {
-//                    textView[allint].setBackgroundResource(textViewResoureId[jsonint[i]]);
-                    textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
-                    System.out.println("课程背景颜色的ID：" + jsonint[i]);
+
+                System.out.println("显示课程的周数问题--->>" + i + "\t" + courseWeekString[i]);
+
+                if (courseWeekString[i].indexOf(",") != -1) {//处理含有","字符串
+                    String[] courseWeekString_sz_1 = courseWeekString[i].split(",");
+                    for (int k = 0; k < courseWeekString_sz_1.length; k++) {
+                        if (courseWeekString_sz_1[k].indexOf("-") != -1) {
+                            String[] courseWeekString_sz_1_1 = courseWeekString_sz_1[k].split("-");
+                            if (jsonweeks >= Integer.parseInt(courseWeekString_sz_1_1[0]) && jsonweeks <= Integer.parseInt(courseWeekString_sz_1_1[1])) {
+
+//                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                                textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
+                            } else {
+//                                textView[allint].setBackgroundResource(R.color.color_public);
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(R.color.color_public));
+                                textView[allint].setTextColor(Color.parseColor("#666666"));
+                            }
+
+                        } else {
+                            if (jsonweeks == Integer.parseInt(courseWeekString_sz_1[k])) {
+//                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                                textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
+                            } else {
+//                                textView[allint].setBackgroundResource(R.color.color_public);
+                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                p.setColor(getResources().getColor(R.color.color_public));
+                                textView[allint].setTextColor(Color.parseColor("#666666"));
+                            }
+
+                        }
+                    }
+
                 } else {
-//                    textView[allint].setBackgroundResource(R.drawable.set_bar_public);
-                    textView[allint].setBackgroundResource(R.color.color_public);
-                    textView[allint].setTextColor(Color.parseColor("#666666"));
+                    if (courseWeekString[i].indexOf("-") != -1) {//去掉含有","的字符串，处理含有"-"
+                        String[] courseWeekString_sz_2 = courseWeekString[i].split("-");
+                        if (jsonweeks >= Integer.parseInt(courseWeekString_sz_2[0]) && jsonweeks <= Integer.parseInt(courseWeekString_sz_2[1])) {
+//                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
+                        } else {
+//                            textView[allint].setBackgroundResource(R.color.color_public);
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(R.color.color_public));
+                            textView[allint].setTextColor(Color.parseColor("#666666"));
+                        }
+
+                    } else {//处理单个周数"8"
+                        if (jsonweeks == Integer.parseInt(courseWeekString[i])) {
+//                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
+                            textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
+                        } else {
+//                            textView[allint].setBackgroundResource(R.color.color_public);
+                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            p.setColor(getResources().getColor(R.color.color_public));
+                            textView[allint].setTextColor(Color.parseColor("#666666"));
+                        }
+
+                    }
                 }
-                System.out.println("课程的textViewID号" + allint);
-
-
             }
 
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+
+        for(int i = 0; i < textViewId.length; i ++) {
+            if (textView[i].getText().toString().equals("")) {
+                textView[i].setBackgroundResource(R.drawable.textview_style);
+            }
         }
     }
 
@@ -217,23 +313,29 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 if (weekString != null) {//2015.5.18
                     for (int k = 0; k < weekString.length; k++) {
                         if (String.valueOf(choose).equals(weekString[k]) && section.equals(courseSectionString[k])) {
-                            Log.d("MainActivity", "--------------------------->" + "判断正确" + weekString[k] + courseSectionString[k]);
+                            System.out.println("json数据的courseName------->>>" + nameString[k]);
+                            String getTextView = textView[i].getText().toString();
+//                            System.out.println("获取TextView的内容------->>>" + getTextView);
+                            String[] getTextView_coursename = getTextView.split("\n");
+                            String getTextView_coursename2 = getTextView_coursename[0] + "\n";
+                            if (getTextView_coursename2.equals(courseNameString[k])) {
+                                System.out.println("二次json数据的courseName------->>>" + courseNameString[k] + "==" + getTextView_coursename2);
+                                intentname = nameString[k];
+                                intentroom = classRoomString[k];
+                                intentteacher = teacherString[k];
+                                intentcourseWeek = courseWeekString[k];
+                                intentsection = courseSectionString[k];
 
-                            intentname = nameString[k];
-                            intentroom = classRoomString[k];
-                            intentteacher = teacherString[k];
-                            intentcourseWeek = courseWeekString[k];
-                            intentsection = courseSectionString[k];
-                            Log.d("MainActivity", "--------------------------->" + intentname + intentroom + intentteacher + intentcourseWeek + intentsection);
-                            intent.putExtra("intentname", intentname);
-                            intent.putExtra("intentroom", intentroom);
-                            intent.putExtra("intentteacher", intentteacher);
-                            intent.putExtra("intentcourseWeek", intentcourseWeek);
-                            intent.putExtra("intentsection", intentsection);
-                            intent.putExtra("intentweek", intentweek);
-
-                            break;
-
+                                intent.putExtra("intentname", intentname);
+                                intent.putExtra("intentroom", intentroom);
+                                intent.putExtra("intentteacher", intentteacher);
+                                intent.putExtra("intentcourseWeek", intentcourseWeek);
+                                intent.putExtra("intentsection", intentsection);
+                                intent.putExtra("intentweek", intentweek);
+                                break;
+                            } else {
+                                System.out.println("二次json数据的courseName------->>>" + courseNameString[k] + "==" + getTextView_coursename2);
+                            }
                         } else {
                             intent.putExtra("intentname", "");
                             intent.putExtra("intentroom", "");

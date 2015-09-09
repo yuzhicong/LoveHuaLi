@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="大埔围"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="裕达隆"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="四丰村"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="华立学院"
+                android:textColor="#ff4baa"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="陆村"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="鹤洲村"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="西山村"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="增江工业园"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="东区市场"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="人民医院"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="汇港轩"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="荔诚一小"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="荔诚二小"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="挂绿广场南"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="交警大队"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="保健院"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="光明车站"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="广发行"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="增城公园"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="东汇城"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="图书馆"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="公安局"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="检察院"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="荔景中学"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="130dp"
+                android:background="@drawable/newstudent_traffic"
+                android:text="万达广场西"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+
+</LinearLayout>

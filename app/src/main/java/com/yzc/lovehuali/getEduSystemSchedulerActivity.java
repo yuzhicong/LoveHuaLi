@@ -2,31 +2,26 @@ package com.yzc.lovehuali;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.ImageSwitcher;
-import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import com.dd.CircularProgressButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -44,19 +39,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.Collator;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -82,6 +74,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
 
     private ACache mCache;//全局缓存工具类对象
     //复制部分
+    private Spinner spTerm,spType;
+    private SpinnerAdapter spTermAdapter,spTypeAdapter;
+
     private MaterialEditText user;
     private MaterialEditText password;
     private CircularProgressButton loginBtn;
@@ -112,6 +107,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
     private String[] ss = null;
     private int i = 0;
     private String ksInfo = "";
+    private String __VIEWSTATE_xskb_gc = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +133,11 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
         //
         user = (MaterialEditText) findViewById(R.id.etStudentId);
         password = (MaterialEditText) findViewById(R.id.etEduSystemPassword);
+        spTerm = (Spinner) findViewById(R.id.spTerm);
+        spType = (Spinner) findViewById(R.id.spType);
+        String strType[]={"学生个人课表","专业推荐课表"};
+        spTypeAdapter = new ArrayAdapter<String>(getEduSystemSchedulerActivity.this,R.layout.spinner_item,strType);
+        spType.setAdapter(spTypeAdapter);
 
         loginBtn = (CircularProgressButton) findViewById(R.id.cpbtnBindindEduSystem);
         loginBtn.setIndeterminateProgressMode(true);
@@ -155,6 +156,29 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
         myApp.setMyUrl(myUrl);
         //
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Date date=new Date();
+        SimpleDateFormat dateFmYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFmMonth = new SimpleDateFormat("MM");
+        int year = Integer.parseInt(dateFmYear.format(date));
+        int month = Integer.parseInt(dateFmMonth.format(date));
+        System.out.println(year + ":" + month);
+        if(month >=7) {
+            String TermData[] = new String[]{(year) + "-" + (year+1) +" 第1学期",(year-1) + "-" + (year) +" 第2学期",(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(getEduSystemSchedulerActivity.this, R.layout.spinner_item, TermData);
+        }else if(month >= 1){
+            String TermData[] = new String[]{(year-1) + "-" + (year) +" 第2学期",(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(getEduSystemSchedulerActivity.this, R.layout.spinner_item, TermData);
+        }
+        spTerm.setAdapter(spTermAdapter);
     }
 
     TimerTask task = new TimerTask() {
@@ -178,8 +202,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                     if (myApp.getMyUrl() != null && myApp.getMyUrl() != "") {
                         myUrl = myApp.getMyUrl();
                     }
-                    result = checkUser();// 获取登陆情况
-
+                    if(result!=1) {
+                        result = checkUser();// 获取登陆情况
+                    }
                     // 更新界面
                     handler.post(new Runnable() {
                         public void run() {
@@ -248,6 +273,11 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                         Toast.LENGTH_SHORT).show();
                                 loginBtn.setProgress(-1);
                             }
+                            if (result == -3) {
+                                Toast.makeText(v.getContext(), "教务系统处于瘫痪状态，给点时间它恢复~",
+                                        Toast.LENGTH_SHORT).show();
+                                loginBtn.setProgress(-1);
+                            }
 
                         }
                     });
@@ -260,170 +290,504 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
 
     };
 
-    Thread getCourseJson = new Thread(new Runnable() {
+    private Thread getCourseJson = new Thread(new Runnable() {
         @Override
         public void run() {
-            String kbInfo = "";
 
-            try {
-                kbInfo = HttpUtil.getUrl("http://" + myUrl
-                        + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
-                        + "&gnmkdm=N121603", mHttpClient, "http://"
-                        + myUrl + "/xs_main.aspx?xh=" + xh);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            String gnmkdm = "";
+
+            String __VIEWSTATE = "";
+            StringTokenizer tokenizer = null;
+            String ddlXN = "";
+            String ddlXQ = "";
+            String[] ss = null;
+
+            String xn = "";
+            String xq = "";
+            String nj = "";
+            String xy = "";
+            String zy = "";
+            String kb = "";
+            String strClass = "";
+
+            if (spType.getSelectedItem().toString().equals("学生个人课表")) {
+                gnmkdm = "N121603";
+                try {
+                    ksInfo = HttpUtil
+                            .getUrl("http://" + myUrl
+                                            + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
+                                            + "&gnmkdm=" + gnmkdm,
+                                    mHttpClient,
+                                    "http://"
+                                            + myUrl
+                                            + "/xs_main.aspx?xh="
+                                            + xh);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } else {
+                gnmkdm = "N121601";
+                try {
+                    ksInfo = HttpUtil
+                            .getUrl("http://" + myUrl
+                                            + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                            + "&gnmkdm=" + gnmkdm,
+                                    mHttpClient,
+                                    "http://"
+                                            + myUrl
+                                            + "/xs_main.aspx?xh="
+                                            + xh);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
+            int i = 0;
+            if (__VIEWSTATE_xskb_gc == "") {
 
-            String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
-            Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
-            Matcher m = p.matcher(temp);
-            ss = null;
-            ss = new String[200];
-            JSONArray courseArray = new JSONArray();//课程JsonArray
-            i = 0;
-            int w=0,fw=0;//w为计算表格位置，fw为辅助计算参数
-            while (m.find() && (!m.group().toString().equals("编号"))) {
-                if(m.group().toString().equals("&nbsp;")){
-                    w++;
-                    if(w%7==0){
-                        w=w+fw;
-                        fw=0;
+
+                //System.out.println("网页内容" + ksInfo);
+                if (ksInfo != "") {
+                    Pattern pat = Pattern.compile("<option selected=\"selected\" value=\"(.*?)\">(.*?)</option>");
+                    Matcher mat = pat.matcher(ksInfo);
+                    int keycount = 0;
+                    while (mat.find()) {
+                        System.out.println(mat.group(1));
+                        switch (keycount) {
+                            case 0:
+                                xn = mat.group(1);
+                                break;
+                            case 1:
+                                xq = mat.group(1);
+                                break;
+                            case 2:
+                                nj = mat.group(1);
+                                break;
+                            case 3:
+                                xy = mat.group(1);
+                                break;
+                            case 4:
+                                zy = mat.group(1);
+                                break;
+                            case 5:
+                                strClass = mat.group(2);
+                                break;
+                            default:
+                                break;
+                        }
+                        keycount++;
+                    }
+
+                    tokenizer = new StringTokenizer(
+                            ksInfo);
+                    while (tokenizer.hasMoreTokens()) {
+                        String valueToken = tokenizer
+                                .nextToken();
+                        // System.out.println(valueToken);
+                        if (StringUtil.isValue(
+                                valueToken, "value")
+                                && valueToken.length() > 100) {
+                            if (StringUtil.getValue(
+                                    valueToken,
+                                    "value", "\"", 7)
+                                    .length() > 100) {
+                                __VIEWSTATE = StringUtil
+                                        .getValue(
+                                                valueToken,
+                                                "value",
+                                                "\"", 7);// value
+                                __VIEWSTATE_xskb_gc = __VIEWSTATE;
+                            }
+                        }
                     }
                 }
 
-                if (!(m.group().toString().equals("&nbsp;"))
-                        && !(m.group().toString().equals(""))
-                        && !(m.group().toString().equals("早晨"))
-                        && !(m.group().toString().equals("上午"))
-                        && !(m.group().toString().equals("下午"))
-                        && !(m.group().toString().equals("晚上"))
-                        && !(m.group().toString().substring(0, 1)
-                        .equals("星"))
-                        && !(m.group().toString().equals("时间"))
-                        && !(m.group().toString().substring(0, 1)
-                        .equals("第"))) {
-                    ss[i] = m.group().toString();
-                    //System.out.println(ss[i]);
-                            /*System.out.println(ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
-                            System.out.println(ss[i].substring(0,ss[i].indexOf("<br>")));
-                            System.out.println(ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
-                            System.out.println(ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
-                            System.out.println(ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2));*/
-                    String week = ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2);
-                    w++;
-                    fw+=1;
-                    int courseWeek=0;
-                    courseWeek = w%7;
-                    String courseSection = "";
-                    switch (w/7){
-                        case 0:
-                        case 1:
-                            courseSection="1,2";
-                            break;
-                        case 2:
-                        case 3:
-                            courseSection="3,4";
-                            break;
-                        case 4:
-                        case 5:
-                            courseSection="5,6";
-                            break;
-                        case 6:
-                        case 7:
-                            courseSection="7,8";
-                            break;
-                        case 8:
-                        case 9:
-                            courseSection="9,10";
-                            break;
-                    }
-                    /*if(week.equals("一")){
-                        courseWeek = 1;
-                    }
-                    if(week.equals("二")){
-                        courseWeek = 2;
-                    }
-                    if(week.equals("三")){
-                        courseWeek = 3;
-                    }
-                    if(week.equals("四")){
-                        courseWeek = 4;
-                    }
-                    if(week.equals("五")){
-                        courseWeek = 5;
-                    }
-                    if(week.equals("六")){
-                        courseWeek = 6;
-                    }
-                    if(week.equals("日")){
-                        courseWeek = 7;
-                    }*/
+            }
+            if (__VIEWSTATE_xskb_gc != "") {
+                __VIEWSTATE = __VIEWSTATE_xskb_gc;
 
+            }
+
+            String kbInfo = "";
+            List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
+            // System.out.println(__VIEWSTATE);
+            ddlXN = spTerm.getSelectedItem().toString().substring(0, 9);
+            ddlXQ = spTerm.getSelectedItem().toString().substring(11, 12);
+            System.out.println(ddlXN + ":" + ddlXQ + "\n" + xn + ":" + xq);
+
+            if (!(xn.equals(ddlXN) & xq.equals(ddlXQ))) {
+                if (gnmkdm.equals("N121603")) {
+                    if (!xn.equals(ddlXN) & xq.equals(ddlXQ)) {
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xnd"));
+                    } else if (xn.equals(ddlXN) & !xq.equals(ddlXQ)) {
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xqd"));
+                    } else if (!xn.equals(ddlXN) & !xq.equals(ddlXQ)) {
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xnd"));
+                        pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                        pairs.add(new BasicNameValuePair("xnd",
+                                ddlXN));
+                        pairs.add(new BasicNameValuePair("xqd",
+                                ddlXQ));
+                        try {
+                            kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                    + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
+                                    + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                    + myUrl + "/xs_main.aspx?xh=" + xh);
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        pairs = new ArrayList<>();
+                        pairs.add(new BasicNameValuePair("__EVENTTARGET", "xqd"));
+                    }
+                    pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                    pairs.add(new BasicNameValuePair("xnd",
+                            ddlXN));
+                    pairs.add(new BasicNameValuePair("xqd",
+                            ddlXQ));
 
                     try {
+                        kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                + "/xskbcx.aspx?xh=" + xh + "&xm=" + xm
+                                + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                + myUrl + "/xs_main.aspx?xh=" + xh);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        if (!xn.equals(ddlXN) && xq.equals(ddlXQ)) {
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xn"));
+                        } else if (xn.equals(ddlXN) && !xq.equals(ddlXQ)) {
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xq"));
+                        } else if (!xn.equals(ddlXN) & !xq.equals(ddlXQ)) {
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xn"));
+                            pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                            pairs.add(new BasicNameValuePair("xn", ddlXN));
+                            pairs.add(new BasicNameValuePair("xq", ddlXQ));
+                            pairs.add(new BasicNameValuePair("nj", nj));
+                            pairs.add(new BasicNameValuePair("xy", xy));
+                            pairs.add(new BasicNameValuePair("zy", zy));
 
-                        JSONObject classObject = new JSONObject();
-                        classObject.put("classRoom", ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
-                        classObject.put("week", courseWeek);
-                        classObject.put("courseName", ss[i].substring(0,ss[i].indexOf("<br>")));
-                        //classObject.put("property", ss[i].substring(ss[i].indexOf("<br>", 1) + 3, ss[i].indexOf("<br>", 2) - 1));
-                        //classObject.put("courseSection", ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
-                        classObject.put("courseSection", courseSection);
-                        classObject.put("courseWeek", ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
-                        Pattern pattern = Pattern.compile("<br>(.*?)<br>");
-                        Matcher matcher = pattern.matcher(ss[i]);
-                        int j=0;
-                        while(matcher.find()){
-                            if(j==0){
-                                classObject.put("property",matcher.group(1).toString());}
-                            if(j==1){
-                                classObject.put("teacher",matcher.group(1).toString());}
-                            j++;
+                            kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                    + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                    + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                    + myUrl + "/xs_main.aspx?xh=" + xh);
+                            pairs = new ArrayList<>();
+                            pairs.add(new BasicNameValuePair("__EVENTTARGET", "xq"));
+
+                        }
+                        pairs.add(new BasicNameValuePair("__VIEWSTATE", __VIEWSTATE));
+                        pairs.add(new BasicNameValuePair("xn", ddlXN));
+                        pairs.add(new BasicNameValuePair("xq", ddlXQ));
+                        pairs.add(new BasicNameValuePair("nj", nj));
+                        pairs.add(new BasicNameValuePair("xy", xy));
+                        pairs.add(new BasicNameValuePair("zy", zy));
+
+                        kbInfo = HttpUtil.postUrl("http://" + myUrl
+                                + "/tjkbcx.aspx?xh=" + xh + "&xm=" + xm
+                                + "&gnmkdm=" + gnmkdm, pairs, mHttpClient, "http://"
+                                + myUrl + "/xs_main.aspx?xh=" + xh);
+
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+
+               //System.out.println("获取的网页内容：" + kbInfo);
+            } else {
+                kbInfo = ksInfo;
+                //System.out.println("重新输出第一次获取的网页内容：" + kbInfo);
+            }
+            /*String kzInfo=new String();
+            if(gnmkdm.equals("N121601")){
+            kzInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
+            }*/
+            System.out.println(kbInfo + (kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")) + "length:" + kbInfo.length());
+            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>11500) {
+                kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
+                String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
+                Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
+                Matcher m = p.matcher(temp);
+                ss = null;
+                ss = new String[500];
+                JSONArray courseArray = new JSONArray();//课程JsonArray
+                ArrayList<JSONObject> courseArrayList = new ArrayList<JSONObject>();
+                i = 0;
+                int w = 0, fw = 0;//w为计算表格位置，fw为辅助计算参数
+                while (m.find() && (!m.group().toString().equals("编号")) && (!m.group().toString().equals("课程名称"))) {
+                    if (m.group().toString().equals("&nbsp;")) {
+                        w++;
+                        if (w % 7 == 0) {
+                            w = w + fw;
+                            fw = 0;
+                        }
+                    }
+
+                    if (!(m.group().toString().equals("&nbsp;"))
+                            && !(m.group().toString().equals(""))
+                            && !(m.group().toString().equals("早晨"))
+                            && !(m.group().toString().equals("上午"))
+                            && !(m.group().toString().equals("下午"))
+                            && !(m.group().toString().equals("晚上"))
+                            && !(m.group().toString().substring(0, 1)
+                            .equals("星"))
+                            && !(m.group().toString().equals("时间"))
+                            && !(m.group().toString().substring(0, 1)
+                            .equals("第"))) {
+                        try {
+                            ss[i] = new String(m.group().toString().getBytes(),"UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        /*System.out.println(ss[i]);
+                        System.out.println(ss[i].substring(ss[i].lastIndexOf("<br>") + 4, ss[i].length()));
+                        System.out.println(ss[i].substring(0, ss[i].indexOf("<br>")));
+                        System.out.println(ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
+                        System.out.println(ss[i].substring(ss[i].indexOf("{") + 1, ss[i].lastIndexOf("}")));
+                        System.out.println(ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2));*/
+                        //String week = ss[i].substring(ss[i].indexOf("周") + 1, ss[i].indexOf("周") + 2);
+                        w++;
+                        fw += 1;
+                        int courseWeek = 0;
+                        courseWeek = w % 7;
+                        String courseSection = "";
+                        switch (w / 7) {
+                            case 0:
+                            case 1:
+                                courseSection = "1,2";
+                                break;
+                            case 2:
+                            case 3:
+                                courseSection = "3,4";
+                                break;
+                            case 4:
+                            case 5:
+                                courseSection = "5,6";
+                                break;
+                            case 6:
+                            case 7:
+                                courseSection = "7,8";
+                                break;
+                            case 8:
+                            case 9:
+                                courseSection = "9,10";
+                                break;
+                        }
+                        /*if (week.equals("一")) {
+                            courseWeek = 1;
+                        }
+                        if (week.equals("二")) {
+                            courseWeek = 2;
+                        }
+                        if (week.equals("三")) {
+                            courseWeek = 3;
+                        }
+                        if (week.equals("四")) {
+                            courseWeek = 4;
+                        }
+                        if (week.equals("五")) {
+                            courseWeek = 5;
+                        }
+                        if (week.equals("六")) {
+                            courseWeek = 6;
+                        }
+                        if (week.equals("日")) {
+                            courseWeek = 7;
+                        }*/
+
+
+                        try {
+
+                            /*if(ss[i].contains("red")){
+                                String sstemp1 = ss[i].substring(0,ss[i].indexOf("<font"));
+                                String sstemp2 = ss[i].substring(ss[i].indexOf("font>")+5,ss[i].length());
+                                ss[i] = sstemp1.toString()+sstemp2.toString();
+                            }*/
+                            int oldi = i;
+                            if(ss[i].contains("<br><br>")){
+                                if(gnmkdm.equals("N121603")) {
+                                    String[] group = ss[i].split("(<br><br>)");
+                                    for(int l=0;l<group.length;l++){
+                                        System.out.println(group[l]);
+                                        if(!(group[l].contains("调")||group[l].contains("停")||group[l].contains("换"))){
+                                            ss[i] = group[l];
+                                            i++;
+                                        }
+                                    }
+                                }else{
+                                    String[] group = ss[i].split("(<br><br><br>)");
+                                    for(int l=0;l<group.length;l++){
+                                        System.out.println(group[l]);
+                                        if(!(group[l].contains("调")||group[l].contains("停")||group[l].contains("换"))){
+                                            ss[i] = group[l];
+                                            i++;
+                                        }
+                                    }
+                                }
+                                }
+                            if(oldi<i){i--;}
+                            for(int g=oldi;g<=i;g++) {
+                                JSONObject classObject = new JSONObject();
+                                if (gnmkdm.equals("N121603")) {
+                                    classObject.put("classRoom", ss[g].substring(ss[g].lastIndexOf("<br>") + 4, ss[g].length()));
+                                } else {
+                                    if((ss[g].length()-ss[g].lastIndexOf("<br>"))<4){
+                                        classObject.put("classRoom", ss[g].substring(ss[g].lastIndexOf("<br>") + 4, ss[g].length()));
+                                    }else{
+                                    String tempClassRoom = ss[g].substring(0, ss[g].lastIndexOf("<br>"));
+                                    tempClassRoom = tempClassRoom.substring(tempClassRoom.lastIndexOf("<br>") + 4, tempClassRoom.length());
+                                    classObject.put("classRoom", tempClassRoom);}
+
+                                }
+                                classObject.put("week", courseWeek);
+                                classObject.put("courseName", ss[g].substring(0, ss[g].indexOf("<br>")));
+                                //classObject.put("property", ss[i].substring(ss[i].indexOf("<br>", 1) + 3, ss[i].indexOf("<br>", 2) - 1));
+                                //classObject.put("courseSection", ss[i].substring(ss[i].indexOf("第") + 1, ss[i].indexOf("节")));
+                                classObject.put("courseSection", courseSection);
+                                Pattern pattern = Pattern.compile("<br>(.*?)<br>");
+                                Matcher matcher = pattern.matcher(ss[g]);
+                                int j = 0;
+                                while (matcher.find()) {
+                                    if (j == 0) {
+                                        classObject.put("property", matcher.group(1).toString());
+                                    }
+                                    if (j == 1) {
+                                        classObject.put("teacher", matcher.group(1).toString());
+                                    }
+                                    j++;
+                                }
+                                if (gnmkdm.equals("N121603")) {//根据不同的课表类型，由于格式不同，上课的第几周到第几周的解析不同
+                                    String tempCourseWeek = ss[g].substring(ss[g].indexOf("{") + 1, ss[g].lastIndexOf("}"));
+                                    tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.indexOf("第")+1,tempCourseWeek.indexOf("周"));
+                                    String[] weekAB = tempCourseWeek.split("-");
+                                    if(weekAB[0].equals(weekAB[1])){
+                                        tempCourseWeek = tempCourseWeek.substring(0,tempCourseWeek.indexOf("-"));
+                                    }
+                                    classObject.put("courseWeek", tempCourseWeek);
+                                } else {
+                                    String tempCourseWeek = ss[g].substring(0, ss[g].indexOf("("));
+                                    tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.lastIndexOf(">") + 1, tempCourseWeek.length());
+                                    String[] weekAB = tempCourseWeek.split("-");
+                                    if(weekAB[0].equals(weekAB[1])){
+                                        tempCourseWeek = tempCourseWeek.substring(0,tempCourseWeek.indexOf("-"));
+                                    }
+                                    classObject.put("courseWeek", tempCourseWeek);
+                                }
+
+                                System.out.println(classObject.toString());
+                                courseArrayList.add(classObject);
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        i++;
+                    }
+                }
+                int size=courseArrayList.size();
+                for(int q=0;q<size-1;q++){
+                    try {
+                        JSONObject joNow = courseArrayList.get(q);
+                        ArrayList<String> hbcourseWeek = new ArrayList<String>();
+                        hbcourseWeek.add(joNow.getString("courseWeek"));
+                        int hb =q+1;
+                        if(hb>=courseArrayList.size()){
+                            size = courseArrayList.size();
+                            break;}
+                        JSONObject joNext = courseArrayList.get(hb);
+                        while(joNext.getInt("week")==joNow.getInt("week")&&joNext.getString("courseSection").equals(joNow.getString("courseSection"))){
+                            //Log.d("hbCourseData","出现一样格子课程");
+                            if(joNext.getString("courseName").equals(joNow.getString("courseName"))&&joNext.getString("classRoom").equals(joNow.getString("classRoom")))
+                            {
+                                hbcourseWeek.add(joNext.getString("courseWeek"));
+                                courseArrayList.remove(hb);
+                                joNext = courseArrayList.get(hb);
+
+                            }else {
+                                if (hb == courseArrayList.size() - 1) {
+                                    break;
+                                }
+                                joNext = courseArrayList.get(++hb);
+                            }
                         }
 
-                        System.out.println(classObject.toString());
-                        courseArray.put(classObject);
-
+                        //Collections.sort(hbcourseWeek,Collator.getInstance(Locale.ENGLISH));
+                        String tempCourseWeek = hbcourseWeek.get(0);
+                        for(int q1=1;q1<hbcourseWeek.size();q1++){
+                            tempCourseWeek = tempCourseWeek + "," + hbcourseWeek.get(q1);
+                        }
+                        courseArrayList.get(q).remove("courseWeek");
+                        courseArrayList.get(q).put("courseWeek",tempCourseWeek);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    i++;
+                    size = courseArrayList.size();
                 }
-            }
-
-            mCache.put("courseJson",courseArray.toString());
-            StudentUser newUser = new StudentUser();
-            newUser.setStuCourse(courseArray.toString());//把课程数据存到用户对象中
-            StudentUser user = BmobUser.getCurrentUser(getEduSystemSchedulerActivity.this,StudentUser.class);//获取用户对象
-            newUser.update(getEduSystemSchedulerActivity.this,user.getObjectId(),new UpdateListener() {
-                @Override
-                public void onSuccess() {
-                    Log.d("用户数据更新","课程表数据上传成功！");
+                for(int q2=0;q2<courseArrayList.size();q2++){
+                    courseArray.put(courseArrayList.get(q2));
                 }
 
-                @Override
-                public void onFailure(int i, String s) {
-                    Log.d("用户数据更新","课程表数据上传失败！");
-                }
-            });
-            System.out.println(courseArray.toString());
+                System.out.print("获取到的课程数据:" + courseArray.toString());
+                /*StudentUser newUser = new StudentUser();
+                newUser.setStuCourse(courseArray.toString());//把课程数据存到用户对象中
+                StudentUser user = BmobUser.getCurrentUser(getEduSystemSchedulerActivity.this, StudentUser.class);//获取用户对象
+                newUser.update(getEduSystemSchedulerActivity.this, user.getObjectId(), new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("用户数据更新", "课程表数据上传成功！");
+                    }
 
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    loginBtn.setProgress(100);
-                    final int activityFinishDelay = 2000;
-                    new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Log.d("用户数据更新", "课程表数据上传失败！");
+                    }
+                });用户课程表数据上传到服务器的功能*/
+                System.out.println(courseArray.toString());
+                mCache.put("courseJson", courseArray.toString());
+                SharedPreferences sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("courseJson",courseArray.toString());
+                editor.commit();
+
+                handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            getEduSystemSchedulerActivity.this.finish();
-                        }
-                    }, activityFinishDelay);
-                }
-            });
-
+                        loginBtn.setProgress(100);
+                            Snackbar.make(loginBtn,"日后选课或教务系统调课，均会导致课表不正确，欢迎再次导入哦！", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        final int activityFinishDelay = 3000;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getEduSystemSchedulerActivity.this.finish();
+                            }
+                        }, activityFinishDelay);
+                    }
+                });
+            }else{
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loginBtn.setProgress(-1);
+                        //Toast.makeText(getApplication(),"此学期该类型课表暂无！",Toast.LENGTH_SHORT).show();
+                        Snackbar.make(loginBtn,"此学期本类型课表暂无，请尝试更换课表类型", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        final int activityFinishDelay = 3000;
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getEduSystemSchedulerActivity.this.finish();
+                            }
+                        }, activityFinishDelay);
+                    }
+                });
+            }
         }
     });
 
@@ -491,6 +855,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                 }
                 if (StringUtil.isValue(valueToken, " <title>ERROR")) {
                     return -2;
+                }
+                if(StringUtil.isValue(valueToken,"The page you are looking for is temporarily unavailable.")){
+                    return -3;
                 }
                 if (StringUtil.isValue(valueToken, "id=\"xhxm")) {
                     xh= studentEduNumber;

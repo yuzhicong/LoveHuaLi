@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.yzc.lovehuali.LibrarySearchActivity;
+import com.yzc.lovehuali.New_Student_Activity;
+import com.yzc.lovehuali.OnlineRepairActivity;
+import com.yzc.lovehuali.QueryStudentScoreActivity;
 import com.yzc.lovehuali.R;
+import com.yzc.lovehuali.StaticMap;
 import com.yzc.lovehuali.adapter.ToolKitListViewAdapter;
 
 
@@ -42,6 +44,22 @@ public class ToolKitFragment extends Fragment {
                     case 0:
                         intent.setClass(getActivity(), com.zjm.library.LibrarySearchActivity.class);
                         //intent.setClass(getActivity(), LibrarySearchActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent.setClass(getActivity(), QueryStudentScoreActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent.setClass(getActivity(),StaticMap.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent.setClass(getActivity(), OnlineRepairActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        intent.setClass(getActivity(), New_Student_Activity.class);
                         startActivity(intent);
                         break;
                     default:

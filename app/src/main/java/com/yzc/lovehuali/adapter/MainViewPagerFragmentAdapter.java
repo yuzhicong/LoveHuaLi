@@ -4,13 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.yzc.lovehuali.MainActivity;
 import com.yzc.lovehuali.fragment.CollegeActivityFragment;
-import com.yzc.lovehuali.fragment.InformationFragment;
-import com.yzc.lovehuali.fragment.IntegrateNewsFragment;
-import com.yzc.lovehuali.fragment.ToolKitFragment;
+import com.yzc.lovehuali.fragment.NewsListFragment;
 import com.yzc.lovehuali.fragment.ScheduleFragment;
-import com.yzc.lovehuali.tool.ACache;
+import com.yzc.lovehuali.fragment.ToolKitFragment;
 
 /**
  * Created by Administrator on 2015/1/26 0026.
@@ -33,10 +30,9 @@ public class MainViewPagerFragmentAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0:
                 fragment = new ScheduleFragment();
-
                 break;
             case 1:
-                fragment = new IntegrateNewsFragment();
+                fragment = new NewsListFragment();
                 break;
             case 2:
                 fragment = new CollegeActivityFragment();

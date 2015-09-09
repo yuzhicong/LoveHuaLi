@@ -17,9 +17,9 @@ public class UserToolListViewAdapter extends ArrayAdapter{
 
     private Context context;
     private int listViewCellId;
-    private String stringUserToollist[] = {"个人信息","我的成绩","软件公告","关于我们","建议我们","系统设置","退出登录"};
-    private int iconUserToollist[] = {R.drawable.ic_user_info,R.drawable.ic_score,R.drawable.ic_announcement,
-    R.drawable.ic_info,R.drawable.ic_sent_massage,R.drawable.ic_settings,R.drawable.ic_login_off};
+    private String stringUserToollist[] = {"用户信息","软件公告","关于我们","建议我们","系统设置"};
+    private int iconUserToollist[] = {R.drawable.ic_user_info,R.drawable.ic_announcement,
+    R.drawable.ic_info,R.drawable.ic_sent_massage,R.drawable.ic_settings};
     public UserToolListViewAdapter(Context context, int resource) {
         super(context, resource);
         this.context = context;

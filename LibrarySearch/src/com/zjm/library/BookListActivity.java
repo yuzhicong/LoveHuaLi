@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,7 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -33,6 +39,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -44,6 +51,7 @@ public class BookListActivity extends ActionBarActivity{
 	private ListView booklist;
 	private Handler LibraryH;
 	private View morebooks;
+	private BookCollectionDBHelper helper;
 	SimpleAdapter booklistadapter;
 	List booklistitem = new ArrayList();
 	String url;
@@ -82,6 +90,78 @@ public class BookListActivity extends ActionBarActivity{
 		LibraryH = new NwHandler();
 		booklist.setOnItemClickListener(new BookitemListener());
 		booklist.setOnScrollListener(new BooklistListener());
+		booklist.setOnItemLongClickListener(new BookitemLongClick());
+		helper = new BookCollectionDBHelper(this);
+	}
+
+	public void dialog(String bookName,String bookMsg,String href){
+		AlertDialog.Builder builder = new Builder(BookListActivity.this);
+		builder.setMessage("确定加入收藏吗？");
+		builder.setTitle("提示");
+		final String bookname = bookName;
+		final String bookmsg = bookMsg;
+		final String bookhref = href;
+		//此处有改动与eclipse的不同>>>>>>>>>>>>>>>>
+		builder.setNegativeButton("确定", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				if(helper.Check(bookname)){
+					Toast.makeText(BookListActivity.this, "收藏列表已经存放此书!", Toast.LENGTH_LONG).show();
+				}else{
+					helper.insert(bookname, bookmsg, bookhref);
+					Toast.makeText(BookListActivity.this, "已成功加入收藏", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+		builder.setPositiveButton("取消", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				Toast.makeText(BookListActivity.this, "取消", Toast.LENGTH_LONG).show();
+			}
+		});
+		builder.create().show();
+	}
+
+	class BookitemLongClick implements OnItemLongClickListener{
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View view,
+									   int position, long id) {
+			// TODO Auto-generated method stub
+			String R1 = "\\n(.*?)\\n(.*?)\\n";
+			String R2 = "[0-9]*、";
+			Pattern pattern = Pattern.compile(R1);
+			int itemid = (int) booklist.getItemIdAtPosition(position);
+			if(itemid == -1){
+				System.out.println("这是无效长点击!!!!!!");
+			}else{
+				HashMap colbook = (HashMap) booklistitem.get(itemid);
+				String bookName = (String) colbook.get("bookName");
+				String bookMsg = (String) colbook.get("bookMsg");
+				String href = (String) colbook.get("href");
+				Matcher matcher = pattern.matcher(bookMsg);
+				StringBuffer sbr = new StringBuffer();
+				while (matcher.find()) {
+					matcher.appendReplacement(sbr, "\n");
+				}
+				matcher.appendTail(sbr);
+				bookMsg = sbr.toString();
+				pattern = Pattern.compile(R2);
+				matcher = pattern.matcher(bookName);
+				StringBuffer sbr1 = new StringBuffer();
+				while (matcher.find()) {
+					matcher.appendReplacement(sbr1, "");
+				}
+				matcher.appendTail(sbr1);
+				bookName = sbr1.toString();
+				dialog(bookName,bookMsg,href);
+				//System.out.println("bookname>>>>>>>>>" + bookName);
+				//System.out.println("bookmsg>>>>>>>>>>" + bookMsg);
+				//System.out.println("href>>>>>>>>>>>>>" + href);
+			}
+			return true;
+		}
 	}
 
     class BookitemListener implements OnItemClickListener{
@@ -96,10 +176,15 @@ public class BookListActivity extends ActionBarActivity{
 			}else{
 				Intent bookdetail = new Intent();
 				HashMap selbook = (HashMap) booklistitem.get(itemid);
+				String bookname = (String) selbook.get("bookName");
+				String bookmsg = (String) selbook.get("bookMsg");
 				String bookhref = (String) selbook.get("href");
-				bookhref = bookhref.substring(1,bookhref.length());
-				String itemurl = "http://61.144.79.226:8007/" + bookhref;
-				bookdetail.putExtra("itemurl", itemurl);
+				//bookhref = bookhref.substring(1,bookhref.length());
+				//String itemurl = "http://61.144.79.226:8007/" + bookhref;
+				bookdetail.putExtra("FromActivity","BookListActivity");
+				bookdetail.putExtra("bookname", bookname);
+				bookdetail.putExtra("bookmsg", bookmsg);
+				bookdetail.putExtra("bookhref", bookhref);
 				bookdetail.setClass(BookListActivity.this, BookDetailActivity.class);
 				startActivity(bookdetail);
 			}
@@ -212,11 +297,12 @@ public class BookListActivity extends ActionBarActivity{
 						String bookmsg = eachbook.getString("bookMsg");
 						bookmsg = bookmsg.replaceAll("\t", "");
 						bookmsg = bookmsg.replaceAll("&nbsp", "");
-						bookmsg = bookmsg.substring(2,bookmsg.length()-1);
+						bookmsg = bookmsg.substring(1,bookmsg.length()-1);
 						//System.out.println(bookmsg);
 						bookmap.put("bookMsg", bookmsg);
 						String href = eachbook.getString("href");
 						//System.out.println(href);
+						href = href.substring(1,href.length());
 						bookmap.put("href", href);
 						booklistitem.add(bookmap);
 					}

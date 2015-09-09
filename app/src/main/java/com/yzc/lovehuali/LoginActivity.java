@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -82,68 +85,31 @@ public class LoginActivity extends ActionBarActivity {
             etPassword.setText(sp.getString("Password", ""));
         }
 
-        cpbtnLogin = (CircularProgressButton) findViewById(R.id.cpbtnLogin);
-        cpbtnLogin.setIndeterminateProgressMode(true);
-        cpbtnLogin.setOnClickListener(new View.OnClickListener() {
+        etPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View v) {
-                cpbtnLogin.setProgress(0);
-                cpbtnLogin.setProgress(50);
-                newUser = new StudentUser();
-                newUser.setUsername(etUserName.getText().toString());
-                newUser.setPassword(etPassword.getText().toString());
-                newUser.login(LoginActivity.this,new SaveListener() {
-                    @Override
-                    public void onSuccess() {
-                        cpbtnLogin.setProgress(100);
-                        //Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
-                        StudentUser user = BmobUser.getCurrentUser(getApplicationContext(),StudentUser.class);
-                        ACache mCache = ACache.get(getApplicationContext());
-                        if(!user.getStuCourse().isEmpty()) {
-                            System.out.println("存储用户课程数据");
-                            mCache.put("courseJson", user.getStuCourse().toString());
-                        }else{
-                            mCache.remove("courseJson");
-                            System.out.println("删除用户课程数据");
-                        }
-                        final int activityFinishDelay = 500;
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                                startActivity(i);
-                                LoginActivity.this.finish();
-                            }
-                        }, activityFinishDelay);
-
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                 /*判断是否是“Done”键*/
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    /*隐藏软键盘*/
+                    InputMethodManager imm = (InputMethodManager) v
+                            .getContext().getSystemService(
+                                    Context.INPUT_METHOD_SERVICE);
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(
+                                v.getApplicationWindowToken(), 0);
                     }
 
-                    @Override
-                    public void onFailure(int i, String s) {
+                    new onLoginListener().onClick(v);
 
-                        //Toast.makeText(LoginActivity.this, "错误码：" + i + "登录失败：" + s, Toast.LENGTH_SHORT).show();
-                        switch (i){
-                            case 101:
-                                cpbtnLogin.setErrorText("登录失败，用户名或密码错误");
-                                break;
-                            case 305:
-                                cpbtnLogin.setErrorText("登录失败，用户名或密码为空");
-                                break;
-                            case 9016:
-                                cpbtnLogin.setErrorText("无网络连接，请检查您的手机网络");
-                                break;
-                            case 9010:
-                                cpbtnLogin.setErrorText("网络连接超时");
-                                break;
-                            default:
-                                cpbtnLogin.setErrorText("登录失败");
-                                break;
-                        }
-                        cpbtnLogin.setProgress(-1);
-                    }
-                });
+                    return true;
+                }
+                return false;
             }
         });
+
+        cpbtnLogin = (CircularProgressButton) findViewById(R.id.cpbtnLogin);
+        cpbtnLogin.setIndeterminateProgressMode(true);
+        cpbtnLogin.setOnClickListener(new onLoginListener());
 
         tvSignUp = (TextView) findViewById(R.id.tvSignUp);
         tvSignUp.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +124,68 @@ public class LoginActivity extends ActionBarActivity {
         tvForgotPw = (TextView) findViewById(R.id.tvForgotPw);
 
 
+    }
+
+    class onLoginListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            cpbtnLogin.setProgress(0);
+            cpbtnLogin.setProgress(50);
+            newUser = new StudentUser();
+            newUser.setUsername(etUserName.getText().toString());
+            newUser.setPassword(etPassword.getText().toString());
+            newUser.login(LoginActivity.this,new SaveListener() {
+                @Override
+                public void onSuccess() {
+                    cpbtnLogin.setProgress(100);
+                    //Toast.makeText(LoginActivity.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                        /*StudentUser user = BmobUser.getCurrentUser(getApplicationContext(),StudentUser.class);
+                        ACache mCache = ACache.get(getApplicationContext());
+                        if(!user.getStuCourse().isEmpty()) {
+                            System.out.println("存储用户课程数据");
+                            mCache.put("courseJson", user.getStuCourse().toString());
+                        }else{
+                            mCache.remove("courseJson");
+                            System.out.println("删除用户课程数据");
+                        }*/
+                    final int activityFinishDelay = 1000;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                            //startActivity(i);
+                            LoginActivity.this.finish();
+                        }
+                    }, activityFinishDelay);
+
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+
+                    //Toast.makeText(LoginActivity.this, "错误码：" + i + "登录失败：" + s, Toast.LENGTH_SHORT).show();
+                    switch (i){
+                        case 101:
+                            cpbtnLogin.setErrorText("登录失败，用户名或密码错误");
+                            break;
+                        case 305:
+                            cpbtnLogin.setErrorText("登录失败，用户名或密码为空");
+                            break;
+                        case 9016:
+                            cpbtnLogin.setErrorText("无网络连接，请检查您的手机网络");
+                            break;
+                        case 9010:
+                            cpbtnLogin.setErrorText("网络连接超时");
+                            break;
+                        default:
+                            cpbtnLogin.setErrorText("登录失败");
+                            break;
+                    }
+                    cpbtnLogin.setProgress(-1);
+                }
+            });
+        }
     }
 
 

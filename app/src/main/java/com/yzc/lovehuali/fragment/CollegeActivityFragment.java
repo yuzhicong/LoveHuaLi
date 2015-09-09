@@ -95,11 +95,10 @@ public class CollegeActivityFragment extends Fragment {
             @Override
             protected Void doInBackground(String... params) {
 
-                JSONArray collegeActivityArray = null;
-                //JSONArray collegeActivityArray = mCache.getAsJSONArray("CollegeActivityFragment" + "&page=" + page);
+                JSONArray collegeActivityArray = mCache.getAsJSONArray("CollegeActivityFragment" + "&page=" + page);
 
                 //获取本地缓存，如果缓存不为空就直接读取缓存的新闻数据
-                /*if(collegeActivityArray != null) {
+                if(collegeActivityArray != null) {
                     for (int i = 0; i < collegeActivityArray.length(); i++) {
                         JSONObject collegeActivityObject = null;
                         try {
@@ -110,7 +109,7 @@ public class CollegeActivityFragment extends Fragment {
                         }
                     }
                     return null;
-                }调试阶段暂时不使用缓存*/
+                }
 
                 try {
                     URL url = new URL(params[0]);

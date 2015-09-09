@@ -53,7 +53,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Timer;
@@ -122,17 +125,13 @@ public class QueryStudentScoreActivity extends ActionBarActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("我的成绩");
+        mToolbar.setTitle("成绩查询");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         sp = getSharedPreferences("mysp", Context.MODE_PRIVATE);
 
         spSelectTerm = (Spinner)findViewById(R.id.spTerm);
-        String TermData[] = new String[] {"2014-2015 第1学期","2014-2015 第2学期","2013-2014 第1学期","2013-2014 第2学期",
-                "2012-2013 第1学期","2012-2013 第2学期","2011-2012 第1学期","2011-2012 第2学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
-        spTermAdapter = new ArrayAdapter<String>(QueryStudentScoreActivity.this, R.layout.spinner_item, TermData);
-        spSelectTerm.setAdapter(spTermAdapter);
 
         //用户信息控件绑定
         etStudentId = (MaterialEditText) findViewById(R.id.etStudentId);
@@ -158,9 +157,28 @@ public class QueryStudentScoreActivity extends ActionBarActivity {
 
     }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Date date=new Date();
+        SimpleDateFormat dateFmYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFmMonth = new SimpleDateFormat("MM");
+        int year = Integer.parseInt(dateFmYear.format(date));
+        int month = Integer.parseInt(dateFmMonth.format(date));
+        System.out.println(year + ":" + month);
+        if(month > 0 && month < 7) {
+            String TermData[] = new String[]{(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(QueryStudentScoreActivity.this, R.layout.spinner_item, TermData);
+        }else if(month > 6){
+            String TermData[] = new String[]{(year-1) + "-" + (year) +" 第2学期",(year-1) + "-" + (year) +" 第1学期",(year-2) + "-" + (year-1) + " 第2学期", (year-2) + "-" + (year-1) + " 第1学期",
+                    (year-3) + "-" + (year-2) + " 第2学期", (year-3) + "-" + (year-2) + " 第1学期", (year-4) + "-" + (year-3) + " 第2学期", (year-4) + "-" + (year-3) + " 第1学期",
+                    (year-5) + "-" + (year-4) + " 第2学期",(year-5) + "-" + (year-4) + " 第1学期"};//加强时要注意根据当前时间生成最多5年的数据，或着根据用户入学年数
+            spTermAdapter = new ArrayAdapter<String>(QueryStudentScoreActivity.this, R.layout.spinner_item, TermData);
+        }
+        spSelectTerm.setAdapter(spTermAdapter);
+    }
 
     TimerTask task = new TimerTask() {
         public void run() {
@@ -227,6 +245,11 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                             }
                             if (result == -2) {
                                 Toast.makeText(v.getContext(), "错误原因：系统正忙！",
+                                        Toast.LENGTH_SHORT).show();
+                                cpbtnQueryStudentScore.setProgress(-1);
+                            }
+                            if (result == -3) {
+                                Toast.makeText(v.getContext(), "教务系统处于瘫痪状态，给点时间它恢复~",
                                         Toast.LENGTH_SHORT).show();
                                 cpbtnQueryStudentScore.setProgress(-1);
                             }
@@ -469,6 +492,9 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                 if (StringUtil.isValue(valueToken, " <title>ERROR")) {
                     return -2;
                 }
+                if(StringUtil.isValue(valueToken,"The page you are looking for is temporarily unavailable.")){
+                    return -3;
+                }
                 if (StringUtil.isValue(valueToken, "id=\"xhxm")) {
                     xh= studentEduNumber;
                     //xh = StringUtil.getValue(valueToken, "id=\"xhxm", "<", 10);// value
@@ -500,25 +526,4 @@ View.OnClickListener loginClick = new View.OnClickListener() {
         edit.commit();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_query_student_score, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

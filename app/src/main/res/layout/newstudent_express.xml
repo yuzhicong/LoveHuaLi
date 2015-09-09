@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_traffic_bus"
+        android:text="中通："
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_rest"
+        android:text="本科校门过去乐活街一进去右边就是 \n时间： 11: 30-17: 30 ！！"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_traffic_bus"
+        android:text="申通、圆通、韵达："
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_rest"
+        android:text="乐活小镇靠外街道，几个挨得近\n时间：收到短信起至 17: 30 前！！"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_traffic_bus"
+        android:text="顺丰 EMS 京东 亚马逊 当当 如风达、百世汇通等小快递："
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_rest"
+        android:text="专科华立街旺旺照相馆旁\n时间：以短信为准！！"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_traffic_bus"
+        android:text="天天快递："
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_rest"
+        android:text="专科后山商业街\n时间：以短信为准！！"
+        android:textSize="17dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_traffic_bus"
+        android:text="华立快递的详细地址："
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/newstudent_rest"
+        android:text="广东省增城市增江街道华立路11号广东工业大学华立学院        511325"
+        android:textSize="17dp" />
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yzc.lovehuali.fragment.NewsListFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.yzc.lovehuali.widget.autoscrollviewpager.AutoScrollViewPager
+            android:id="@+id/newsPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </com.yzc.lovehuali.widget.autoscrollviewpager.AutoScrollViewPager>
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/pagerIndicator"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_alignBottom="@id/newsPager" />
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvNewsList"></ListView>
+
+</LinearLayout>

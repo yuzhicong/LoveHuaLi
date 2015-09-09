@@ -45,8 +45,10 @@
             android:layout_weight="4"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
             android:hint="请输入关键词"
-            app:iconLeft="@drawable/icon_key_word"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
             app:iconPadding="0dp"
             />
 
