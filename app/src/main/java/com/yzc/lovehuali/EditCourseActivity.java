@@ -1,19 +1,18 @@
 package com.yzc.lovehuali;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -76,17 +75,6 @@ public class EditCourseActivity extends ActionBarActivity {
         final String intentweek = intent.getStringExtra("intentweek");
 
 
-//        if (!intentname.equals("")) {
-//            course_name.setFocusable(false);
-//            course_room.setFocusable(false);
-//            course_teachar.setFocusable(false);
-//            course_weeks.setFocusable(false);
-//
-//        } else {
-//            mToolbar.setTitle("添加课程");
-//            temp_save = 1;
-//        }
-//2015.5.18
         if (intentname != null) {
             course_name.setFocusable(false);
             course_room.setFocusable(false);
@@ -109,13 +97,13 @@ public class EditCourseActivity extends ActionBarActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         if (temp_save == 0) {
             getMenuInflater().inflate(R.menu.menu_edit_course, menu);
         } else {
+
             getMenuInflater().inflate(R.menu.menu_edit_course_forsave, menu);
         }
         return true;
@@ -152,56 +140,70 @@ public class EditCourseActivity extends ActionBarActivity {
 
                             String newjson = "";
                             String[] jsonString;
-                            aCache = ACache.get(getApplication());
-                            String courseJson = aCache.getAsString("courseJson");
 
-                            try {
-                                JSONArray jsonArray = new JSONArray(courseJson);
-                                jsonString = new String[jsonArray.length()];
+                            SharedPreferences sp = getSharedPreferences("mysp", Activity.MODE_PRIVATE);
 
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    String jsonweek = jsonObject.getString("week");
-                                    String jsoncourseSection = jsonObject.getString("courseSection");
-                                    String jsoncourseWeek = jsonObject.getString("courseWeek");
-                                    String jsoncourseName = jsonObject.getString("courseName");
-                                    String jsonclassRoom = jsonObject.getString("classRoom");
-                                    String jsonteacher = jsonObject.getString("teacher");
+//                            aCache = ACache.get(getApplication());
+//                            String courseJson = aCache.getAsString("courseJson");
+                            if (sp.getString("courseJson", "") != null) {
+                                String courseJson = sp.getString("courseJson", "");
+                                try {
+                                    JSONArray jsonArray = new JSONArray(courseJson);
+                                    jsonString = new String[jsonArray.length()];
 
-                                    if (weekss.equals(jsonweek) && getsection.equals(jsoncourseSection)) {
-                                        continue;
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        String jsonweek = jsonObject.getString("week");
+                                        String jsoncourseSection = jsonObject.getString("courseSection");
+                                        String jsoncourseWeek = jsonObject.getString("courseWeek");
+                                        String jsoncourseName = jsonObject.getString("courseName");
+                                        String jsonclassRoom = jsonObject.getString("classRoom");
+                                        String jsonteacher = jsonObject.getString("teacher");
 
-                                    } else {
+                                        if (weekss.equals(jsonweek) && getsection.equals(jsoncourseSection)) {
+                                            continue;
 
-                                        jsonString[i] = "{\"courseWeek\":\"" + jsoncourseWeek + "\",\"classRoom\":\"" + jsonclassRoom + "\",\"teacher\":\"" + jsonteacher + "\",\"courseSection\":\"" + jsoncourseSection + "\",\"courseName\":\"" + jsoncourseName + "\",\"week\":" + jsonweek + "}";
+                                        } else {
+
+                                            jsonString[i] = "{\"courseWeek\":\"" + jsoncourseWeek + "\",\"classRoom\":\"" + jsonclassRoom + "\",\"teacher\":\"" + jsonteacher + "\",\"courseSection\":\"" + jsoncourseSection + "\",\"courseName\":\"" + jsoncourseName + "\",\"week\":" + jsonweek + "}";
+                                        }
+
                                     }
 
-                                }
 
-
-                                for (int i = 0; i < jsonString.length; i++) {
-                                    System.out.println("======================++" + jsonString[i]);
-                                    if (jsonString[i] == null) {
-                                        continue;
-                                    } else {
-                                        newjson = newjson + jsonString[i] + ",";
+                                    for (int i = 0; i < jsonString.length; i++) {
+                                        System.out.println("======================++" + jsonString[i]);
+                                        if (jsonString[i] == null) {
+                                            continue;
+                                        } else {
+                                            newjson = newjson + jsonString[i] + ",";
+                                        }
                                     }
+                                    if (!newjson.equals("")) {
+                                        newjson = newjson.substring(0, newjson.length() - 1);
+                                        newjson = "[" + newjson + "]";
+
+//                                    aCache.put("courseJson", newjson);
+                                        SharedPreferences sp2 = getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor2 = sp2.edit();
+                                        editor2.putString("courseJson", newjson);
+                                        editor2.commit();
+                                        finish();
+                                    } else {
+
+                                        SharedPreferences sp3 = getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor3 = sp3.edit();
+                                        editor3.putString("courseJson", newjson);
+                                        editor3.commit();
+//                                    aCache.put("courseJson", "");
+                                        finish();
+                                    }
+                                    System.out.println("======================++" + newjson);
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                                if (!newjson.equals("")) {
-                                    newjson = newjson.substring(0, newjson.length() - 1);
-                                    newjson = "[" + newjson + "]";
-
-                                    aCache.put("courseJson", newjson);
-                                    finish();
-                                } else {
-                                    aCache.put("courseJson", "");
-                                    finish();
-                                }
-                                System.out.println("======================++" + newjson);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
 
                         }
@@ -217,6 +219,7 @@ public class EditCourseActivity extends ActionBarActivity {
                 break;
             case R.id.action_edit:
 
+                item.setIcon(R.drawable.save_course);
                 mToolbar.setTitle("编辑课程");
                 if (temp == 0) {
                     MaterialEditText course_name_edit = (MaterialEditText) findViewById(R.id.course_edit_nameId);
@@ -253,13 +256,17 @@ public class EditCourseActivity extends ActionBarActivity {
                     String week = intentweek;
 
 
-                    if (!getname.equals("")) {
+                    if (!getname.equals("") && !getweeks.equals("") ) {
 
                         int TEST = 0;
                         String newjson = "";
                         String[] jsonString;
-                        aCache = ACache.get(getApplication());
-                        String courseJson = aCache.getAsString("courseJson");
+
+                        SharedPreferences sp4 = getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+                        String courseJson = sp4.getString("courseJson", "");
+
+//                        aCache = ACache.get(getApplication());
+//                        String courseJson = aCache.getAsString("courseJson");
 
                         try {
                             JSONArray jsonArray = new JSONArray(courseJson);
@@ -305,7 +312,11 @@ public class EditCourseActivity extends ActionBarActivity {
 
                         }
                         Log.d("MainActivity", " ---------------------->>>" + newjson);
-                        aCache.put("courseJson", newjson);
+                        SharedPreferences sp5 = getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+                        SharedPreferences.Editor editor5 = sp5.edit();
+                        editor5.putString("courseJson", newjson);
+                        editor5.commit();
+//                        aCache.put("courseJson", newjson);
                         finish();
                     } else {
                         Toast.makeText(getApplicationContext(), "请输入完整的课程信息！", Toast.LENGTH_SHORT).show();
@@ -335,14 +346,17 @@ public class EditCourseActivity extends ActionBarActivity {
                 String getsection = course_section.getText().toString();
                 String week = intentweek;
 
+                System.out.println("用户输入课程的周数---->" + getweeks + ",size-->" + getweeks.length());
 
-                if (!getname.equals("")) {
+                if (!getname.equals("") && !getweeks.equals("")) {
 
                     int TEST = 0;
                     String newjson = "";
                     String[] jsonString;
-                    aCache = ACache.get(getApplication());
-                    String courseJson = aCache.getAsString("courseJson");
+                    SharedPreferences sp6 = getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+                    String courseJson = sp6.getString("courseJson", "");
+//                    aCache = ACache.get(getApplication());
+//                    String courseJson = aCache.getAsString("courseJson");
 
                     if (courseJson != null) {//2015.5.18
 
@@ -388,15 +402,19 @@ public class EditCourseActivity extends ActionBarActivity {
                             String newjsonone = "{\"courseWeek\":\"" + getweeks + "\",\"classRoom\":\"" + getroom + "\",\"teacher\":\"" +
                                     getteacher + "\",\"courseSection\":\"" + getsection + "\",\"courseName\":\"" + getname + "\",\"week\":" + week + "}";
 
-                            if (courseJson.length() == 0){
+                            if (courseJson.length() == 0) {
                                 newjson = "[" + newjsonone + "]";
-                            }else {
+                            } else {
                                 newjson = courseJson.substring(0, courseJson.length() - 1) + "," + newjsonone + "]";
                             }
                         }
                     }
                     Log.d("MainActivity", " ---------------------->>>" + newjson);
-                    aCache.put("courseJson", newjson);
+                    SharedPreferences sp7 = getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor7 = sp7.edit();
+                    editor7.putString("courseJson", newjson);
+                    editor7.commit();
+//                    aCache.put("courseJson", newjson);
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "请输入完整的课程信息！", Toast.LENGTH_SHORT).show();

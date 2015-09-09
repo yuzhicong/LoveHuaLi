@@ -65,28 +65,36 @@ public class Course_WidgetProvider extends AppWidgetProvider {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
-        //先清空原来的课程表格
-
-
-        aCache_wight = ACache.get(context);
-        String json = aCache_wight.getAsString("courseJson");
-
         int temp_json = ScheduleFragment.locad_week;
-        
+
+        Show_course(views, context, temp_json);
+        appWidgetManager.updateAppWidget(appWidgetIds, views);
+
+    }
+
+    @Override
+    public void onEnabled(Context context) {
+
+    }
+
+    private void Show_course(RemoteViews views, Context context, int weekscourse) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("weeks", Activity.MODE_PRIVATE);
         if (sharedPreferences.getString("WEEKS_COURSE", "") != null) {
             views.setTextViewText(R.id.show_choose_weeks, "第" + sharedPreferences.getString("WEEKS_COURSE", "") + "周");
-            temp_json = Integer.parseInt(sharedPreferences.getString("WEEKS_COURSE", ""));
-        }else{
-            views.setTextViewText(R.id.show_choose_weeks,"第" + String.valueOf(temp_json) + "周");
+            weekscourse = Integer.parseInt(sharedPreferences.getString("WEEKS_COURSE", ""));
+        } else {
+            views.setTextViewText(R.id.show_choose_weeks, "第" + String.valueOf(weekscourse) + "周");
         }
 
-        if (json != null) {
+        SharedPreferences sp = context.getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+
+        if (sp.getString("courseJson", "") != null) {
             for (int j = 0; j < textViewId.length; j++) {
                 views.setTextViewText(textViewId[j], "");
-                views.setInt(textViewId[j], "setBackgroundResource", R.color.cpb_white);
+                views.setInt(textViewId[j], "setBackgroundResource", R.color.widget_white);
             }
 
+            String json = sp.getString("courseJson", "");
             try {
                 JSONArray jsonArray = new JSONArray(json);
 
@@ -151,7 +159,7 @@ public class Course_WidgetProvider extends AppWidgetProvider {
                         for (int k = 0; k < courseWeekString_sz_1.length; k++) {
                             if (courseWeekString_sz_1[k].indexOf("-") != -1) {
                                 String[] courseWeekString_sz_1_1 = courseWeekString_sz_1[k].split("-");
-                                if (temp_json >= Integer.parseInt(courseWeekString_sz_1_1[0]) && temp_json <= Integer.parseInt(courseWeekString_sz_1_1[1])) {
+                                if (weekscourse >= Integer.parseInt(courseWeekString_sz_1_1[0]) && weekscourse <= Integer.parseInt(courseWeekString_sz_1_1[1])) {
 
                                     views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                     views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
@@ -161,7 +169,7 @@ public class Course_WidgetProvider extends AppWidgetProvider {
                                 }
 
                             } else {
-                                if (temp_json == Integer.parseInt(courseWeekString_sz_1[k])) {
+                                if (weekscourse == Integer.parseInt(courseWeekString_sz_1[k])) {
                                     views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                     views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
                                 } else {
@@ -175,7 +183,7 @@ public class Course_WidgetProvider extends AppWidgetProvider {
                     } else {
                         if (courseWeekString[i].indexOf("-") != -1) {//去掉含有","的字符串，处理含有"-"
                             String[] courseWeekString_sz_2 = courseWeekString[i].split("-");
-                            if (temp_json >= Integer.parseInt(courseWeekString_sz_2[0]) && temp_json <= Integer.parseInt(courseWeekString_sz_2[1])) {
+                            if (weekscourse >= Integer.parseInt(courseWeekString_sz_2[0]) && weekscourse <= Integer.parseInt(courseWeekString_sz_2[1])) {
                                 views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                 views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
                             } else {
@@ -184,7 +192,7 @@ public class Course_WidgetProvider extends AppWidgetProvider {
                             }
 
                         } else {//处理单个周数"8"
-                            if (temp_json == Integer.parseInt(courseWeekString[i])) {
+                            if (weekscourse == Integer.parseInt(courseWeekString[i])) {
                                 views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                 views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
                             } else {
@@ -201,17 +209,8 @@ public class Course_WidgetProvider extends AppWidgetProvider {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("缓存课程数据为空-------->>>");
+            System.out.println("SharedPreferences课程数据为空-------->>>");
         }
-
-//        views.setInt(linearlayout_9_10,);
-        appWidgetManager.updateAppWidget(appWidgetIds, views);
-
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-
 
     }
 

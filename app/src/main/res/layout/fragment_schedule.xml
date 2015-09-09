@@ -1,37 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-
+    android:id="@+id/fragment_course"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/fragment_schedule_week"/>
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:id="@+id/courejsonLayout"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/linearlayout2"
             android:layout_width="match_parent"
-            android:fillViewport="true"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+
+            <include layout="@layout/fragment_schedule_week" />
 
             <LinearLayout
+                android:id="@+id/courejsonLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
 
-                <include layout="@layout/fragment_schedule_section"/>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
 
-                <include layout="@layout/fragment_schedule_course"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/fragment_schedule_section" />
+
+                        <include layout="@layout/fragment_schedule_course" />
+
+                    </LinearLayout>
+
+
+                </ScrollView>
+
 
             </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/no_course"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/no_course_pic"/>
+    </FrameLayout>
 
 
-        </ScrollView>
-
-
-    </LinearLayout>
 
 </LinearLayout>

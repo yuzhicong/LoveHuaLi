@@ -5,20 +5,21 @@
 
     <item
         android:id="@+id/action_empty"
-        android:title="清除"
+        android:icon="@drawable/delete_course"
         android:orderInCategory="100"
+        android:title=""
         app:showAsAction="always" />
     <item
         android:id="@+id/action_edit"
-        android:title="编辑"
+        android:icon="@drawable/edit_course"
         android:orderInCategory="100"
+        android:title=""
         app:showAsAction="always" />
     <!--<item-->
-        <!--android:id="@+id/action_save"-->
-        <!--android:title="保存"-->
-        <!--android:orderInCategory="100"-->
-        <!--app:showAsAction="always" />-->
-
+    <!--android:id="@+id/action_save"-->
+    <!--android:title="保存"-->
+    <!--android:orderInCategory="100"-->
+    <!--app:showAsAction="always" />-->
 
 
 </menu>

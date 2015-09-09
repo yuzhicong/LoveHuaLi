@@ -15,10 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yzc.lovehuali.EditCourseActivity;
 import com.yzc.lovehuali.R;
-import com.yzc.lovehuali.tool.ACache;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,8 +31,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
 
     private TextView[] textView;
+    private static int judeg_temp = 0;
 
-    private ACache mCache;//缓存对象
 
     private int[] textViewId = {R.id.week1_1_2_textView, R.id.week2_1_2_textView, R.id.week3_1_2_textView, R.id.week4_1_2_textView, R.id.week5_1_2_textView, R.id.week6_1_2_textView, R.id.week7_1_2_textView,
             R.id.week1_3_4_textView, R.id.week2_3_4_textView, R.id.week3_3_4_textView, R.id.week4_3_4_textView, R.id.week5_3_4_textView, R.id.week6_3_4_textView, R.id.week7_3_4_textView,
@@ -64,14 +64,16 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private View view;
     public static int locad_week = 1;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        View courejsonLayout = rootView.findViewById(R.id.courejsonLayout);
-        courejsonLayout.setVisibility(View.VISIBLE);
+        View linearlayout2 = rootView.findViewById(R.id.linearlayout2);
+        linearlayout2.setVisibility(View.VISIBLE);
+
 
         //        绑定TextView并显示课程
         textView = new TextView[35];
@@ -80,31 +82,61 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             textView[i].setOnClickListener(this);
         }
 
-        mCache = ACache.get(getActivity());
-        if (mCache.getAsString("courseJson") != null) {
-            //System.out.println(mCache.getAsString("courseJson"));
-            this.refresh(mCache.getAsString("courseJson"), locad_week);
+        SharedPreferences sp = getActivity().getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+
+        if (sp.getString("courseJson", "") != null) {
+
+            this.refresh(sp.getString("courseJson", ""), locad_week);
+            if (judeg_temp == 1) {
+                View image_nocourse = rootView.findViewById(R.id.no_course);
+                image_nocourse.setVisibility(View.VISIBLE);
+            }else{
+                View image_nocourse = rootView.findViewById(R.id.no_course);
+                image_nocourse.setVisibility(View.INVISIBLE);
+            }
+
+        } else {
+
+            Toast.makeText(getActivity(), "请获取课程", Toast.LENGTH_SHORT).show();
         }
 
 
         IntentFilter intentFilter = new IntentFilter("MainActivity.ScheduleChange");
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
+
+
         return rootView;
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            String string3 = intent.getAction();
             locad_week = intent.getIntExtra("weekChose", -1);
 
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("weeks", Activity.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("WEEKS_COURSE",String.valueOf(locad_week));
+            editor.putString("WEEKS_COURSE", String.valueOf(locad_week));
             editor.commit();
 
-            refresh(mCache.getAsString("courseJson"), locad_week);
-//            Toast.makeText(getActivity(), String.valueOf(locad_week), Toast.LENGTH_LONG).show();
+            SharedPreferences sp = getActivity().getSharedPreferences("mysp", Activity.MODE_PRIVATE);
+
+
+            if (sp.getString("courseJson", "") != null) {
+                refresh(sp.getString("courseJson", ""), locad_week);
+                if (judeg_temp == 1) {
+                    View image_nocourse = getActivity().findViewById(R.id.no_course);
+                    image_nocourse.setVisibility(View.VISIBLE);
+                }else{
+                    View image_nocourse = getActivity().findViewById(R.id.no_course);
+                    image_nocourse.setVisibility(View.INVISIBLE);
+                }
+
+            } else {
+
+                Toast.makeText(getActivity(), "请获取课程", Toast.LENGTH_SHORT).show();
+            }
+            onResume();
+
         }
     };
 
@@ -113,15 +145,28 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         System.out.println("课程碎片正在刷新");
 
-        if (mCache.getAsString("courseJson") != null) {
-            System.out.println("--------修复课程周数问题------>" + mCache.getAsString("courseJson").toString());
-//            for (int i = 0; i < 35; i++) {
-//                textView[i].setText("");
-////                textView[i].setBackgroundColor(android.R.color.white);
-//            }
-            this.refresh(mCache.getAsString("courseJson"), locad_week);
+        SharedPreferences sp = getActivity().getSharedPreferences("mysp", Activity.MODE_PRIVATE);
 
+        if (sp.getString("courseJson", "") != null) {
+
+            this.refresh(sp.getString("courseJson", ""), locad_week);
+
+            if (judeg_temp == 1) {
+                View image_nocourse = getActivity().findViewById(R.id.no_course);
+                image_nocourse.setVisibility(View.VISIBLE);
+            }else {
+                View image_nocourse = getActivity().findViewById(R.id.no_course);
+                image_nocourse.setVisibility(View.INVISIBLE);
+            }
+        } else {
+            Toast.makeText(getActivity(), "请获取课程", Toast.LENGTH_SHORT).show();
         }
+
+//        if (mCache.getAsString("courseJson") != null) {
+//            System.out.println("--------修复课程周数问题------>" + mCache.getAsString("courseJson").toString());
+//            this.refresh(mCache.getAsString("courseJson"), locad_week);
+//
+//        }
     }
 
     //jsonweeks的方法没有写出
@@ -207,12 +252,12 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                             if (jsonweeks >= Integer.parseInt(courseWeekString_sz_1_1[0]) && jsonweeks <= Integer.parseInt(courseWeekString_sz_1_1[1])) {
 
 //                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
-                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                                 p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                                 textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                             } else {
 //                                textView[allint].setBackgroundResource(R.color.color_public);
-                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                                 p.setColor(getResources().getColor(R.color.color_public));
                                 textView[allint].setTextColor(Color.parseColor("#666666"));
                             }
@@ -220,12 +265,12 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                         } else {
                             if (jsonweeks == Integer.parseInt(courseWeekString_sz_1[k])) {
 //                                textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
-                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                                 p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                                 textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                             } else {
 //                                textView[allint].setBackgroundResource(R.color.color_public);
-                                GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                                GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                                 p.setColor(getResources().getColor(R.color.color_public));
                                 textView[allint].setTextColor(Color.parseColor("#666666"));
                             }
@@ -238,12 +283,12 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                         String[] courseWeekString_sz_2 = courseWeekString[i].split("-");
                         if (jsonweeks >= Integer.parseInt(courseWeekString_sz_2[0]) && jsonweeks <= Integer.parseInt(courseWeekString_sz_2[1])) {
 //                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
-                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                             p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                             textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                         } else {
 //                            textView[allint].setBackgroundResource(R.color.color_public);
-                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                             p.setColor(getResources().getColor(R.color.color_public));
                             textView[allint].setTextColor(Color.parseColor("#666666"));
                         }
@@ -251,17 +296,18 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                     } else {//处理单个周数"8"
                         if (jsonweeks == Integer.parseInt(courseWeekString[i])) {
 //                            textView[allint].setBackgroundColor(getResources().getColor(textViewColorId[jsonint[i]]));
-                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                             p.setColor(getResources().getColor(textViewColorId[jsonint[i]]));
                             textView[allint].setTextColor(Color.parseColor("#FFFFFF"));
                         } else {
 //                            textView[allint].setBackgroundResource(R.color.color_public);
-                            GradientDrawable p = (GradientDrawable)textView[allint].getBackground();
+                            GradientDrawable p = (GradientDrawable) textView[allint].getBackground();
                             p.setColor(getResources().getColor(R.color.color_public));
                             textView[allint].setTextColor(Color.parseColor("#666666"));
                         }
 
                     }
+
                 }
             }
 
@@ -269,12 +315,22 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        int temp_i = 0;
+        for (int i = 0; i < textViewId.length; i++) {
 
-        for(int i = 0; i < textViewId.length; i ++) {
             if (textView[i].getText().toString().equals("")) {
                 textView[i].setBackgroundResource(R.drawable.textview_style);
+                temp_i++;
+
+            }
+            if (temp_i == textViewId.length) {
+                judeg_temp = 1;
+            }else {
+                judeg_temp = 0;
             }
         }
+
+        System.out.println("judge_temp---->" + String.valueOf(judeg_temp) + "," + String.valueOf(temp_i));
     }
 
 
@@ -355,4 +411,6 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
+
 }
