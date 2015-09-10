@@ -31,24 +31,22 @@ import com.yzc.lovehuali.R;
  */
 public class RepairPostFragment extends Fragment {
 
-    EditText etPerson;
-    EditText etPhone;
-    Spinner spDepart;
-    Spinner spAddress1;
-    Spinner spAddress2;
-    EditText etAddress3;
-    Spinner spType1;
-    Spinner spType2;
-    EditText etContent;
+    EditText etPerson,etPhone,etAddress3,etContent;
+    Spinner spDepart,spAddress1,spAddress2,spType1,spType2;
     Button btnSubmit;
-    String[] waterelec;
-    String[] drinkwater;
-    String[] sunwater;
-    String[] homeelec;
-    String[] wood;
-    String[] mud;
-
+    int depart;
+    int address1;
+    int address2;
+    int type1;
+    int type2;
     ArrayAdapter<String> adpType2 = null;
+    //    String[] waterelec;
+    //    String[] drinkwater;
+    //    String[] sunwater;
+    //    String[] homeelec;
+    //    String[] wood;
+    //    String[] mud;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,14 +62,14 @@ public class RepairPostFragment extends Fragment {
         spType2 = (Spinner) view.findViewById(R.id.sp_type2);
         etContent = (EditText) view.findViewById(R.id.et_content);
         btnSubmit = (Button) view.findViewById(R.id.btn_submit);
-        waterelec = getResources().getStringArray(R.array.type2_1water_elec);
-        drinkwater = getResources().getStringArray(R.array.type2_3drink_water);
-        sunwater = getResources().getStringArray(R.array.type2_4sun_water);
-        homeelec = getResources().getStringArray(R.array.type2_5home_elec);
-        wood = getResources().getStringArray(R.array.type2_6wood);
-        mud = getResources().getStringArray(R.array.type2_7mud);
+//        waterelec = getResources().getStringArray(R.array.type2_1water_elec);
+//        drinkwater = getResources().getStringArray(R.array.type2_3drink_water);
+//        sunwater = getResources().getStringArray(R.array.type2_4sun_water);
+//        homeelec = getResources().getStringArray(R.array.type2_5home_elec);
+//        wood = getResources().getStringArray(R.array.type2_6wood);
+//        mud = getResources().getStringArray(R.array.type2_7mud);
 
-        adpType2 = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, waterelec);
+        adpType2 = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.type2_1water_elec));
 
         //报修单位监听事件
         spDepart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -170,8 +168,7 @@ public class RepairPostFragment extends Fragment {
                     case 0://水电
                         spType2.setVisibility(View.VISIBLE);
                         spType2.setClickable(true);
-                        //						adpType2 = ArrayAdapter.createFromResource(MyApplication.getContext(),R.array.type2_1water_elec, android.R.layout.simple_spinner_dropdown_item);
-                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, waterelec);
+                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.type2_1water_elec));
                         break;
                     case 1://电卡
                         spType2.setVisibility(View.INVISIBLE);
@@ -180,30 +177,30 @@ public class RepairPostFragment extends Fragment {
                     case 2://直饮水
                         spType2.setVisibility(View.VISIBLE);
                         spType2.setClickable(true);
-                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, drinkwater);
+                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.type2_3drink_water));
                         break;
                     case 3://太阳能热水
                         spType2.setVisibility(View.VISIBLE);
                         spType2.setClickable(true);
-                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, sunwater);
+                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.type2_4sun_water));
 
                         break;
                     case 4://家电
                         spType2.setVisibility(View.VISIBLE);
                         spType2.setClickable(true);
-                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, homeelec);
+                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.type2_5home_elec));
 
                         break;
                     case 5://木
                         spType2.setVisibility(View.VISIBLE);
                         spType2.setClickable(true);
-                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, wood);
+                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.type2_6wood));
 
                         break;
                     case 6://泥水
                         spType2.setVisibility(View.VISIBLE);
                         spType2.setClickable(true);
-                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, mud);
+                        adpType2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.type2_7mud));
 
                         break;
                     case 7://电梯
@@ -275,18 +272,19 @@ public class RepairPostFragment extends Fragment {
         if (TextUtils.isEmpty(etPerson.getText().toString().trim())) {
             etPerson.setError("敢问阁下尊姓大名？");
         }
-        if (TextUtils.isEmpty(etPhone.getText().toString().trim())) {
+        else if (TextUtils.isEmpty(etPhone.getText().toString().trim())) {
             etPhone.setError("亲,联系方式呢~");
         }
-        if (TextUtils.isEmpty(etAddress3.getText().toString().trim())) {
+        else if (TextUtils.isEmpty(etAddress3.getText().toString().trim())) {
             etAddress3.setError("咱又不查水表#_#");
         }
-        if (TextUtils.isEmpty(etContent.getText().toString().trim())) {
+        else if (TextUtils.isEmpty(etContent.getText().toString().trim())) {
             etContent.setError("are you ok?");
         }
+        else {
+            //把9个属性信息都发送post网络请求，哪怕有的不可用，也要交给MultipartEntityBuilder判断处理
 
-        //把9个属性信息都发送post网络请求，哪怕有的不可用，也要交给MultipartEntityBuilder判断处理
-
+        }
 
 
     }
@@ -296,13 +294,11 @@ public class RepairPostFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Log.e("Post", "4-onActivityCreated");
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         Log.e("Post", "9-onDestroyView");
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
