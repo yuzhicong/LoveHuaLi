@@ -66,6 +66,7 @@
     <color name="card09">#a9ae9e</color>
 
     <color name="widget_white">#b4ffffff</color>
+    <color name="widget_lucency">#00000000</color>
 
 
 </resources>

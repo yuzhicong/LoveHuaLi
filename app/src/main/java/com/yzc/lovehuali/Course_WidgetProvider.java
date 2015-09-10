@@ -89,9 +89,11 @@ public class Course_WidgetProvider extends AppWidgetProvider {
         SharedPreferences sp = context.getSharedPreferences("mysp", Activity.MODE_PRIVATE);
 
         if (sp.getString("courseJson", "") != null) {
+            int[] temp_int = new int[textViewId.length];
             for (int j = 0; j < textViewId.length; j++) {
                 views.setTextViewText(textViewId[j], "");
-                views.setInt(textViewId[j], "setBackgroundResource", R.color.widget_white);
+                views.setInt(textViewId[j], "setBackgroundResource", R.color.widget_lucency);
+                temp_int[j] = 0;
             }
 
             String json = sp.getString("courseJson", "");
@@ -149,8 +151,8 @@ public class Course_WidgetProvider extends AppWidgetProvider {
                     int tempint = (Integer.parseInt(courseSectionString_sz[1]) - 2) / 2;
                     int allint = (tempint * 7) + Integer.parseInt(weekString[i]) - 1;
 
-                    views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
-                    views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+//                    views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+//                    views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
 
                     System.out.println("显示课程的周数问题--->>" + i + "\t" + courseWeekString[i]);
 
@@ -163,18 +165,37 @@ public class Course_WidgetProvider extends AppWidgetProvider {
 
                                     views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                     views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
+                                    views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                    temp_int[allint] = 1;
                                 } else {
-                                    views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
-                                    views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                    for (int t =0 ; t < textViewId.length; t ++) {
+                                        if (temp_int[allint] == 0) {
+                                            views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
+                                            views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                            views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                        }
+
+                                    }
+
                                 }
 
                             } else {
                                 if (weekscourse == Integer.parseInt(courseWeekString_sz_1[k])) {
                                     views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                     views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
+                                    views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                    temp_int[allint] = 1;
                                 } else {
-                                    views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
-                                    views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+//                                    views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
+//                                    views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                    for (int t =0 ; t < textViewId.length; t ++) {
+                                        if (temp_int[allint] == 0) {
+                                            views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
+                                            views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                            views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                        }
+
+                                    }
                                 }
 
                             }
@@ -186,18 +207,38 @@ public class Course_WidgetProvider extends AppWidgetProvider {
                             if (weekscourse >= Integer.parseInt(courseWeekString_sz_2[0]) && weekscourse <= Integer.parseInt(courseWeekString_sz_2[1])) {
                                 views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                 views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
+                                views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                temp_int[allint] = 1;
                             } else {
-                                views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
-                                views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+//                                views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
+//                                views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                for (int t =0 ; t < textViewId.length; t ++) {
+                                    if (temp_int[allint] == 0) {
+                                        views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
+                                        views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                        views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                    }
+
+                                }
                             }
 
                         } else {//处理单个周数"8"
                             if (weekscourse == Integer.parseInt(courseWeekString[i])) {
                                 views.setInt(textViewId[allint], "setBackgroundResource", textviewColorId[jsonint[i]]);
                                 views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#FFFFFF"));
+                                views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                temp_int[allint] = 1;
                             } else {
-                                views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
-                                views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+//                                views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
+//                                views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                for (int t =0 ; t < textViewId.length; t ++) {
+                                    if (temp_int[allint] == 0) {
+                                        views.setInt(textViewId[allint], "setBackgroundResource", R.color.color_public);
+                                        views.setInt(textViewId[allint], "setTextColor", Color.parseColor("#666666"));
+                                        views.setTextViewText(textViewId[allint], courseNameString[i] + classRoomString[i]);
+                                    }
+
+                                }
                             }
 
                         }

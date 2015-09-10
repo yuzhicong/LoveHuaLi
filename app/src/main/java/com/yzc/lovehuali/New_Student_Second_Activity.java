@@ -122,6 +122,12 @@ public class New_Student_Second_Activity extends ActionBarActivity {
 //                supplicant_WebView.getSettings().setUseWideViewPort(true);
                 supplicant_WebView.loadUrl("http://mp.weixin.qq.com/s?__biz=MzAwMDY4MTE4Mg==&mid=215243222&idx=1&sn=8826698eb802fb2d8cfc3e1000df8ccb&scene=0#rd");
 
+                break;
+            case "5":
+                Intent intent = new Intent(getApplication(),StaticMap.class);
+                startActivity(intent);
+                finish();
+                break;
             default:
                 break;
         }
