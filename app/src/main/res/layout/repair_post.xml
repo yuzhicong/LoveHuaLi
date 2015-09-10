@@ -11,8 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:paddingTop="12dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="32dp"
         >
 
         <EditText
@@ -30,7 +32,7 @@
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="24dp"
             android:hint="手机号"
             android:imeOptions="actionNext"
             android:singleLine="true"
@@ -42,11 +44,10 @@
             android:id="@+id/sp_depart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="24dp"
             android:clickable="true"
             android:entries="@array/depart"
             android:spinnerMode="dropdown"
-
             />
 
         <LinearLayout
@@ -62,7 +63,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_weight="1"
                 android:entries="@array/address1"
-                android:spinnerMode="dropdown"
+
                 />
 
             <Spinner
@@ -98,7 +99,7 @@
                 android:id="@+id/sp_type1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:entries="@array/type1"
                 android:spinnerMode="dropdown"
@@ -108,11 +109,10 @@
                 android:id="@+id/sp_type2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:entries="@array/type2_1water_elec"
                 android:spinnerMode="dropdown"
-
 
                 />
 
@@ -123,10 +123,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:gravity="center_vertical"
+            android:gravity="top"
             android:hint="问题详细描述"
-            android:imeOptions="actionSend"
-            android:minLines="5"
+            android:minLines="3"
             android:textSize="16dp"
             />
 
