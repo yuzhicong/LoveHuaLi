@@ -1,5 +1,6 @@
 package com.yzc.lovehuali;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -33,8 +34,8 @@ public class OnlineRepairActivity extends ActionBarActivity {
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setTitle("在线报修");
-        mToolbar.setSubtitle("(本服务由华立学院后勤服务平台提供)");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
