@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:hint="周数"
                 android:text=""
-                app:iconLeft="@drawable/ic_calendar_check_grey600_36dp"
+                app:iconLeft="@drawable/icon_calendar"
                 app:baseColor="@android:color/background_dark"
                 app:floatingLabel="highlight"
                 app:maxCharacters="20"

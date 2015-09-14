@@ -30,12 +30,13 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ScreenSplashActivity"
             android:label="@string/title_activity_screen_splash"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +46,8 @@
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:parentActivityName=".LoginActivity" >
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.LoginActivity" />
@@ -54,12 +56,13 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".UserInformationActivity"
             android:label="@string/title_activity_user_information"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -72,19 +75,22 @@
             android:name=".AboutUsActivity"
             android:label="@string/title_activity_about_us"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.Swipe.Back" >
+            android:theme="@style/Theme.Swipe.Back"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
         <activity
             android:name=".BindingEduSystemActivity"
-            android:label="@string/title_activity_binding_edu_system" >
+            android:label="@string/title_activity_binding_edu_system"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".QueryStudentScoreActivity"
             android:label="@string/title_activity_query_student_score"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -100,7 +106,8 @@
         <activity
             android:name=".LibrarySearchActivity"
             android:label="@string/title_activity_library_search"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -109,19 +116,22 @@
             android:name=".SuggestUsActivity"
             android:label="@string/title_activity_suggest_us"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
         <activity
             android:name=".getEduSystemSchedulerActivity"
-            android:label="@string/title_activity_binding_edu_system" >
+            android:label="@string/title_activity_binding_edu_system"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".EditCourseActivity"
             android:label="@string/title_activity_edit_course"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -129,28 +139,32 @@
         <activity
             android:name=".SchoolNoticeActivity"
             android:label="校园通知"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
         <activity
             android:name="com.zjm.library.LibrarySearchActivity"
-            android:label="图书馆" >
+            android:label="图书馆"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
         <activity
             android:name="com.zjm.library.BookListActivity"
-            android:label="图书列表" >
+            android:label="图书列表"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zjm.library.LibrarySearchActivity" />
         </activity>
         <activity
             android:name="com.zjm.library.BookCollectionActivity"
-            android:label="图书收藏" >
+            android:label="图书收藏"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zjm.library.LibrarySearchActivity" />
@@ -165,7 +179,8 @@
         <activity
             android:name=".New_Student_Activity"
             android:label="新生指南"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -173,7 +188,8 @@
         <activity
             android:name=".New_Student_Second_Activity"
             android:label="新生指南"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -181,7 +197,8 @@
         <activity
             android:name=".FragmentContainerActivity"
             android:label="碎片容器"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
@@ -190,33 +207,40 @@
             android:name=".OnlineRepairActivity"
             android:label="@string/title_activity_online_repair"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppThemeBlack" >
+            android:theme="@style/AppThemeBlack"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
-
         <activity
             android:name=".StaticMap"
             android:label="校园地图"
-            android:parentActivityName=".MainActivity"
-            >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zjm.library.BookListActivity" />
         </activity>
-
         <activity
             android:name=".SoftwareNoticeActivity"
             android:label="@string/title_activity_software_notice"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yzc.lovehuali.MainActivity" />
         </activity>
-
-        <activity android:name=".LoadWebPageActivity"
-            android:label="网页访问"/>
+        <activity
+            android:name=".LoadWebPageActivity"
+            android:label="网页访问" />
+        <activity
+            android:name=".YellowPagerActivity"
+            android:label="校园黄页"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yzc.lovehuali.MainActivity" />
+        </activity>
 
         <service
             android:name="cn.bmob.push.lib.service.PushService"
@@ -256,6 +280,15 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/course_widget" />
         </receiver>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.yzc.lovehuali.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

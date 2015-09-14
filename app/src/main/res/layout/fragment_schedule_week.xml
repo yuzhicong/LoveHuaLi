@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="32dp">
     <TextView
         android:layout_width="20dp"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
+        android:background="@color/material_blue"
         android:textColor="@color/black" />
 
     <TextView
@@ -23,6 +23,7 @@
         android:layout_height="match_parent"
         android:text="周二"
         android:layout_weight="1"
+        android:background="#b3e5fc"
         android:gravity="center_horizontal|center_vertical"
         android:textColor="@color/black" />
 
@@ -40,6 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:text="周四"
+        android:background="#b3e5fc"
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical"
         android:textColor="@color/black" />
@@ -60,6 +62,7 @@
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical"
         android:text="周六"
+        android:background="#b3e5fc"
         android:textColor="@color/black" />
 
 

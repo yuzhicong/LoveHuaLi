@@ -125,7 +125,7 @@ public class QueryStudentScoreActivity extends ActionBarActivity {
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
             //此处可以重新指定状态栏颜色
-            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+            tintManager.setStatusBarTintResource(R.color.material_blue);
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);

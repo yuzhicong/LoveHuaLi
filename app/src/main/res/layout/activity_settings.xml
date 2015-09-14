@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.yzc.lovehuali.SettingsActivity">
+
+
+    <include layout="@layout/toolbar"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="清除缓存"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        android:background="@drawable/button_blue_selector"
+        android:id="@+id/btnCleanCache" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:text="检查更新"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        android:background="@drawable/button_blue_selector"
+        android:id="@+id/btnCheckUpdate" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="分享应用到微信"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        android:background="@drawable/button_blue_selector"
+        android:id="@+id/btnShareApp"
+        />
+</LinearLayout>

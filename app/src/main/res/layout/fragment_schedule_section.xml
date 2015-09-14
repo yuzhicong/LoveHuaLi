@@ -8,7 +8,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="130sp"
-        android:background="#f5f5dc"
         style="@style/Linearlayout_Style">
 
         <TextView
@@ -23,6 +22,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="130sp"
+        android:background="#b3e5fc"
         style="@style/Linearlayout_Style">
 
         <TextView
@@ -36,7 +36,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="130sp"
-        android:background="#f5f5dc"
         style="@style/Linearlayout_Style">
 
         <TextView
@@ -50,6 +49,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="130sp"
+        android:background="#b3e5fc"
         style="@style/Linearlayout_Style">
 
         <TextView

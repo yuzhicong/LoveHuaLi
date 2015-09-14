@@ -1,6 +1,7 @@
 package com.yzc.lovehuali.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,26 +35,29 @@ import java.net.URL;
  */
 public class ImageAndTitleViewFragment extends Fragment {
 
-    private String uri;
-    private String title;
     private ImageSwitcher ivNewsPic;
     private TextView tvNewsName;
     private Bitmap PicBitmap;
-    private Intent intent;
+    private View rootView;
 
     private ACache mCache;
 
-    public ImageAndTitleViewFragment(String uri,String title,Intent intent) {
-        this.uri = uri;
-        this.title = title;
-        this.intent =intent;
-    }
 
+    public static Fragment newInstance(String uri,String title,String context,String publishDate){
+        ImageAndTitleViewFragment fragment = new ImageAndTitleViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("uri", uri);
+        bundle.putString("title",title);
+        bundle.putString("context", context);
+        bundle.putString("publishDate",publishDate);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_image_and_title_view, container, false);
+        rootView = inflater.inflate(R.layout.fragment_image_and_title_view, container, false);
         ivNewsPic = (ImageSwitcher) rootView.findViewById(R.id.ivNewsPic);
         ivNewsPic.setFactory(new ViewSwitcher.ViewFactory() {
 
@@ -69,20 +73,24 @@ public class ImageAndTitleViewFragment extends Fragment {
 
 
         tvNewsName = (TextView) rootView.findViewById(R.id.tvNewsName);
-        tvNewsName.setText(title);
+        tvNewsName.setText(getArguments().getString("title"));
 
         mCache = ACache.get(getActivity());
 
-        if(mCache.getAsBitmap(uri)!=null){
-            Drawable dw = new BitmapDrawable(mCache.getAsBitmap(uri));
+        if(mCache.getAsBitmap(getArguments().getString("uri"))!=null){
+            Drawable dw = new BitmapDrawable(mCache.getAsBitmap(getArguments().getString("uri")));
             ivNewsPic.setImageDrawable(dw);
         }else {
-            getImageByUri(uri);
+            getImageByUri(getArguments().getString("uri"));
         }
 
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("title",getArguments().getString("title"));
+                intent.putExtra("context",getArguments().getString("context"));
+                intent.putExtra("publishDate",getArguments().getString("publishDate"));
                 intent.setClass(getActivity(), NewsDetailsActivity.class);
                 startActivity(intent);
             }
@@ -90,6 +98,8 @@ public class ImageAndTitleViewFragment extends Fragment {
 
         return rootView;
     }
+
+
     public void getImageByUri(String Url){
         new AsyncTask<String, Void, Void>() {
 
@@ -116,7 +126,7 @@ public class ImageAndTitleViewFragment extends Fragment {
             protected void onPostExecute(Void result) {
                 Drawable dw = new BitmapDrawable(PicBitmap);
                 ivNewsPic.setImageDrawable(dw);
-                mCache.put(uri,PicBitmap,ACache.TIME_DAY*20);
+                mCache.put(getArguments().getString("uri"),PicBitmap,ACache.TIME_DAY*20);
 
             }
 

@@ -16,7 +16,7 @@ public class getLogoResourceFromName {
         "机械工程协会","橄榄球协会","会计协会","英语俱乐部","创业交流协会","就业促进协会","商务交流协会",
         "RED HOT舞团","放飞文学社","摄影协会","炎之动漫社","飞轮协会","金融协会","读者协会","天文协会",
         "乒乓球协会","足球协会","市场营销协会","华立棋社","记忆协会","辩论协会","排球协会","创艺DIY协会",
-        "精武协会","演讲与口才协会","网球协会","毽球协会"};
+        "精武协会","演讲与口才协会","网球协会","毽球协会","松鼠快跑团队"};
 
         int LogoResourcelist[]={R.drawable.clublogo_sau,R.drawable.clublogo_jzt,R.drawable.clublogo_dzxh,
         R.drawable.clublogo_bluesky,R.drawable.clublogo_yyxh,R.drawable.clublogo_shxh,R.drawable.clublogo_hualiyx,
@@ -28,7 +28,7 @@ public class getLogoResourceFromName {
         R.drawable.clublogo_rollerxh,R.drawable.clublogo_finance,R.drawable.clublogo_readerxh,R.drawable.clublogo_twxh,
         R.drawable.clublogo_pingpongxh,R.drawable.clublogo_footballxh,R.drawable.clublogo_scyxxh,R.drawable.clublogo_chess,
         R.drawable.clublogo_jyxh,R.drawable.clublogo_blxh,R.drawable.clublogo_pqxh,R.drawable.clublogo_cydiyxh,
-        R.drawable.clublogo_jwxh,R.drawable.clublogo_yjykcxh,R.drawable.clublogo_wqxh,R.drawable.clublogo_jqxh};
+        R.drawable.clublogo_jwxh,R.drawable.clublogo_yjykcxh,R.drawable.clublogo_wqxh,R.drawable.clublogo_jqxh,R.drawable.app_icon};
 
         for(int i=0;i<ClubNamelist.length;i++){
             if (ClubNamelist[i].equals(clubName)) {

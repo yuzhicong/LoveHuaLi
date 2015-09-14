@@ -16,6 +16,7 @@ import com.yzc.lovehuali.OnlineRepairActivity;
 import com.yzc.lovehuali.QueryStudentScoreActivity;
 import com.yzc.lovehuali.R;
 import com.yzc.lovehuali.StaticMap;
+import com.yzc.lovehuali.YellowPagerActivity;
 import com.yzc.lovehuali.adapter.ToolKitListViewAdapter;
 import com.yzc.lovehuali.tool.ToastUtil;
 
@@ -54,7 +55,7 @@ public class ToolKitFragment extends Fragment {
                         startActivity(intent);
                         break;
                     case 2:
-                        intent.setClass(getActivity(),StaticMap.class);
+                        intent.setClass(getActivity(),YellowPagerActivity.class);
                         startActivity(intent);
                         break;
                     case 3:

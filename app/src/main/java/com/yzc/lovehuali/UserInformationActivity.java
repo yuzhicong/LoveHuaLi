@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +30,7 @@ public class UserInformationActivity extends ActionBarActivity {
     private TextView tvUserName,tvUserEmail;
     private Button btnBindingEduSystem,btnLogoutUser;
     private UserInfoListviewAdapter adapter;
+    StudentUser bmobuser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,7 @@ public class UserInformationActivity extends ActionBarActivity {
         mToolbar.setBackgroundColor(Color.parseColor("#002196F3"));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        bmobuser = BmobUser.getCurrentUser(UserInformationActivity.this,StudentUser.class);
 
         tvUserName  = (TextView) findViewById(R.id.tvUserName);
         tvUserEmail = (TextView) findViewById(R.id.tvUserEmail);
@@ -61,6 +64,9 @@ public class UserInformationActivity extends ActionBarActivity {
         ivUserInfo.setAdapter(adapter);
 
         btnBindingEduSystem = (Button) findViewById(R.id.btnBindingEduSystem);
+
+
+
         btnBindingEduSystem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +84,24 @@ public class UserInformationActivity extends ActionBarActivity {
                 UserInformationActivity.this.finish();
             }
         });
+        if(bmobuser!=null){
+        if(bmobuser.getIsBindingEduSystem()!=null&&bmobuser.getIsBindingEduSystem()==true){
+            btnBindingEduSystem.setText("已经绑定教务系统");
+        }else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Snackbar.make(btnBindingEduSystem,"显示完整个人信息，需要绑定教务系统，以便获得更好的服务~",Snackbar.LENGTH_LONG).show();
+
+                }
+            }).start();
+
+        }}
     }
 
 
@@ -85,6 +109,11 @@ public class UserInformationActivity extends ActionBarActivity {
     protected void onRestart() {
         super.onRestart();
         adapter.notifyDataSetChanged();//当这个Activity重新启动的时候一般是绑定完教务系统后，所以刷新用户数据
+        bmobuser = BmobUser.getCurrentUser(UserInformationActivity.this,StudentUser.class);
+        if(bmobuser!=null){
+        if(bmobuser.getIsBindingEduSystem()!=null&&bmobuser.getIsBindingEduSystem()==true){
+            btnBindingEduSystem.setText("已经绑定教务系统");
+        }}
     }
 
 }

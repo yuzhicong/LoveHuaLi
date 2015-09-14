@@ -225,7 +225,8 @@ public class MainActivity extends ActionBarActivity {
                         startActivity(i);
                         break;
                     case 4:
-
+                        i.setClass(MainActivity.this,SettingsActivity.class);
+                        startActivity(i);
                         break;
                 }
             }
@@ -360,9 +361,9 @@ public class MainActivity extends ActionBarActivity {
                 inflater.inflate(R.menu.menu_schedule, menu);
                 break;
 
-            case 1:
+            /*case 1:
                 inflater.inflate(R.menu.menu_information, menu);
-                break;
+                break;*/
             case 2:
                 inflater.inflate(R.menu.menu_school_activity,menu);
                 break;

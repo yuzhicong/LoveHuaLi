@@ -46,18 +46,35 @@ public class UserInfoListviewAdapter extends ArrayAdapter {
         tvUserInfoValue = (TextView) convertView.findViewById(R.id.tvUserInfoValue);
         StudentUser user = BmobUser.getCurrentUser(getContext(),StudentUser.class);
         switch (position){
+            case 0:
+                tvUserInfoValue.setText(user.getNickname());
+                if(tvUserInfoValue.getText().toString().isEmpty()){
+                    tvUserInfoValue.setText("暂无");
+                }
+                break;
             case 1:
                 tvUserInfoValue.setText(user.getGrade());
-                System.out.println("年级" + user.getGrade());
+                if(tvUserInfoValue.getText().toString().isEmpty()){
+                    tvUserInfoValue.setText("暂无");
+                }
             break;
             case 2:
                 tvUserInfoValue.setText(user.getStuClass());
+                if(tvUserInfoValue.getText().toString().isEmpty()){
+                    tvUserInfoValue.setText("暂无");
+                }
             break;
             case 3:
                 tvUserInfoValue.setText(user.getDepartment());
+                if(tvUserInfoValue.getText().toString().isEmpty()){
+                    tvUserInfoValue.setText("暂无");
+                }
             break;
             case 4:
                 tvUserInfoValue.setText(user.getMajor());
+                if(tvUserInfoValue.getText().toString().isEmpty()){
+                    tvUserInfoValue.setText("暂无");
+                }
             break;
             default:
                 tvUserInfoValue.setText("暂无");

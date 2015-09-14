@@ -19,7 +19,7 @@ public class ToolKitListViewAdapter extends ArrayAdapter {
 
     private Context context;
     private int listViewCellId;
-    private String toolKitListName[] = {"图书查询","成绩查询","校园黄页","在线报修","新生指南","      即将上线","失物招领","学习资料"};
+    private String toolKitListName[] = {"图书查询","成绩查询","校园黄页","在线报修","新生指南","    即将上线 ↓","失物招领","学习资料"};
     private String toolKitListDescription[] = {"书中自有颜如玉","绩点高能拿奖学金","黄页在手，联系不愁",
             "报修、查单样样都有","快速成为老油条","","寻你所失，归你所拾","挂科什么的都是浮云"};
     private int tookKitListIcon[] = {R.drawable.ic_tool_library,R.drawable.ic_tool_score,R.drawable.ic_tool_yellowpage,

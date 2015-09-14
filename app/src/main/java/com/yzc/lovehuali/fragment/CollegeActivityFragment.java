@@ -3,9 +3,11 @@ package com.yzc.lovehuali.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -52,6 +54,7 @@ public class CollegeActivityFragment extends Fragment {
     private ACache mCache;//全局缓存工具类对象
     private int page=1;
     private SharedPreferences sp;
+    private SwipeRefreshLayout srlCollegeActivity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,23 +73,35 @@ public class CollegeActivityFragment extends Fragment {
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         //rvCollegeActivity.setHasFixedSize(true);
         //创建并设置Adapter
+
+        srlCollegeActivity = (SwipeRefreshLayout) rootView.findViewById(R.id.srlCollegeActivity);//下拉刷新布局
+        srlCollegeActivity.setColorSchemeColors(Color.parseColor("#FF2196F3"));
+        srlCollegeActivity.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getCollegeActivityList(URL);
+            }
+        });
+
         mAdapter = new CollegeActivityRecyclerviewAdapter(collegeActivityList);
         rvCollegeActivity.setAdapter(mAdapter);
         rvCollegeActivity.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
             private int lastItem;
             private int count;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 count = mLayoutManager.getItemCount();
                 lastItem = mLayoutManager.findLastVisibleItemPosition();
-                if(lastItem == count && newState == recyclerView.SCROLL_STATE_IDLE){
-                    System.out.println("page:"+ page);
+                if (lastItem == count && newState == recyclerView.SCROLL_STATE_IDLE) {
+                    System.out.println("page:" + page);
                     getCollegeActivityList(URL);
                 }
             }
         });
+
 
         sp = getActivity().getSharedPreferences("mysp", Context.MODE_PRIVATE);
         if(sp.contains("CollegeActivityFragment" + "&page=" + page)){
@@ -102,9 +117,11 @@ public class CollegeActivityFragment extends Fragment {
                 e.printStackTrace();
             }
             if(mCache.getAsString("usefulDate")==null){
+                srlCollegeActivity.setRefreshing(true);
                 getCollegeActivityList(URL);
             }
         }else{
+            srlCollegeActivity.setRefreshing(true);
             getCollegeActivityList(URL);
         }
 
@@ -196,6 +213,7 @@ public class CollegeActivityFragment extends Fragment {
 
                 mAdapter.notifyDataSetChanged();
                 page++;
+                srlCollegeActivity.setRefreshing(false);
                 super.onPostExecute(result);
             }
 
