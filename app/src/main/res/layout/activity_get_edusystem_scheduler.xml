@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.yzc.lovehuali.BindingEduSystemActivity"
     android:fitsSystemWindows="true"
-    android:weightSum="6">
+    android:weightSum="7">
 
     <RelativeLayout
         android:layout_width="match_parent"

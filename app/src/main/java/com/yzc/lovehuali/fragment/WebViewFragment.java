@@ -18,11 +18,14 @@ import com.yzc.lovehuali.R;
 public class WebViewFragment extends Fragment {
 
     private WebView webView;
-    private String Url;
-    public WebViewFragment(String Url) {
-        this.Url = Url;
-    }
 
+    public static Fragment newInstance(String url){
+        WebViewFragment fragment = new WebViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,11 +39,11 @@ public class WebViewFragment extends Fragment {
         settings.setJavaScriptEnabled(true);
         settings.setLoadsImagesAutomatically(false);
         webView.setWebViewClient(new webViewClient());
-        webView.loadUrl(Url);
-
+        webView.loadUrl(getArguments().getString("url"));
         return rootView;
 
     }
+
 
     class webViewClient extends WebViewClient {
 

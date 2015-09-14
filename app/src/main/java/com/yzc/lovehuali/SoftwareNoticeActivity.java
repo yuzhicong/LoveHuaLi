@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class SoftwareNoticeActivity extends ActionBarActivity {
     private SQLiteDatabase dbRead,dbWrite;
     private Cursor c;
     private Toolbar mToolbar;
+    private LinearLayout llSoftwareNotice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class SoftwareNoticeActivity extends ActionBarActivity {
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
             //此处可以重新指定状态栏颜色
-            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+            tintManager.setStatusBarTintResource(R.color.material_blue);
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -52,6 +54,8 @@ public class SoftwareNoticeActivity extends ActionBarActivity {
         mToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        llSoftwareNotice = (LinearLayout) findViewById(R.id.llSoftwareNotice);
 
         lvSoftwareNotice = (ListView) findViewById(R.id.lvSoftwareNotice);
 
@@ -61,6 +65,11 @@ public class SoftwareNoticeActivity extends ActionBarActivity {
 
         adapter = new SimpleCursorAdapter(this,R.layout.academy_news_items,c,new String[]{"title","publishDate","content"}, new int[]{R.id.title,R.id.publishdata});
         c = dbRead.query("software_notice", null, null, null, null, null, null);
+
+        if(c.getCount()==0){
+            llSoftwareNotice.setBackgroundResource(R.drawable.no_notice);
+        }
+
         adapter.changeCursor(c);
         lvSoftwareNotice.setAdapter(adapter);
         lvSoftwareNotice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,7 +113,8 @@ public class SoftwareNoticeActivity extends ActionBarActivity {
                     dbWrite.execSQL("DELETE FROM software_notice");
                     c = dbRead.query("software_notice", null, null, null, null, null, null);
                     adapter.changeCursor(c);
-                    Toast.makeText(SoftwareNoticeActivity.this, "清空完成!", Toast.LENGTH_LONG).show();
+                    llSoftwareNotice.setBackgroundResource(R.drawable.no_notice);
+                    Toast.makeText(SoftwareNoticeActivity.this, "清空完成!", Toast.LENGTH_SHORT).show();
                 }
             });
             builder.setPositiveButton("取消", new DialogInterface.OnClickListener() {

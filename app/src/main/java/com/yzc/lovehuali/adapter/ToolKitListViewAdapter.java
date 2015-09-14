@@ -1,6 +1,7 @@
 package com.yzc.lovehuali.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,11 @@ public class ToolKitListViewAdapter extends ArrayAdapter {
 
     private Context context;
     private int listViewCellId;
-    private String toolKitListName[] = {"图书查询","失物招领","成绩查询","校园黄页","在线报修","新生指南"};
-    private String toolKitListDescription[] = {"书中自有颜如玉","寻你所失，归你所拾","绩点高能拿奖学金","黄页在手，联系不愁",
-            "报修、查单样样都有","既入深宫，悉其条规"};
-    private int tookKitListIcon[] = {R.drawable.ic_tool_library,R.drawable.ic_tool_laf,R.drawable.ic_tool_score,R.drawable.ic_tool_yellowpage,
-                                        R.drawable.ic_tool_online_repair,R.drawable.ic_tool_entrance};
+    private String toolKitListName[] = {"图书查询","成绩查询","校园黄页","在线报修","新生指南","    即将上线 ↓","失物招领","学习资料"};
+    private String toolKitListDescription[] = {"书中自有颜如玉","绩点高能拿奖学金","黄页在手，联系不愁",
+            "报修、查单样样都有","快速成为老油条","","寻你所失，归你所拾","挂科什么的都是浮云"};
+    private int tookKitListIcon[] = {R.drawable.ic_tool_library,R.drawable.ic_tool_score,R.drawable.ic_tool_yellowpage,
+                                        R.drawable.ic_tool_online_repair,R.drawable.ic_tool_entrance,0,R.drawable.ic_tool_laf,R.drawable.ic_tool_share};
 
     public ToolKitListViewAdapter(Context context, int resource) {
         super(context, resource);
@@ -37,6 +38,13 @@ public class ToolKitListViewAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        if (position == 5) {
+            TextView textView = new TextView(getContext());
+            textView.setText(toolKitListName[position]);
+            textView.setTextSize(16);
+            textView.setBackgroundColor(Color.parseColor("#F0F0F0"));
+            return textView;
+        }
         ImageView icon = null;
         TextView name = null;
         TextView description = null;
@@ -54,4 +62,22 @@ public class ToolKitListViewAdapter extends ArrayAdapter {
 
         return convertView;
     }
+
+    @Override
+    public boolean areAllItemsEnabled() {
+        return false;
+    }//不是所有选项都可以选择
+
+    @Override
+    public boolean isEnabled(int position) {
+        if (position == 5) {
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+    }//对某些选项设置不可点击
 }

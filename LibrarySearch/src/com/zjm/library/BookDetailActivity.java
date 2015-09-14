@@ -17,9 +17,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class BookDetailActivity extends ActionBarActivity{
@@ -49,6 +52,8 @@ public class BookDetailActivity extends ActionBarActivity{
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+		final ProgressBar pbBar = (ProgressBar)findViewById(R.id.pbWebView);
+
 		bookdetail = getIntent();
 
 		bookhref = bookdetail.getStringExtra("bookhref");
@@ -58,6 +63,26 @@ public class BookDetailActivity extends ActionBarActivity{
 		bookdetailmsg.getSettings().setJavaScriptEnabled(true);
 		bookdetailmsg.setWebChromeClient(new WebChromeClient());
 		bookdetailmsg.setWebViewClient(new WebViewClient());
+
+		bookdetailmsg.setWebChromeClient(new WebChromeClient() {
+			@Override
+			public void onProgressChanged(WebView view, int newProgress) {
+				if (newProgress == 100) {
+					pbBar.setVisibility(View.INVISIBLE);
+					LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) pbBar.getLayoutParams(); // 取控件pbBar当前的布局参数
+					linearParams.height = 0;// 当控件的高强制设成0象素
+					pbBar.setLayoutParams(linearParams);
+				} else {
+					if (View.INVISIBLE == pbBar.getVisibility()) {
+						pbBar.setVisibility(View.VISIBLE);
+					}
+					pbBar.setProgress(newProgress);
+				}
+				super.onProgressChanged(view, newProgress);
+			}
+
+		});
+
 		bookdetailmsg.loadUrl(url);
 		helper = new BookCollectionDBHelper(this);
 	}

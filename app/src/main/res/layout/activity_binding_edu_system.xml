@@ -4,16 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:weightSum="7"
     tools:context="com.yzc.lovehuali.BindingEduSystemActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="4">
 
         <ImageView
             android:id="@+id/ivLogin"
             android:layout_width="wrap_content"
-            android:layout_height="260dp"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
@@ -60,6 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="学生学号"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
             app:iconLeft="@drawable/icon_account"
             app:iconPadding="0dp"
             app:primaryColor="#e54c23" />
@@ -70,33 +75,10 @@
             android:layout_height="wrap_content"
             android:hint="教务系统密码"
             android:inputType="textPassword"
+            android:imeOptions="actionDone"
             app:iconLeft="@drawable/icon_lock"
             app:iconPadding="0dp"
             app:primaryColor="#e54c23" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/etEduSystemIdCode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="验证码"
-                app:iconLeft="@drawable/ic_eye"
-                app:iconPadding="0dp"
-                app:primaryColor="#e54c23" />
-
-            <ImageSwitcher
-                android:id="@+id/IdCodeImage"
-                android:layout_width="72dp"
-                android:layout_height="27dp"
-                android:layout_gravity="right|center_vertical"
-                android:inAnimation="@android:anim/fade_in"
-                android:outAnimation="@android:anim/fade_out" />
-        </LinearLayout>
 
         <com.dd.CircularProgressButton
             android:id="@+id/cpbtnBindindEduSystem"
@@ -107,7 +89,7 @@
             android:textColor="#ffffff"
             android:textSize="20dp"
             app:cpb_selectorIdle="@drawable/idle_get_edu_system_scheduler_selector"
-            app:cpb_textComplete="绑定成功,请重新登录"
+            app:cpb_textComplete="绑定成功"
             app:cpb_textError="登录失败"
             app:cpb_textIdle="登录绑定" />
 

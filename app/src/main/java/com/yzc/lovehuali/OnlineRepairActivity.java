@@ -1,5 +1,6 @@
 package com.yzc.lovehuali;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,8 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.yzc.lovehuali.fragment.RepairPostFragment;
-import com.yzc.lovehuali.fragment.RepairQueryFragment;
+import com.yzc.lovehuali.fragment.WebViewFragment;
 import com.yzc.lovehuali.tool.SystemBarTintManager;
 
 
@@ -29,12 +29,12 @@ public class OnlineRepairActivity extends ActionBarActivity {
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
             //此处可以重新指定状态栏颜色
-            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);
+            tintManager.setStatusBarTintResource(R.color.material_blue);
         }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setTitle("在线报修");
-        mToolbar.setSubtitle("(本服务由华立学院后勤服务平台提供)");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -61,14 +61,14 @@ public class OnlineRepairActivity extends ActionBarActivity {
             Fragment fragment = null;
             switch (position){
                 case 0:
-//                    fragment = new WebViewFragment("http://58.62.159.26/WeiXin/RepairModule/RepairSearch.aspx");
+                    fragment = WebViewFragment.newInstance("http://58.62.159.26/WeiXin/RepairModule/RepairSearch.aspx");
 //                    如果来不及，把我的碎片注释掉
-                    fragment = new RepairQueryFragment();
+//                    fragment = new RepairQueryFragment();
                     break;
                 case 1:
-//                    fragment = new WebViewFragment("http://58.62.159.26/WeiXin/RepairModule/RepairAdd.aspx");
+                    fragment = WebViewFragment.newInstance("http://58.62.159.26/WeiXin/RepairModule/RepairAdd.aspx");
 //                    如果来不及，把我的碎片注释掉
-                    fragment = new RepairPostFragment();
+                    //fragment = new RepairPostFragment();
                     break;
                 default:
                     return null;

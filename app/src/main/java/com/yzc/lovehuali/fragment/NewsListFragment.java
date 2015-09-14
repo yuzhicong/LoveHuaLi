@@ -3,6 +3,7 @@ package com.yzc.lovehuali.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -72,13 +73,15 @@ public class NewsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_news_list, container, false);
 
-        String academyNewsUrl = "http://61.160.137.196:18001/zsdxpt/findNewsByJsonp.action?" +
+        /*String academyNewsUrl = "http://61.160.137.196:18001/zsdxpt/findNewsByJsonp.action?" +
                 "schoolCode=HLXY&page=1&rows=5&type=0&callback=callNews" +
-                "&_=" + System.currentTimeMillis()+" ";
+                "&_=" + System.currentTimeMillis()+" ";*/
+
+        String academyNewsUrl = "http://1.lovehuali.sinaapp.com/getShowNews.php";
+
         mCache = ACache.get(getActivity());
         NewsList = new ArrayList<JSONObject>();
         tempList = new ArrayList<JSONObject>();
-        getAcademyNewList(academyNewsUrl);
 
         newsPager = (AutoScrollViewPager) rootView.findViewById(R.id.newsPager);
         newsPager.setOffscreenPageLimit(5);
@@ -87,6 +90,35 @@ public class NewsListFragment extends Fragment {
         newsPager.setAdapter(pagerAdapter);
 
         pagerIndicator = (CircleIndicator) rootView.findViewById(R.id.pagerIndicator);
+
+        JSONArray academyNewsArray = mCache.getAsJSONArray("ShowNews");
+
+
+        //获取本地缓存，如果缓存不为空就直接读取缓存的新闻数据
+        if(academyNewsArray != null) {
+            for (int i = 0; i < academyNewsArray.length(); i++) {
+                JSONObject NewsObject = null;
+                try {
+                    NewsObject = academyNewsArray.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                NewsList.add(NewsObject);
+            }
+            pagerAdapter.notifyDataSetChanged();
+            pagerIndicator.setViewPager(newsPager);
+
+            newsPager.startAutoScroll(4500);
+            newsPager.setInterval(4500);
+            newsPager.setScrollDurationFactor(5);
+            String ShowNewsUsefulState = mCache.getAsString("ShowNewsUsefulState");
+            if(ShowNewsUsefulState==null){
+                NewsList.clear();
+                getAcademyNewList(academyNewsUrl);
+            }
+        }else{
+            getAcademyNewList(academyNewsUrl);
+        }
 
 
         lvNewsList = (ListView) rootView.findViewById(R.id.lvNewsList);
@@ -137,7 +169,7 @@ public class NewsListFragment extends Fragment {
         private Context context;
         private int listViewCellId;
         private String NewsListName[] = {"校园通知","社团新闻","学院新闻"};
-        private String NewsListDescription[] = {"放假，校园活动信息在这","社团协会的发展和活动情况","学院取得的成就展示"};
+        private String NewsListDescription[] = {"放假，校园活动信息在这","社团协会的发展和活动情况","学院取得的成就展示"," "};
         private int NewsListIcon[] = {R.drawable.ic_new_notice,R.drawable.ic_new_association,R.drawable.ic_new_academy};
         public NewsListAdapter(Context context, int resource) {
             super(context, resource);
@@ -152,6 +184,14 @@ public class NewsListFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            if (position == 3 ) {
+                TextView textView = new TextView(getContext());
+                textView.setText(NewsListName[position]);
+                textView.setTextSize(16);
+                textView.setTextColor(Color.parseColor("#9e9e9e"));
+                textView.setBackgroundColor(Color.parseColor("#00F0F0F0"));
+                return textView;
+            }
             ImageView icon = null;
             TextView name = null;
             TextView description = null;
@@ -169,6 +209,23 @@ public class NewsListFragment extends Fragment {
 
             return convertView;
         }
+        @Override
+        public boolean areAllItemsEnabled() {
+            return false;
+        }//不是所有选项都可以选择
+
+        @Override
+        public boolean isEnabled(int position) {
+            if (position == 3) {
+
+                return false;
+
+            } else {
+
+                return true;
+
+            }
+        }//对某些选项设置不可点击
     }
 
 
@@ -194,9 +251,9 @@ public class NewsListFragment extends Fragment {
                 Intent newsinfo = new Intent();
                 newsinfo.putExtra("context", context);
                 newsinfo.putExtra("title", title);
-                newsinfo.putExtra("publishDate", publishDate);
+                newsinfo.putExtra("publishDate", publishDate.substring(0,10));
 
-                ImageAndTitleViewFragment iatf = new ImageAndTitleViewFragment(picUri,title,newsinfo);
+                ImageAndTitleViewFragment iatf = (ImageAndTitleViewFragment) ImageAndTitleViewFragment.newInstance(picUri,title,context,publishDate.substring(0,10));
 
                 return iatf;
             } catch (JSONException e) {
@@ -218,22 +275,6 @@ public class NewsListFragment extends Fragment {
             protected Void doInBackground(String... params) {
 
                 JSONArray academyNewsArray = null;
-                academyNewsArray = mCache.getAsJSONArray("ShowNews");
-
-                //获取本地缓存，如果缓存不为空就直接读取缓存的新闻数据
-                if(academyNewsArray != null) {
-                    for (int i = 0; i < academyNewsArray.length(); i++) {
-                        JSONObject NewsObject = null;
-                        try {
-                            NewsObject = academyNewsArray.getJSONObject(i);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        tempList.add(NewsObject);
-                    }
-                    return null;
-                }
-
                 try {
                     URL url = new URL(params[0]);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -262,7 +303,8 @@ public class NewsListFragment extends Fragment {
 
                         academyNewsArray = answerJSONObject.getJSONArray("items");
 
-                        mCache.put("ShowNews", academyNewsArray, ACache.TIME_DAY*1);//将获取到的新闻JsonArray缓存到本地
+                        mCache.put("ShowNews", academyNewsArray);//将获取到的新闻JsonArray缓存到本地
+                        mCache.put("ShowNewsUsefulState","1",ACache.TIME_DAY);
 
                         //调试功能，输出NewsArry信息。
                         for (int i = 0; i < academyNewsArray.length(); i++) {

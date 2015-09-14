@@ -71,7 +71,7 @@
             android:layout_marginLeft="16dp"
             android:id="@+id/cpbtnSignUp"
             android:textColor="#ffffff"
-            app:cpb_textComplete="注册成功,请登录邮箱激活"
+            app:cpb_textComplete="注册成功"
             app:cpb_textError="注册失败"
             app:cpb_textIdle="注册"
             android:textSize="20dp"

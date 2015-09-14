@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/yzc/lovehuali/YellowPagerActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/yellowpager_phone.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_yellow_pager.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/first_list.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/second_list.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

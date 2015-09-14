@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:id="@+id/llSoftwareNotice"
     tools:context="com.yzc.lovehuali.SoftwareNoticeActivity">
 
     <include layout="@layout/toolbar"/>

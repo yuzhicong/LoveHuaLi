@@ -38,12 +38,12 @@ public class ScreenSplashActivity extends ActionBarActivity {
         /** set time to splash out **/
         int nWelcomeScreenDisplay = 300;
         if(datelast!=null&&dateNowStr.equals(datelast)){
-            nWelcomeScreenDisplay = 250;
+            nWelcomeScreenDisplay = 200;
         }else {
             mcache.put("lastLauncherDate",dateNowStr);
             if(mcache.getAsBitmap("splashPicture")!=null){
                 ivSplash.setImageBitmap(mcache.getAsBitmap("splashPicture"));
-                nWelcomeScreenDisplay = 1500;
+                nWelcomeScreenDisplay = 2000;
             }
         }
 

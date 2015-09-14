@@ -78,8 +78,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:text="注销账号"
             android:textColor="#000000"
+            android:background="@drawable/button_blue_selector"
             />
 
         <Button
@@ -87,8 +90,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:text="绑定教务系统"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:background="@drawable/button_blue_selector"
+            />
     </LinearLayout>
 
 
