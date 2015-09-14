@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yzc.lovehuali.R;
+import com.yzc.lovehuali.tool.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,7 +72,7 @@ public class RepairQueryFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.repair_query, container, false);
-        Log.e("Query", "3-onCreateView");
+        LogUtil.e("Query", "3-onCreateView");
         setInstance(view); //1实例化控件
         putPhone();//5填充用户输入过的手机号
         //6软键盘回车监听事件
@@ -122,7 +122,7 @@ public class RepairQueryFragment extends Fragment{
         editor.putString("user_phone", str);
         editor.putBoolean("user", true);
         editor.commit();
-        Log.e("savePhone", "保存用户手机号" + str);
+        LogUtil.e("savePhone", "保存用户手机号" + str);
     }
 
     public void putPhone() {
@@ -132,12 +132,12 @@ public class RepairQueryFragment extends Fragment{
             String spPhone = sharedPreferences.getString("user_phone", "");
             etPhone.setText(spPhone);
             etPhone.setSelection(spPhone.length());
-            Log.e("putPhone", "填充用户手机号" + spPhone);
+            LogUtil.e("putPhone", "填充用户手机号" + spPhone);
         }
     }
 
     public void sendPhone() {
-        Log.e("开始时间", "" + System.nanoTime());
+        LogUtil.e("开始时间", "" + System.nanoTime());
 
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(etPhone.getWindowToken(), 0);
@@ -145,11 +145,11 @@ public class RepairQueryFragment extends Fragment{
         String strOriginPhone = etPhone.getText().toString();
         if (TextUtils.isEmpty(strOriginPhone)) {
             etPhone.setError("说好的联系方式呢?");
-            Log.e("MainActivity", "4输入为空");
+            LogUtil.e("MainActivity", "4输入为空");
         } else {
             pbWeb.setVisibility(View.VISIBLE);
             String netOrigin = "http://hq.hualixy.com/RepairModule/Repair/Show.aspx?RepairID=" + strOriginPhone;
-            Log.e("MainActivity", "4查询的号码是" + strOriginPhone);
+            LogUtil.e("MainActivity", "4查询的号码是" + strOriginPhone);
             itemInfoArrayList = new ArrayList<>();
             new PhoneNumAsyncTask().execute(netOrigin);
             savePhone(strOriginPhone); //存储用户手机号下次用
@@ -162,7 +162,7 @@ public class RepairQueryFragment extends Fragment{
         String strB = "http://hq.hualixy.com/RepairModule/Repair/";
         @Override
         protected Void doInBackground(String... params) {
-            Log.e("doInBackground", "进入异步");
+            LogUtil.e("doInBackground", "进入异步");
             StringBuilder sbResult = new StringBuilder("");
             try {
                 URLConnection urlConn = new URL(params[0]).openConnection();
@@ -178,7 +178,7 @@ public class RepairQueryFragment extends Fragment{
                     if (m.find()) {
                         //如果找到类似Show.aspx?id=23333的字符串就放进arrayList里面
                         arrayList.add(m.group());
-                        Log.e("doInBackground", "找到一条报修记录:" + m.group());
+                        LogUtil.e("doInBackground", "找到一条报修记录:" + m.group());
                     }
                 }
                 if (arrayList.size() > 0) {
@@ -186,7 +186,7 @@ public class RepairQueryFragment extends Fragment{
                     for (int i = 0; i < arrayListSize; i++) {
                         this.catchItem(strB + arrayList.get(i));
                     }
-                    Log.e("doInBackground", "itemInfoArrayList总数:" + itemInfoArrayList.size());
+                    LogUtil.e("doInBackground", "itemInfoArrayList总数:" + itemInfoArrayList.size());
                     adapter = new SimpleAdapter(getActivity(),
                             itemInfoArrayList,
                             R.layout.repair_item,
@@ -203,7 +203,7 @@ public class RepairQueryFragment extends Fragment{
         }
 
         public void catchItem(String str) {
-            Log.e("doInBackground", "catchItem");
+            LogUtil.e("doInBackground", "catchItem");
             String strRegexAll = "ctl00_ContentPlaceHolder1_(\\w*)\">(.*?)(<br>|</span>)";
             String strLine2;
             HashMap<String, String> eachItemMap = new HashMap<>();
@@ -215,12 +215,12 @@ public class RepairQueryFragment extends Fragment{
                 while ((strLine2 = br2.readLine()) != null) {
                     m2All = p2All.matcher(strLine2);
                     if (m2All.find()) {
-                        Log.e("m2All", "group[1]=" + m2All.group(1) + "  group[2]=" + m2All.group(2));
+                        LogUtil.e("m2All", "group[1]=" + m2All.group(1) + "  group[2]=" + m2All.group(2));
                         eachItemMap.put(m2All.group(1), m2All.group(2));
                     }
                 }
 
-                Log.e("eachItemMap",""+eachItemMap.toString());
+                LogUtil.e("eachItemMap",""+eachItemMap.toString());
                 itemInfoArrayList.add(eachItemMap);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -232,37 +232,19 @@ public class RepairQueryFragment extends Fragment{
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.e("onPostExecute", "进入onPostExecute");
+            LogUtil.e("onPostExecute", "进入onPostExecute");
             if (arrayList.size() == 0) {
-                Log.e("onPostExecute", "没有报修记录");
+                LogUtil.e("onPostExecute", "没有报修记录");
                 Toast.makeText(getActivity(), "没有相关报修记录", Toast.LENGTH_SHORT).show();
                 lvWeb.setVisibility(View.INVISIBLE);
             } else {
                 lvWeb.setAdapter(adapter);
                 lvWeb.setVisibility(View.VISIBLE);
-                Log.e("结束时间", "" + System.nanoTime());
-//                Log.e("itemInfoArrayList",""+itemInfoArrayList);
+                LogUtil.e("结束时间", "" + System.nanoTime());
+//                LogUtil.e("itemInfoArrayList",""+itemInfoArrayList);
             }
             pbWeb.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.e("Query", "4-onActivityCreated");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.e("Query", "9-onDestroyView");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.e("Query", "11-onDetach");
     }
 
 }
