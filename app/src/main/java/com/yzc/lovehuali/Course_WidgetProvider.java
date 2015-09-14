@@ -21,7 +21,7 @@ import org.json.JSONObject;
  */
 public class Course_WidgetProvider extends AppWidgetProvider {
 
-    private int[] textviewColorId = new int[]{R.color.color01, R.color.color02, R.color.color03, R.color.color04, R.color.color05, R.color.color06, R.color.color07, R.color.color08, R.color.color09, R.color.color10, R.color.color11, R.color.color12, R.color.color13, R.color.color14, R.color.color15, R.color.color16, R.color.color17, R.color.color18,R.color.color19,R.color.color20,R.color.color21,R.color.color22,R.color.color23};
+    private int[] textviewColorId = new int[]{R.color.color01, R.color.color02, R.color.color03, R.color.color04, R.color.color05, R.color.color06, R.color.color07, R.color.color08, R.color.color09, R.color.color10, R.color.color11, R.color.color12, R.color.color13, R.color.color14, R.color.color15, R.color.color16, R.color.color17, R.color.color18,R.color.color19,R.color.color20,R.color.color21,R.color.color22,R.color.color23,R.color.color24,R.color.color25,R.color.color26};
 
     private int[] textViewId = new int[]{R.id.week_widget1_1_2_textView, R.id.week_widget2_1_2_textView, R.id.week_widget3_1_2_textView, R.id.week_widget4_1_2_textView, R.id.week_widget5_1_2_textView, R.id.week6_1_2_textView, R.id.week7_1_2_textView,
             R.id.week_widget1_3_4_textView, R.id.week_widget2_3_4_textView, R.id.week_widget3_3_4_textView, R.id.week_widget4_3_4_textView, R.id.week_widget5_3_4_textView, R.id.week6_3_4_textView, R.id.week7_3_4_textView,
