@@ -538,7 +538,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
             kzInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
             }*/
             System.out.println(kbInfo + (kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")) + "length:" + kbInfo.length());
-            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>11500) {
+            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>10800) {
                 kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
                 String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
                 Pattern p = Pattern.compile("(?<=>).*(?=</td>)");

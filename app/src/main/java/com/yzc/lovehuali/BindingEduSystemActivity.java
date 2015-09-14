@@ -310,7 +310,7 @@ public class BindingEduSystemActivity extends ActionBarActivity {
                 __VIEWSTATE = __VIEWSTATE_xscj_gc;
 
             }
-
+            System.out.println("数据1:"+ksInfo);
             if (ksInfo != "") {
 
                 ksInfo = ksInfo.substring(ksInfo.indexOf("<p class=\"search_con\">"), ksInfo.length());

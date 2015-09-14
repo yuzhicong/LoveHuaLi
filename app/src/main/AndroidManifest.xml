@@ -232,7 +232,8 @@
         </activity>
         <activity
             android:name=".LoadWebPageActivity"
-            android:label="网页访问" />
+            android:label="网页访问"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".YellowPagerActivity"
             android:label="校园黄页"

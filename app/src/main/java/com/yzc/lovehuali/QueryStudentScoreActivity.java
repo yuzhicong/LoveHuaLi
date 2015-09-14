@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -386,8 +387,10 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                 e.printStackTrace();
             }
 
-            if (info != "") {
 
+            //有些用户返回的成绩info为null可能是用户名字或是学号参数出错。
+
+            if (info != null && info != "") {
                 //String temp = info.replaceAll("</td>","</td>\n");// 转化换行
                 //Pattern p = Pattern.compile("(?<=<td>).*(?=</td>)");
                 Pattern p = Pattern.compile("(<td>).*(</td><td>&nbsp;</td><td>0</td><td></td>)");
@@ -451,6 +454,14 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                     }
                 });
 
+            }else{
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Snackbar.make(cpbtnQueryStudentScore,"学霸的成绩，小i我竟然看不到，天机不可泄露啊！快向反馈客服吧,让他们给我技能点吧！",Snackbar.LENGTH_LONG).show();
+                        cpbtnQueryStudentScore.setProgress(0);
+                    }
+                });
             }
         }
     });
