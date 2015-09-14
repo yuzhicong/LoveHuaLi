@@ -71,7 +71,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         View linearlayout2 = rootView.findViewById(R.id.linearlayout2);
-        linearlayout2.setVisibility(View.VISIBLE);
+        linearlayout2.setVisibility(View.INVISIBLE);
 
 
         //        绑定TextView并显示课程
@@ -89,9 +89,13 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             if (judeg_temp == 1) {
                 View image_nocourse = rootView.findViewById(R.id.no_course);
                 image_nocourse.setVisibility(View.VISIBLE);
+                View linealayout_course1 = rootView.findViewById(R.id.linearlayout2);
+                linealayout_course1.setVisibility(View.GONE);
             }else{
                 View image_nocourse = rootView.findViewById(R.id.no_course);
                 image_nocourse.setVisibility(View.INVISIBLE);
+                View linealayout_course1 = rootView.findViewById(R.id.linearlayout2);
+                linealayout_course1.setVisibility(View.VISIBLE);
             }
 
         } else {
@@ -125,9 +129,13 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
                 if (judeg_temp == 1) {
                     View image_nocourse = getActivity().findViewById(R.id.no_course);
                     image_nocourse.setVisibility(View.VISIBLE);
+                    View linealayout_course1 = getActivity().findViewById(R.id.linearlayout2);
+                    linealayout_course1.setVisibility(View.GONE);
                 }else{
                     View image_nocourse = getActivity().findViewById(R.id.no_course);
                     image_nocourse.setVisibility(View.INVISIBLE);
+                    View linealayout_course1 = getActivity().findViewById(R.id.linearlayout2);
+                    linealayout_course1.setVisibility(View.VISIBLE);
                 }
 
             } else {
@@ -153,9 +161,13 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
             if (judeg_temp == 1) {
                 View image_nocourse = getActivity().findViewById(R.id.no_course);
                 image_nocourse.setVisibility(View.VISIBLE);
+                View linealayout_course1 = getActivity().findViewById(R.id.linearlayout2);
+                linealayout_course1.setVisibility(View.GONE);
             }else {
                 View image_nocourse = getActivity().findViewById(R.id.no_course);
                 image_nocourse.setVisibility(View.INVISIBLE);
+                View linealayout_course1 = getActivity().findViewById(R.id.linearlayout2);
+                linealayout_course1.setVisibility(View.VISIBLE);
             }
         } else {
             Toast.makeText(getActivity(), "请获取课程", Toast.LENGTH_SHORT).show();
