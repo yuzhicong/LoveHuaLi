@@ -41,7 +41,7 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
 
     //private int[] textViewResoureId = new int[]{R.drawable.set_bar_01, R.drawable.set_bar_02, R.drawable.set_bar_03, R.drawable.set_bar_04, R.drawable.set_bar_05, R.drawable.set_bar_06, R.drawable.set_bar_07, R.drawable.set_bar_08, R.drawable.set_bar_09, R.drawable.set_bar_10, R.drawable.set_bar_11, R.drawable.set_bar_12, R.drawable.set_bar_13, R.drawable.set_bar_14, R.drawable.set_bar_15, R.drawable.set_bar_16, R.drawable.set_bar_17, R.drawable.set_bar_18};
 
-    private int[] textViewColorId = new int[]{R.color.color01, R.color.color02, R.color.color03, R.color.color04, R.color.color05, R.color.color06, R.color.color07, R.color.color08, R.color.color09, R.color.color10, R.color.color11, R.color.color12, R.color.color13, R.color.color14, R.color.color15, R.color.color16, R.color.color17, R.color.color18};
+    private int[] textViewColorId = new int[]{R.color.color01, R.color.color02, R.color.color03, R.color.color04, R.color.color05, R.color.color06, R.color.color07, R.color.color08, R.color.color09, R.color.color10, R.color.color11, R.color.color12, R.color.color13, R.color.color14, R.color.color15, R.color.color16, R.color.color17, R.color.color18,R.color.color19,R.color.color20,R.color.color21,R.color.color22,R.color.color23};
     //用于获取课程的各种数据
     private String week;
 
