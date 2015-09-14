@@ -499,4 +499,7 @@ public class MainActivity extends ActionBarActivity {
 
         }
     }
+    public void LayoutOnclick(View v){
+
+    }
 }
