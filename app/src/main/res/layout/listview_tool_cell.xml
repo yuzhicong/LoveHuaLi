@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="寻你所失，归你所拾"
+            android:singleLine="true"
             android:textSize="16dp"
             android:paddingRight="16dp"/>//工具描述
         </LinearLayout>

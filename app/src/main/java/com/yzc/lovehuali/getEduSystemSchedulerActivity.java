@@ -130,7 +130,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("获取课程表");
-        mToolbar.setBackgroundColor(Color.parseColor("#002196F3"));
+        mToolbar.setBackgroundColor(Color.parseColor("#000e9050"));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -538,7 +538,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
             kzInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
             }*/
             System.out.println(kbInfo + (kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")) + "length:" + kbInfo.length());
-            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>10800) {
+            if(kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXN +"\">")&kbInfo.contains("<option selected=\"selected\" value=\""+ ddlXQ +"\">")&kbInfo.length()>5000) {
                 kbInfo = kbInfo.substring(kbInfo.indexOf("<td colspan=\"2\" rowspan=\"1\" width=\"2%\">"), kbInfo.indexOf("</table>"));
                 String temp = kbInfo.replaceAll("</td>", "</td>\n");// 转化换行
                 Pattern p = Pattern.compile("(?<=>).*(?=</td>)");
@@ -668,6 +668,9 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                 } else {
                                     if((ss[g].length()-ss[g].lastIndexOf("<br>"))<4){
                                         classObject.put("classRoom", ss[g].substring(ss[g].lastIndexOf("<br>") + 4, ss[g].length()));
+                                    }else if((ss[g].length()-ss[g].lastIndexOf("<br>"))==9){
+                                        String tempClassRoom = ss[g].substring(ss[g].lastIndexOf("<br>")+4,ss[g].length());
+                                        classObject.put("classRoom", tempClassRoom);
                                     }else{
                                     String tempClassRoom = ss[g].substring(0, ss[g].lastIndexOf("<br>"));
                                     tempClassRoom = tempClassRoom.substring(tempClassRoom.lastIndexOf("<br>") + 4, tempClassRoom.length());
@@ -694,18 +697,20 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                                 if (gnmkdm.equals("N121603")) {//根据不同的课表类型，由于格式不同，上课的第几周到第几周的解析不同
                                     String tempCourseWeek = ss[g].substring(ss[g].indexOf("{") + 1, ss[g].lastIndexOf("}"));
                                     tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.indexOf("第")+1,tempCourseWeek.indexOf("周"));
+                                    if(tempCourseWeek.contains("-")){
                                     String[] weekAB = tempCourseWeek.split("-");
                                     if(weekAB[0].equals(weekAB[1])){
                                         tempCourseWeek = tempCourseWeek.substring(0,tempCourseWeek.indexOf("-"));
-                                    }
+                                    }}
                                     classObject.put("courseWeek", tempCourseWeek);
                                 } else {
                                     String tempCourseWeek = ss[g].substring(0, ss[g].indexOf("("));
                                     tempCourseWeek = tempCourseWeek.substring(tempCourseWeek.lastIndexOf(">") + 1, tempCourseWeek.length());
+                                    if(tempCourseWeek.contains("-")){
                                     String[] weekAB = tempCourseWeek.split("-");
                                     if(weekAB[0].equals(weekAB[1])){
                                         tempCourseWeek = tempCourseWeek.substring(0,tempCourseWeek.indexOf("-"));
-                                    }
+                                    }}
                                     classObject.put("courseWeek", tempCourseWeek);
                                 }
 
@@ -790,6 +795,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                         @Override
                         public void run() {
                         loginBtn.setProgress(100);
+                            loginBtn.setEnabled(false);
                             Snackbar.make(loginBtn,"日后选课或教务系统调课，均会导致课表不正确，欢迎再次导入哦！", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         final int activityFinishDelay = 3000;
@@ -806,6 +812,7 @@ public class getEduSystemSchedulerActivity extends ActionBarActivity {
                     @Override
                     public void run() {
                         loginBtn.setProgress(-1);
+                        loginBtn.setEnabled(false);
                         //Toast.makeText(getApplication(),"此学期该类型课表暂无！",Toast.LENGTH_SHORT).show();
                         Snackbar.make(loginBtn,"此学期本类型课表暂无，请尝试更换课表类型", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();

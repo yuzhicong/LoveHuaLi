@@ -369,6 +369,7 @@ View.OnClickListener loginClick = new View.OnClickListener() {
             pairs.add(new BasicNameValuePair("Button1",
                     "%B0%B4%D1%A7%C6%DA%B2%E9%D1%AF"));
 
+            System.out.println(ksInfo);
             String info = "";
             try {
                 info = HttpUtil.postUrl("http://"
@@ -379,6 +380,29 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                                 + "/xscj_gc.aspx?xh="
                                 + xh + "&xm=" + xm
                                 + "&gnmkdm=N121605");
+                if(info==null){
+                    System.out.println("第二次获取成绩：");
+                    info = HttpUtil.postUrl("http://"
+                                    + myUrl + "/xscj_gc.aspx?xh="
+                                    + xh
+                                    + "&gnmkdm=N121605", pairs,
+                            mHttpClient, "http://" + myUrl
+                                    + "/xscj_gc.aspx?xh="
+                                    + xh
+                                    + "&gnmkdm=N121605");
+                }
+                if(info==null){
+                    System.out.println("第三次获取成绩：");
+                    info = HttpUtil.postUrl("http://"
+                                    + myUrl + "/xscj_gc.aspx?"
+                                    + "&xm=" + xm
+                                    + "&gnmkdm=N121605", pairs,
+                            mHttpClient, "http://" + myUrl
+                                    + "/xscj_gc.aspx?"
+                                    + "&xm=" + xm
+                                    + "&gnmkdm=N121605");
+                }
+
             } catch (ClientProtocolException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -537,8 +561,8 @@ View.OnClickListener loginClick = new View.OnClickListener() {
                     xh= studentEduNumber;
                     //xh = StringUtil.getValue(valueToken, "id=\"xhxm", "<", 10);// value
                     xm = StringUtil.getValue(valueToken, "id=\"xhxm", "同", 6);
-                    xm = xm.substring(4,xm.length());
-
+                    xm = xm.substring(4, xm.length());
+                    System.out.println("姓名："+ xm);
                     //xm = StringUtil.getValue(tokenizer.nextToken().toString(), "","同", 0);// 从登陆后页面取得姓名
                 }
             }

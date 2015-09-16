@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:weightSum="3"
     tools:context="com.yzc.lovehuali.SignUpActivity">
 
     <include layout="@layout/toolbar"/>
@@ -12,14 +13,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="#2196F3"
         android:orientation="vertical">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="70dp"
             android:src="@drawable/app_icon"
             />
     </LinearLayout>

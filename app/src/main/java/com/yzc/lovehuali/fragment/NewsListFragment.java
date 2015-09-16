@@ -113,7 +113,6 @@ public class NewsListFragment extends Fragment {
             newsPager.setScrollDurationFactor(5);
             String ShowNewsUsefulState = mCache.getAsString("ShowNewsUsefulState");
             if(ShowNewsUsefulState==null){
-                NewsList.clear();
                 getAcademyNewList(academyNewsUrl);
             }
         }else{
@@ -204,8 +203,57 @@ public class NewsListFragment extends Fragment {
 
             icon.setImageResource(NewsListIcon[position]);
             name.setText(NewsListName[position]);
+            //获取缓存最新的新闻标题功能
+            /*switch (position){
+                case 0:
+                    String str1 = mCache.getAsString("Noticepage_1");
+                    if (str1 != null) {
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONObject(str1).getJSONArray("items");
+                            if (jsonArray != null) {
+                                JSONObject jb = jsonArray.getJSONObject(0);
+                                description.setText(jb.getString("title"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        description.setText(NewsListDescription[position]);
+                    }
+                    break;
+                case 1:
+                    JSONArray str2 = mCache.getAsJSONArray("integrateNewsFragment" + "&page=" + 1);
+                    if (str2 != null) {
+                        try {
+                                JSONObject jb = str2.getJSONObject(0);
+                                description.setText(jb.getString("title"));
+                            } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        description.setText(NewsListDescription[position]);
+                    }
+                    break;
+                case 2:
+                    String str3 = mCache.getAsString("page_1");
+                    if (str3 != null) {
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONObject(str3).getJSONArray("items");
+                            if (jsonArray != null) {
+                                JSONObject jb = jsonArray.getJSONObject(0);
+                                description.setText(jb.getString("title"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        description.setText(NewsListDescription[position]);
+                    }
+                    break;
+            }*/
             description.setText(NewsListDescription[position]);
-
 
             return convertView;
         }
@@ -338,6 +386,7 @@ public class NewsListFragment extends Fragment {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
+                NewsList.clear();
                 for(int i=0;i<tempList.size();i++){
                     NewsList.add(tempList.get(i));
                 }
